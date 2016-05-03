@@ -1,2 +1,17 @@
-// @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+.footer-v1 {
+  .copyright {
+    background: #fff none repeat scroll 0 0;
+    p {
+      color: #000;
+    }
+  }
+}
+#map {
+  height: 600px;
+}
 
+.another-cities {
+  a {
+    color: #3498db;
+  }
+}

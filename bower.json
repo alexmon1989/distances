@@ -1,0 +1,16 @@
+{
+  "name": "distances",
+  "version": "0.0.0",
+  "homepage": "https://github.com/alexmon1989/distances",
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

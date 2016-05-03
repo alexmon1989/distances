@@ -11,6 +11,14 @@ var elixir = require('laravel-elixir');
  |
  */
 
+elixir.config.sourcemaps = false;
+
 elixir(function(mix) {
-    mix.sass('app.scss');
+    
+    mix.copy('resources/assets/unify-1.9.4/', 'public/assets');
+    mix.copy('resources/assets/bower_components/AdminLTE/dist', 'public/assets/plugins/adminlte/dist')
+        .copy('resources/assets/bower_components/AdminLTE/plugins', 'public/assets/plugins/adminlte/plugins')
+        .copy('resources/assets/bower_components/bootstrap3-typeahead', 'public/assets/plugins/bootstrap3-typeahead');
+
+    mix.sass('app.scss', 'public/assets/css/custom.css');
 });
