@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\City;
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -27,6 +28,17 @@ class RouteServiceProvider extends ServiceProvider
         //
 
         parent::boot($router);
+
+        // Роутинг по модели City
+        $router->bind('city', function ($value) {
+            return City::whereIsEnabled(true)
+                ->whereCode($value)
+                ->whereHas('country', function($query) {
+                    $query->whereIsEnabled(true)
+                        ->whereCode(\App::getLocale() == 'en' ? 'usa' : \App::getLocale());
+                })
+                ->first();
+        });
     }
 
     /**

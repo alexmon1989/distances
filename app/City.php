@@ -12,6 +12,16 @@ class City extends Model
     protected $fillable = ['code', 'name', 'country_id'];
 
     /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'code';
+    }
+
+    /**
      * The relations to eager load on every query.
      *
      * @var array

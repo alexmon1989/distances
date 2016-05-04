@@ -37,5 +37,15 @@ Route::group(
             'uses' => 'Marketing\DistancesController@index',
             'as' => 'distances_index',
         ]);
+
+        Route::get('/cities', [
+            'uses' => 'Marketing\CitiesController@index',
+            'as' => 'cities_index',
+        ]);
+
+        Route::get('/cities/{city}', [
+            'uses' => 'Marketing\CitiesController@show',
+            'as' => 'cities_show',
+        ]);
     }
 );
