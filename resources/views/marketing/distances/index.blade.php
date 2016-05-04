@@ -1,5 +1,9 @@
 @extends('marketing.layout.master')
 
+@section('page_title')
+{{ Lang::get('pages.distances.calculation_distance_from') }} {{ $genitiveFromCity }} {{ Lang::get('pages.distances.to') }} {{ $dativeToCity }}
+@stop
+
 @section('content')
     <div class="row">
         <div class="col-md-12">

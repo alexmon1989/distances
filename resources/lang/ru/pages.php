@@ -17,6 +17,8 @@ return [
         'time_in_path' => 'Время в пути',
         'map' => 'Карта',
         'distance_between_another' => 'Расстояние между другими городами',
+        'calculation_distance_from' => 'Расчет расстояния из',
+        'to' => 'в',
     ],
 
 ];

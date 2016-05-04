@@ -9,6 +9,7 @@ use cijic\phpMorphy\Facade\Morphy;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Input;
 use Orchestra\Support\Facades\Memory;
 use Illuminate\Support\Facades\Validator;
@@ -74,10 +75,19 @@ class DistancesController extends Controller
             ->take(15)
             ->get();
 
+        // Стартовый город в родительном падеже
+        if (App::getLocale() == 'ru') {
+            $genitiveFromCity = Morphy::castFormByGramInfo(mb_strtoupper($targetsArr[0]), null, ['ЕД', 'РД'], true)[0];
+            $dativeToCity = Morphy::castFormByGramInfo(mb_strtoupper($targetsArr[count($targetsArr) - 1]), null, ['ЕД', 'ВН'], true)[0];
+        } else {
+            $genitiveFromCity = mb_strtoupper($targetsArr[0]);
+            $dativeToCity = mb_strtoupper($targetsArr[count($targetsArr) - 1]);
+        }
+
         // Отображение страницы
         return view(
             'marketing.distances.index',
-            compact('targetsArr', 'fromCode', 'toCode', 'wayPoints', 'anotherCities')
+            compact('targetsArr', 'fromCode', 'toCode', 'wayPoints', 'anotherCities', 'genitiveFromCity', 'dativeToCity')
         );
     }
 }

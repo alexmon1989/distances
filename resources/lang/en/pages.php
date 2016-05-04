@@ -17,6 +17,8 @@ return [
         'time_in_path' => 'Time in path',
         'map' => 'Map',
         'distance_between_another' => 'Distance between another cities',
+        'calculation_distance_from' => 'Calculation of the distance from',
+        'to' => 'to',
     ],
 
 ];
