@@ -12,6 +12,7 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Input;
 use Orchestra\Support\Facades\Memory;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Lang;
 
 class DistancesController extends Controller
 {
@@ -39,7 +40,7 @@ class DistancesController extends Controller
             }
 
             if (count($targetsArr) < 2) {
-                $v->errors()->add('targets', 'Минимум два поля должны содержать значения.'); // TODO: перевод
+                $v->errors()->add('targets', Lang::get('pages.index.targets_validation_error'));
             }
         });
 

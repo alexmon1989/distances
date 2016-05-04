@@ -68,7 +68,7 @@
             // Инициализация формы
             var itemTitle = '{{ Lang::get('pages.index.form_label') }}';
             var locale = '{{ App::getLocale() }}';
-            Index.initForm({{ count($targetsArr) }}, locale, itemTitle);
+            Index.initForm({{ count($targetsArr) + 1 }}, locale, itemTitle);
 
             // Инициализация Google Maps
             var origin = '{{ $fromCode }}';
@@ -82,7 +82,6 @@
             @endforeach
             Distance.initMap(origin, destination, waypoints);
         });
-
     </script>
 
 @stop

@@ -26,9 +26,16 @@
                     </label>
                 </section>
             @endfor
+        @else
+            @for($i = 2; $i < count(Request::old('targets')); $i++)
+                <section>
+                    <label class="label">{{ Lang::get('pages.index.form_label') }} {{ $i+1 }}</label>
+                    <label class="input">
+                        <input type="text" class="target-typeahead" name="targets[{{ $i }}]" id="target_{{ $i+1 }}" value="{{ Request::old('targets')[$i] }}" placeholder="{{ Lang::get('pages.index.form_label') }} {{ $i+1 }}">
+                    </label>
+                </section>
+            @endfor
         @endif
-
-
 
         <div class="added-targets"></div>
 

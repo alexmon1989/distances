@@ -7,6 +7,9 @@ return [
         'form_label' => 'Item',
         'add_item' => 'Add item',
         'calculate' => 'Calculate',
+        'targets_validation_error' => 'At least two fields must contain values.',
+        'item' => 'Item',
+        'error' => 'Error',
     ],
 
     'distances' => [
