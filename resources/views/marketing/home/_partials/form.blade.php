@@ -22,7 +22,12 @@
                 <section>
                     <label class="label">{{ Lang::get('pages.index.form_label') }} {{ $i+1 }}</label>
                     <label class="input">
-                        <input type="text" class="target-typeahead" name="targets[{{ $i }}]" id="target_{{ $i+1 }}" value="{{ $targets[$i]->name }}" placeholder="{{ Lang::get('pages.index.form_label') }} {{ $i+1 }}">
+                        <div class="input-group">
+                            <input type="text" class="form-control target-typeahead" name="targets[{{ $i }}]" id="target_{{ $i+1 }}" value="{{ $targets[$i]->name }}" placeholder="{{ Lang::get('pages.index.form_label') }} {{ $i+1 }}">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-danger remove-target"><i class="fa fa-times" aria-hidden="true"></i></button>
+                            </span>
+                        </div>
                     </label>
                 </section>
             @endfor
@@ -31,7 +36,12 @@
                 <section>
                     <label class="label">{{ Lang::get('pages.index.form_label') }} {{ $i+1 }}</label>
                     <label class="input">
-                        <input type="text" class="target-typeahead" name="targets[{{ $i }}]" id="target_{{ $i+1 }}" value="{{ Request::old('targets')[$i] }}" placeholder="{{ Lang::get('pages.index.form_label') }} {{ $i+1 }}">
+                        <div class="input-group">
+                            <input type="text" class="form-control target-typeahead" name="targets[{{ $i }}]" id="target_{{ $i+1 }}" value="{{ Request::old('targets')[$i] }}" placeholder="{{ Lang::get('pages.index.form_label') }} {{ $i+1 }}">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-danger remove-target"><i class="fa fa-times" aria-hidden="true"></i></button>
+                            </span>
+                        </div>
                     </label>
                 </section>
             @endfor
