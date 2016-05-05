@@ -27,49 +27,40 @@ class DistancesController extends Controller
             'targets.*' => 'city_exists'
         ]);
 
-        $targetsArr = [];
+        // Коллекция городов, введенных пользователем (исключая пустые поля)
+        $targets = collect($request->get('targets'))->reject(function ($name) {
+            return empty($name);
+        });
 
-        $v->after(function($v) use ($request, &$targetsArr)
-        {
-            // Собираем новый массив с введенными городами
-            if ($request->get('targets')) {
-                for ($i = 0; $i < count($request->targets); $i++) {
-                    if (trim($request->targets[$i]) != '') {
-                        $targetsArr[] = $request->targets[$i];
-                    }
-                }
-            }
-
-            if (count($targetsArr) < 2) {
+        // Хук валидации для проверки количества заполненных полей (должно быть минимум 2 заполенных поля)
+        $v->after(function($v) use ($targets) {
+            if ($targets->count() < 2) {
                 $v->errors()->add('targets', Lang::get('pages.index.targets_validation_error'));
             }
         });
 
-        if ($v->fails())
-        {
+        if ($v->fails()) {
             return redirect()
                 ->route('index')
                 ->withErrors($v)
                 ->withInput();
         }
 
-        // Первый и последний пункты назначения
-        $fromCode = City::whereTranslation('name', $targetsArr[0])->first()->code;
-        $toCode = City::whereTranslation('name', $targetsArr[count($targetsArr) - 1])->first()->code;
+        // Редактируем коллекцию, заменяя названия городов на объекты Eloquent
+        $targets = $targets->map(function($item, $key) {
+            return City::whereTranslation('name', $item)->first();
+        });
 
-        // Промежуточные пункты
-        $wayPoints = [];
-        for ($i = 1; $i < count($targetsArr) - 1; $i++) {
-            $wayPoints[] = City::whereTranslation('name', $targetsArr[$i])->first()->code;
-        }
+        // Коллекция кодов промежуточных пунктов
+        $wayPoints = $targets->slice(1, $targets->count() - 2);
 
         // Для блока "Расстояние между другими городами"
         $anotherCities = City::withTranslation()
             ->whereHas('country', function($query) {
                 $query->whereCode(\App::getLocale() == 'en' ? 'usa' : \App::getLocale());
             })
-            ->where('code', '<>', $fromCode)
-            ->where('code', '<>', $toCode)
+            ->where('code', '<>', $targets->first()->code)
+            ->where('code', '<>', $targets->last()->code)
             ->whereIsOffer(true)
             ->whereIsEnabled(true)
             ->take(15)
@@ -77,17 +68,17 @@ class DistancesController extends Controller
 
         // Стартовый город в родительном падеже
         if (App::getLocale() == 'ru') {
-            $genitiveFromCity = Morphy::castFormByGramInfo(mb_strtoupper($targetsArr[0]), null, ['ЕД', 'РД'], true)[0];
-            $dativeToCity = Morphy::castFormByGramInfo(mb_strtoupper($targetsArr[count($targetsArr) - 1]), null, ['ЕД', 'ВН'], true)[0];
+            $genitiveFromCity = Morphy::castFormByGramInfo(mb_strtoupper($targets->first()->name), null, ['ЕД', 'РД'], true)[0];
+            $dativeToCity = Morphy::castFormByGramInfo(mb_strtoupper($targets->last()->name), null, ['ЕД', 'ВН'], true)[0];
         } else {
-            $genitiveFromCity = mb_strtoupper($targetsArr[0]);
-            $dativeToCity = mb_strtoupper($targetsArr[count($targetsArr) - 1]);
+            $genitiveFromCity = mb_strtoupper($targets->first()->name);
+            $dativeToCity = mb_strtoupper($targets->last()->name);
         }
 
         // Отображение страницы
         return view(
             'marketing.distances.index',
-            compact('targetsArr', 'fromCode', 'toCode', 'wayPoints', 'anotherCities', 'genitiveFromCity', 'dativeToCity')
+            compact('targets', 'wayPoints', 'anotherCities', 'genitiveFromCity', 'dativeToCity')
         );
     }
 }

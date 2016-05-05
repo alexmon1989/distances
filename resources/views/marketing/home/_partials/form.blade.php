@@ -6,23 +6,23 @@
         <section>
             <label class="label">{{ Lang::get('pages.index.form_label') }} 1</label>
             <label class="input">
-                <input type="text" class="target-typeahead" name="targets[0]" id="target_1" value="{{ isset($targetsArr) ? $targetsArr[0] : Request::old('targets')[0] }}" placeholder="{{ Lang::get('pages.index.form_label') }} 1">
+                <input type="text" class="target-typeahead" name="targets[0]" id="target_1" value="{{ isset($targets) ? $targets[0]->name : Request::old('targets')[0] }}" placeholder="{{ Lang::get('pages.index.form_label') }} 1">
             </label>
         </section>
 
         <section>
             <label class="label">{{ Lang::get('pages.index.form_label') }} 2</label>
             <label class="input">
-                <input type="text" class="target-typeahead" name="targets[1]" id="target_2" value="{{ isset($targetsArr) ? $targetsArr[1] : Request::old('targets')[1] }}" placeholder="{{ Lang::get('pages.index.form_label') }} 2">
+                <input type="text" class="target-typeahead" name="targets[1]" id="target_2" value="{{ isset($targets) ? $targets[1]->name : Request::old('targets')[1] }}" placeholder="{{ Lang::get('pages.index.form_label') }} 2">
             </label>
         </section>
 
-        @if(isset($targetsArr))
-            @for($i = 2; $i < count($targetsArr); $i++)
+        @if(isset($targets))
+            @for($i = 2; $i < count($targets); $i++)
                 <section>
                     <label class="label">{{ Lang::get('pages.index.form_label') }} {{ $i+1 }}</label>
                     <label class="input">
-                        <input type="text" class="target-typeahead" name="targets[{{ $i }}]" id="target_{{ $i+1 }}" value="{{ $targetsArr[$i] }}" placeholder="{{ Lang::get('pages.index.form_label') }} {{ $i+1 }}">
+                        <input type="text" class="target-typeahead" name="targets[{{ $i }}]" id="target_{{ $i+1 }}" value="{{ $targets[$i]->name }}" placeholder="{{ Lang::get('pages.index.form_label') }} {{ $i+1 }}">
                     </label>
                 </section>
             @endfor
