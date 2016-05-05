@@ -25,6 +25,10 @@ return [
         'list' => 'List of all cities',
         'distance' => 'Distance',
         'back' => 'Back to cities list',
-    ]
+    ],
+
+    'about' => [
+        'title' => 'About service',
+    ],
 
 ];
