@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Admin\Auth;
 
 use App\User;
 use Validator;
@@ -28,7 +28,9 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/admin/dashboard';
+    protected $loginView = 'admin.auth.login';
+    protected $redirectAfterLogout = 'admin/auth/login';
 
     /**
      * Create a new authentication controller instance.

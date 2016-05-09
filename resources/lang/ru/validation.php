@@ -126,7 +126,8 @@ return [
     */
 
     'attributes'           => [
-        //
+        'email' => '<strong>"Email"</strong>',
+        'password' => '<strong>"Пароль"</strong>',
     ],
 
 ];
