@@ -43,7 +43,7 @@ class CountriesController extends Controller
         // Валидация данных
         $this->validate($request, [
             // TODO: не пропускать кириллицу в code
-            'code' => 'required|alpha_dash|max:255|unique:countries' . ( $country->id ? ',' . $country->id : '' ),
+            'code' => 'required|alpha_dash|max:255|unique:countries,code' . ( $country->id ? ',' . $country->id : '' ),
             'name_ru' => 'required|max:255',
             'name_en' => 'required|max:255',
             'is_enabled' => 'boolean',
@@ -54,7 +54,7 @@ class CountriesController extends Controller
                 'code' => trim($request->code),
                 'ru'  => ['name' => trim($request->name_ru)],
                 'en'  => ['name' => trim($request->name_en)],
-                'is_enabled' => trim($request->is_enabled),
+                'is_enabled' => $request->is_enabled,
             ];
             $country = Country::create($data);
 

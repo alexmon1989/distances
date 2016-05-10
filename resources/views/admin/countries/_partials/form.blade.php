@@ -18,7 +18,7 @@
 
         <div class="checkbox">
             <label>
-                <input type="checkbox" name="is_on_main" value="1" {{ old('is_enabled', isset($country) ? $country->is_enabled : 0) == 1 ? 'checked=""' : ''  }}> Включено
+                <input type="checkbox" name="is_enabled" value="1" {{ old('is_enabled', isset($country) ? $country->is_enabled : 0) == 1 ? 'checked=""' : ''  }}> Включено
             </label>
         </div>
 
