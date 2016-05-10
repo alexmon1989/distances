@@ -36,8 +36,8 @@
                     <i class="fa fa-home"></i> <span>Главная</span>
                 </a>
             </li>
-            <li class="{{ Request::segment(2) == 'pages' && Request::segment(3) == 'cities' ? 'active' : '' }}">
-                <a href="#">
+            <li class="{{ Request::segment(2) == 'countries' || Request::segment(2) == 'cities' ? 'active' : '' }}">
+                <a href="{{ route('countries.index') }}">
                     <i class="fa fa-list-alt"></i> <span>Список городов</span>
                 </a>
             </li>

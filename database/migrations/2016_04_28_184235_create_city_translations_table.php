@@ -15,7 +15,10 @@ class CreateCityTranslationsTable extends Migration
         Schema::create('city_translations', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('city_id')->unsigned();
-            $table->foreign('city_id')->references('id')->on('cities');
+            $table->foreign('city_id')
+                ->references('id')
+                ->on('cities')
+                ->onDelete('cascade');
             $table->string('name');
             $table->string('locale')->index();
             $table->timestamps();

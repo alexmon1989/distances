@@ -100,6 +100,36 @@ Route::group(
             'as' => 'users.delete',
         ]);
 
+        Route::get('/countries', [
+            'uses' => 'Admin\CountriesController@index',
+            'as' => 'countries.index',
+        ]);
+
+        Route::get('/countries/create', [
+            'uses' => 'Admin\CountriesController@create',
+            'as' => 'countries.create',
+        ]);
+
+        Route::post('/countries/create', [
+            'uses' => 'Admin\CountriesController@createOrUpdate',
+            'as' => 'countries.create',
+        ]);
+
+        Route::get('/countries/edit/{country}', [
+            'uses' => 'Admin\CountriesController@edit',
+            'as' => 'countries.edit',
+        ]);
+
+        Route::post('/countries/edit/{country}', [
+            'uses' => 'Admin\CountriesController@createOrUpdate',
+            'as' => 'countries.edit',
+        ]);
+
+        Route::get('/countries/delete/{country}', [
+            'uses' => 'Admin\CountriesController@delete',
+            'as' => 'countries.delete',
+        ]);
+
         Route::get('/pages/{page}', [
             'uses' => 'Admin\PagesController@index',
             'as' => 'pages.index',

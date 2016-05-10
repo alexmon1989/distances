@@ -129,6 +129,12 @@ return [
         'email' => '<strong>"Email"</strong>',
         'password' => '<strong>"Пароль"</strong>',
         'name' => '<strong>"Имя"</strong>',
+
+        'name_ru' => '<strong>"Название (рус.)"</strong>',
+        'name_en' => '<strong>"Название (англ.)"</strong>',
+        'code' => '<strong>"Код"</strong>',
+        'is_enabled' => '<strong>"Включено"</strong>',
+
     ],
 
 ];
