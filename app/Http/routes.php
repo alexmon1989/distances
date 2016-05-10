@@ -99,5 +99,15 @@ Route::group(
             'uses' => 'Admin\Auth\AuthController@getDelete',
             'as' => 'users.delete',
         ]);
+
+        Route::get('/pages/{page}', [
+            'uses' => 'Admin\PagesController@index',
+            'as' => 'pages.index',
+        ]);
+
+        Route::post('/pages/{page}', [
+            'uses' => 'Admin\PagesController@save',
+            'as' => 'pages.save',
+        ]);
     }
 );

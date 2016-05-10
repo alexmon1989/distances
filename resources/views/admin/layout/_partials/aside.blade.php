@@ -31,18 +31,18 @@
             </li>
 
             <li class="header">Страницы сайта</li>
-            <li class="{{ Request::segment(2) == 'pages' && Request::segment(2) == 'main' ? 'active' : '' }}">
-                <a href="#">
+            <li class="{{ Request::segment(2) == 'pages' && Request::segment(3) == 'main' ? 'active' : '' }}">
+                <a href="{{ route('pages.index', ['page' => 'main']) }}">
                     <i class="fa fa-home"></i> <span>Главная</span>
                 </a>
             </li>
-            <li class="{{ Request::segment(2) == 'pages' && Request::segment(2) == 'cities' ? 'active' : '' }}">
+            <li class="{{ Request::segment(2) == 'pages' && Request::segment(3) == 'cities' ? 'active' : '' }}">
                 <a href="#">
                     <i class="fa fa-list-alt"></i> <span>Список городов</span>
                 </a>
             </li>
-            <li class="{{ Request::segment(2) == 'pages' && Request::segment(2) == 'about' ? 'active' : '' }}">
-                <a href="#">
+            <li class="{{ Request::segment(2) == 'pages' && Request::segment(3) == 'about' ? 'active' : '' }}">
+                <a href="{{ route('pages.index', ['page' => 'about']) }}">
                     <i class="fa fa-newspaper-o"></i> <span>Про сервис</span>
                 </a>
             </li>

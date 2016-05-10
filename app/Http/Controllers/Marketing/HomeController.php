@@ -18,7 +18,7 @@ class HomeController extends Controller
     public function index()
     {
         // Получение статьи с приветственным текстом
-        $article = Memory::get('site.welcome_article_' . \App::getLocale());
+        $article = Memory::get('site.main_article_' . \App::getLocale());
 
         return view('marketing.home.index', compact('article'));
     }
