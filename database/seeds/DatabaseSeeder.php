@@ -17,7 +17,9 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
         $this->call(CountriesTableSeeder::class);
         $this->call(CitiesTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
 
+        DB::statement('TRUNCATE TABLE orchestra_options;');
         Memory::put('site.about_article_ru', [
             'title' => 'Про сервис',
             'full_text' => 'Текст про сервис',
@@ -28,12 +30,12 @@ class DatabaseSeeder extends Seeder
             'full_text' => 'About text',
         ]);
 
-        Memory::put('site.welcome_article_ru', [
+        Memory::put('site.main_article_ru', [
             'title' => 'Рассчитать расстояние между городами',
             'full_text' => '<p>Расчет расстояний между городами всех стран мира. Основной приоритет в нашей работе — актуальность информации и точность расчета расстояний. Наша карта автомобильных дорог помогает быстро определять расстояния между городами. Благодарим за интерес к нашему сервису, всегда рады быть полезными для Вас!</p>',
         ]);
 
-        Memory::put('site.welcome_article_en', [
+        Memory::put('site.main_article_en', [
             'title' => 'Calculate the distance between cities',
             'full_text' => '<p>Calculation of distances between cities all over the world. The main priority of our work - the relevance of information and distance calculation accuracy. Our map of roads helps to quickly determine distances between cities. Thank you for your interest in our service, always happy to be of assistance to you!</p>',
         ]);
