@@ -21,7 +21,6 @@ class CreateCityTranslationsTable extends Migration
                 ->onDelete('cascade');
             $table->string('name');
             $table->string('locale')->index();
-            $table->timestamps();
 
             $table->unique(['city_id', 'locale']);
         });

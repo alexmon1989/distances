@@ -134,6 +134,7 @@ return [
         'name_en' => '<strong>"Название (англ.)"</strong>',
         'code' => '<strong>"Код"</strong>',
         'is_enabled' => '<strong>"Включено"</strong>',
+        'is_offer' => '<strong>"Показывать в предложениях"</strong>',
 
     ],
 

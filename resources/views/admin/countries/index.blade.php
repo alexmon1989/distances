@@ -21,9 +21,16 @@
         </div>
     </div>
     <div class="box-body">
+        <div class="alert alert-info alert-dismissible">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            <h4><i class="icon fa fa-info"></i> Внимание!</h4>
+            Для управления городами определённой страны необходимо нажать на ссылку в колонке "Количество городов" в таблице ниже.
+        </div>
+
         <p>
             <a class="btn btn-primary" href="{{ route('countries.create') }}"><i class="fa fa-plus"></i> Создать</a>
         </p>
+
         <table id="data" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
                 <tr>
@@ -43,7 +50,7 @@
                     <td>{{ $item->id }}</td>
                     <td>{{ $item->name }}</td>
                     <td>{!! $item->is_enabled == true ? '<strong>Да</strong>' : 'Нет' !!}</td>
-                    <td>{{ $item->cities->count() }}</td>
+                    <td><a href="{{ route('cities.index', ['country' => $item]) }}">{{ $item->cities->count() }}</a></td>
                     <td>{{ date('d.m.Y H:i:s', strtotime($item->created_at)) }}</td>
                     <td>{{ date('d.m.Y H:i:s', strtotime($item->updated_at)) }}</td>
                     <td>

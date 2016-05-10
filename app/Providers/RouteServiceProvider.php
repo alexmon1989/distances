@@ -29,16 +29,18 @@ class RouteServiceProvider extends ServiceProvider
 
         parent::boot($router);
 
-        // Роутинг по модели City
-        $router->bind('city', function ($value) {
-            return City::whereIsEnabled(true)
-                ->whereCode($value)
-                ->whereHas('country', function($query) {
-                    $query->whereIsEnabled(true)
-                        ->whereCode(\App::getLocale() == 'en' ? 'usa' : \App::getLocale());
-                })
-                ->first();
-        });
+        // Роутинг по модели City для frontend
+        if (\Request::segment(1) != 'admin') {
+            $router->bind('city', function ($value) {
+                return City::whereIsEnabled(true)
+                    ->whereCode($value)
+                    ->whereHas('country', function ($query) {
+                        $query->whereIsEnabled(true)
+                            ->whereCode(\App::getLocale() == 'en' ? 'usa' : \App::getLocale());
+                    })
+                    ->first();
+            });
+        }
     }
 
     /**

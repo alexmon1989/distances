@@ -130,6 +130,36 @@ Route::group(
             'as' => 'countries.delete',
         ]);
 
+        Route::get('/cities/index/{country}', [
+            'uses' => 'Admin\CitiesController@index',
+            'as' => 'cities.index',
+        ]);
+
+        Route::get('/cities/create/{country}', [
+            'uses' => 'Admin\CitiesController@create',
+            'as' => 'cities.create',
+        ]);
+
+        Route::post('/cities/create/{country}', [
+            'uses' => 'Admin\CitiesController@createOrUpdate',
+            'as' => 'cities.create',
+        ]);
+
+        Route::get('/cities/edit/{city}', [
+            'uses' => 'Admin\CitiesController@edit',
+            'as' => 'cities.edit',
+        ]);
+
+        Route::post('/cities/edit/{country}/{city}', [
+            'uses' => 'Admin\CitiesController@createOrUpdate',
+            'as' => 'cities.postedit',
+        ]);
+
+        Route::get('/cities/delete/{city}', [
+            'uses' => 'Admin\CitiesController@delete',
+            'as' => 'cities.delete',
+        ]);
+
         Route::get('/pages/{page}', [
             'uses' => 'Admin\PagesController@index',
             'as' => 'pages.index',
