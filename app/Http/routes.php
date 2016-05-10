@@ -69,5 +69,35 @@ Route::group(
             'uses' => 'Admin\DashboardController@index',
             'as' => 'dashboard',
         ]);
+
+        Route::get('/users', [
+            'uses' => 'Admin\Auth\AuthController@getList',
+            'as' => 'users',
+        ]);
+
+        Route::get('/users/register', [
+            'uses' => 'Admin\Auth\AuthController@getRegister',
+            'as' => 'users.register',
+        ]);
+
+        Route::post('/users/register', [
+            'uses' => 'Admin\Auth\AuthController@postRegister',
+            'as' => 'users.register',
+        ]);
+
+        Route::get('/users/edit/{user}', [
+            'uses' => 'Admin\Auth\AuthController@getEdit',
+            'as' => 'users.edit',
+        ]);
+
+        Route::post('/users/edit/{user}', [
+            'uses' => 'Admin\Auth\AuthController@postEdit',
+            'as' => 'users.edit',
+        ]);
+
+        Route::get('/users/delete/{user}', [
+            'uses' => 'Admin\Auth\AuthController@getDelete',
+            'as' => 'users.delete',
+        ]);
     }
 );

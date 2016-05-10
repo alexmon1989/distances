@@ -19,8 +19,8 @@
                     <i class="fa fa-dashboard"></i> <span>Начало работы</span>
                 </a>
             </li>
-            <li class="{{ Request::segment(2) == 'auth' ? 'active' : '' }}">
-                <a href="#">
+            <li class="{{ Request::segment(2) == 'users' ? 'active' : '' }}">
+                <a href="{{ route('users') }}">
                     <i class="fa fa-users "></i> Пользователи (админы)
                 </a>
             </li>
