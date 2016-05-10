@@ -54,7 +54,7 @@ class CountriesController extends Controller
                 'code' => trim($request->code),
                 'ru'  => ['name' => trim($request->name_ru)],
                 'en'  => ['name' => trim($request->name_en)],
-                'is_enabled' => $request->is_enabled,
+                'is_enabled' => (bool) $request->is_enabled,
             ];
             $country = Country::create($data);
 
@@ -63,7 +63,7 @@ class CountriesController extends Controller
             $country->code = trim($request->code);
             $country->translate('ru')->name = trim($request->name_ru);
             $country->translate('en')->name = trim($request->name_en);
-            $country->is_enabled = $request->is_enabled;
+            $country->is_enabled = (bool) $request->is_enabled;
             $country->save();
 
             $message = 'Страна успешно отредактирована';
