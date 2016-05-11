@@ -24,6 +24,11 @@
                     <i class="fa fa-users "></i> Пользователи (админы)
                 </a>
             </li>
+            <li class="{{ Request::segment(2) == 'distance-logs' ? 'active' : '' }}">
+                <a href="{{ route('distance-logs.index') }}">
+                    <i class="fa fa-search"></i> <span>Лог запросов</span>
+                </a>
+            </li>
             <li class="{{ Request::segment(2) == 'settings' ? 'active' : '' }}">
                 <a href="#">
                     <i class="fa fa-wrench"></i> <span>Настройки</span>

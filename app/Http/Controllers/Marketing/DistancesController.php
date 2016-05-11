@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Marketing;
 
 use App\City;
 use App\Country;
+use App\Events\DistancesRequestEvent;
 use App\Http\Controllers\Controller;
 use cijic\phpMorphy\Facade\Morphy;
 use Illuminate\Http\Request;
@@ -74,6 +75,9 @@ class DistancesController extends Controller
             $genitiveFromCity = mb_strtoupper($targets->first()->name);
             $dativeToCity = mb_strtoupper($targets->last()->name);
         }
+
+        // Регистрация запроса в логах
+        event(new DistancesRequestEvent($targets));
 
         // Отображение страницы
         return view(

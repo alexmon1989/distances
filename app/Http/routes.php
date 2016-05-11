@@ -169,5 +169,15 @@ Route::group(
             'uses' => 'Admin\PagesController@save',
             'as' => 'pages.save',
         ]);
+
+        Route::get('/distance-logs/delete/{log}', [
+            'uses' => 'Admin\DistanceLogsController@delete',
+            'as' => 'distance-logs.delete',
+        ]);
+
+        Route::get('/distance-logs', [
+            'uses' => 'Admin\DistanceLogsController@index',
+            'as' => 'distance-logs.index',
+        ]);
     }
 );
