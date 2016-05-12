@@ -47,10 +47,24 @@ class DistancesController extends Controller
                 ->withInput();
         }
 
+
         // Редактируем коллекцию, заменяя названия городов на объекты Eloquent
         $targets = $targets->map(function($item, $key) {
-            return City::whereTranslation('name', $item)
-                ->with('country')
+            // Извлечение из строки города
+            preg_match('/(.+) \(/', $item, $m);
+            $city = $m[1];
+
+            // Извлечение из строки страны
+            preg_match('/\((.+)\)/', $item, $m);
+            $country = $m[1];
+
+            return City::whereTranslation('name', $city)
+                ->whereHas('country', function($query) use ($country) {
+                    $query->whereTranslation('name', $country);
+                })
+                ->with(['country' => function($query) {
+                    $query->withTranslation();
+                }])
                 ->first();
         });
 
@@ -58,22 +72,38 @@ class DistancesController extends Controller
         $weathers = collect([]);
         $owm = new OpenWeatherMap(env('OPENWEATHER_API_KEY', false));
         foreach ($targets as $target) {
-            $weather = $owm->getWeather($target->code, 'metric', \App::getLocale());
+            $weather = $owm->getWeather($target->code . ', ' . $target->country->code, 'metric', \App::getLocale());
             $weathers->push($weather);
         }
 
         // Коллекция кодов промежуточных пунктов
         $wayPoints = $targets->slice(1, $targets->count() - 2);
 
-        // Для блока "Расстояние между другими городами"
-        $anotherCities = City::withTranslation()
-            ->whereHas('country', function($query) {
-                $query->whereCode(\App::getLocale() == 'en' ? 'usa' : \App::getLocale());
-            })
+        // Для блока "Расстояние между другими городами" (города для стартового города)
+        $anotherCitiesFirst = City::withTranslation()
             ->where('code', '<>', $targets->first()->code)
+            ->whereIsOffer(true)
+            ->whereIsEnabled(true)
+            ->whereHas('country', function($query) use ($targets) {
+                $query->whereCode($targets->first()->country->code);
+            })
+            ->with(['country' => function($query) {
+                $query->withTranslation();
+            }])
+            ->take(15)
+            ->get();
+
+        // Для блока "Расстояние между другими городами" (города для финишного города)
+        $anotherCitiesLast = City::withTranslation()
             ->where('code', '<>', $targets->last()->code)
             ->whereIsOffer(true)
             ->whereIsEnabled(true)
+            ->whereHas('country', function($query) use ($targets) {
+                $query->whereCode($targets->last()->country->code);
+            })
+            ->with(['country' => function($query) {
+                $query->withTranslation();
+            }])
             ->take(15)
             ->get();
 
@@ -92,7 +122,15 @@ class DistancesController extends Controller
         // Отображение страницы
         return view(
             'marketing.distances.index',
-            compact('targets', 'wayPoints', 'anotherCities', 'genitiveFromCity', 'dativeToCity', 'weathers')
+            compact(
+                'targets',
+                'wayPoints',
+                'anotherCitiesFirst',
+                'anotherCitiesLast',
+                'genitiveFromCity',
+                'dativeToCity',
+                'weathers'
+            )
         );
     }
 }

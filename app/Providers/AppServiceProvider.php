@@ -18,12 +18,30 @@ class AppServiceProvider extends ServiceProvider
     {
         // Правило валидации, проверяющее существует ли город
         Validator::extend('city_exists', function($attribute, $value, $parameters, $validator) {
-            $city = City::whereTranslation('name', $value)
-                ->whereHas('country', function($query) {
-                    $query->whereCode(\App::getLocale() == 'en' ? 'usa' : \App::getLocale());
-                })
+            // Извлечение из строки города
+            preg_match('/(.+) \(/', $value, $m);
+            if (isset($m[1])) {
+                $city = $m[1];
+            } else {
+                return false;
+            }
+
+            // Извлечение из строки страны
+            preg_match('/\((.+)\)/', $value, $m);
+            if (isset($m[1])) {
+                $country = $m[1];
+            } else {
+                return false;
+            }
+
+            $city = City::whereTranslation('name', $city)
                 ->whereIsEnabled(true)
+                ->whereHas('country', function($query) use ($country) {
+                    $query->whereIsEnabled(true)
+                        ->whereTranslation('name', $country);
+                })
                 ->first();
+
             return !empty($city);
         });
 

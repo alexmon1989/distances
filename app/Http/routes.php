@@ -43,7 +43,7 @@ Route::group(
             'as' => 'cities_index',
         ]);
 
-        Route::get('/cities/{city}', [
+        Route::get('/cities/{country}/{city}', [
             'uses' => 'Marketing\CitiesController@show',
             'as' => 'cities_show',
         ]);

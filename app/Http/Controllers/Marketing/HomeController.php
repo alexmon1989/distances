@@ -42,14 +42,24 @@ class HomeController extends Controller
     public function cities()
     {
         // Города
-        $country = Country::whereCode(\App::getLocale() == 'en' ? 'usa' : \App::getLocale())
-            ->whereIsEnabled(true)
-            ->with(['cities' => function($query) {
-                $query->whereIsEnabled(true)
-                    ->orderBy('code');
+        $cities = City::withTranslation()
+            ->whereHas('country', function($query) {
+                $query->whereIsEnabled(true);
+            })
+            ->with(['country' => function($query) {
+                $query->withTranslation();
             }])
-            ->first();
+            ->get();
 
-        return $country->cities;
+        // Создание коллекции названий городов для вывода
+        $names = collect([]);
+        foreach ($cities as $city) {
+            $names->push([
+                'name' => $city->name,
+                'country' => $city->country->name,
+            ]);
+        }
+
+        return $names;
     }
 }

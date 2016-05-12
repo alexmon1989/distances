@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\City;
+use App\Country;
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -35,9 +36,15 @@ class RouteServiceProvider extends ServiceProvider
                 return City::whereIsEnabled(true)
                     ->whereCode($value)
                     ->whereHas('country', function ($query) {
-                        $query->whereIsEnabled(true)
-                            ->whereCode(\App::getLocale() == 'en' ? 'usa' : \App::getLocale());
+                        $query->whereIsEnabled(true);
+                            //->whereCode(\App::getLocale() == 'en' ? 'usa' : \App::getLocale());
                     })
+                    ->first();
+            });
+
+            $router->bind('country', function ($value) {
+                return Country::whereIsEnabled(true)
+                    ->whereCode($value)
                     ->first();
             });
         }

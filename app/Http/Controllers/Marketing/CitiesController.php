@@ -31,17 +31,17 @@ class CitiesController extends Controller
     /**
      * Показывает страницу города
      */
-    public function show(City $city)
+    public function show(Country $country, City $city)
     {
         $anotherCities = City::withTranslation()
-            ->whereHas('country', function($query) {
-                $query->whereCode(\App::getLocale() == 'en' ? 'usa' : \App::getLocale());
+            ->whereHas('country', function($query) use ($country) {
+                $query->whereCode($country->code);
             })
             ->where('code', '<>', $city->code)
             ->whereIsOffer(true)
             ->whereIsEnabled(true)
             ->get();
 
-        return view('marketing.cities.show', compact('city', 'anotherCities'));
+        return view('marketing.cities.show', compact('country', 'city', 'anotherCities'));
     }
 }
