@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Marketing;
 
 use App\City;
-use App\Country;
 use App\Events\DistancesRequestEvent;
 use App\Http\Controllers\Controller;
 use cijic\phpMorphy\Facade\Morphy;
@@ -11,10 +10,11 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Input;
-use Orchestra\Support\Facades\Memory;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Lang;
+use Cmfcmf\OpenWeatherMap;
+use Cmfcmf\OpenWeatherMap\Exception as OWMException;
 
 class DistancesController extends Controller
 {
@@ -49,8 +49,18 @@ class DistancesController extends Controller
 
         // Редактируем коллекцию, заменяя названия городов на объекты Eloquent
         $targets = $targets->map(function($item, $key) {
-            return City::whereTranslation('name', $item)->first();
+            return City::whereTranslation('name', $item)
+                ->with('country')
+                ->first();
         });
+
+        // Коллекция погод в пунктах
+        $weathers = collect([]);
+        $owm = new OpenWeatherMap(env('OPENWEATHER_API_KEY', false));
+        foreach ($targets as $target) {
+            $weather = $owm->getWeather($target->code, 'metric', \App::getLocale());
+            $weathers->push($weather);
+        }
 
         // Коллекция кодов промежуточных пунктов
         $wayPoints = $targets->slice(1, $targets->count() - 2);
@@ -82,7 +92,7 @@ class DistancesController extends Controller
         // Отображение страницы
         return view(
             'marketing.distances.index',
-            compact('targets', 'wayPoints', 'anotherCities', 'genitiveFromCity', 'dativeToCity')
+            compact('targets', 'wayPoints', 'anotherCities', 'genitiveFromCity', 'dativeToCity', 'weathers')
         );
     }
 }

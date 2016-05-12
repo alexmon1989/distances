@@ -18,7 +18,12 @@
     <div class="row margin-top-20">
         <div class="col-md-12">
             @for($i = 0; $i < $targets->count() - 1; $i++)
-                <h2>{{ $i + 1 }}. {{ Lang::get('pages.distances.distance') }} <a href="{{ route('cities_show', ['city' => $targets[$i]->code]) }}">{{ $targets[$i]->name }}</a> - <a href="{{ route('cities_show', ['city' => $targets[$i+1]->code]) }}">{{ $targets[$i+1]->name }}</a></h2>
+                <h2>
+                {{ $i + 1 }}. {{ Lang::get('pages.distances.distance') }}
+                <a href="{{ route('cities_show', ['city' => $targets[$i]->code]) }}">{{ $targets[$i]->name }}</a> ({{ (int) $weathers[$i]->temperature->getValue() . ' ' . $weathers[$i]->temperature->getUnit() }}, {{ $weathers[$i]->weather }})
+                -
+                <a href="{{ route('cities_show', ['city' => $targets[$i+1]->code]) }}">{{ $targets[$i+1]->name }}</a> ({{ (int) $weathers[$i+1]->temperature->getValue() . ' ' . $weathers[$i+1]->temperature->getUnit() }}, {{ $weathers[$i+1]->weather }})
+                </h2>
                 <p>{{ Lang::get('pages.distances.distance') }}: <span class="text-bold distance_{{ $i }}"></span></p>
                 <p>{{ Lang::get('pages.distances.time_in_path') }}: <span class="text-bold duration_{{ $i }}"></span></p>
             @endfor
@@ -74,8 +79,8 @@
             Index.initForm({{ $targets->count() + 1 }}, locale, itemTitle);
 
             // Инициализация Google Maps
-            var origin = '{{ $targets->first()->code }}';
-            var destination = '{{ $targets->last()->code }}';
+            var origin = '{{ $targets->first()->code }}, {{ $targets->first()->country->code }}';
+            var destination = '{{ $targets->last()->code }}, {{ $targets->last()->country->code }}';
             var waypoints = [];
             @foreach($wayPoints as $wayPoint)
             waypoints.push({
