@@ -179,5 +179,15 @@ Route::group(
             'uses' => 'Admin\DistanceLogsController@index',
             'as' => 'distance-logs.index',
         ]);
+
+        Route::get('/settings', [
+            'uses' => 'Admin\SettingsController@index',
+            'as' => 'settings.index'
+        ]);
+
+        Route::post('/settings', [
+            'uses' => 'Admin\SettingsController@save',
+            'as' => 'settings.save'
+        ]);
     }
 );

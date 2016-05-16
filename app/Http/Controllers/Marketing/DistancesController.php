@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Lang;
 use Cmfcmf\OpenWeatherMap;
 use Cmfcmf\OpenWeatherMap\Exception as OWMException;
+use Orchestra\Support\Facades\Memory;
 
 class DistancesController extends Controller
 {
@@ -70,7 +71,7 @@ class DistancesController extends Controller
 
         // Коллекция погод в пунктах
         $weathers = collect([]);
-        $owm = new OpenWeatherMap(env('OPENWEATHER_API_KEY', false));
+        $owm = new OpenWeatherMap(Memory::get('OPENWEATHER_API_KEY', env('OPENWEATHER_API_KEY', 'b73effe13f365e1a8be704d86541fb21')));
         foreach ($targets as $target) {
             $weather = $owm->getWeather($target->code . ', ' . $target->country->code, 'metric', \App::getLocale());
             $weathers->push($weather);

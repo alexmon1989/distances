@@ -71,7 +71,7 @@
     <script src="{{ asset('assets/js/pages/index.js') }}"></script>
     <script src="{{ asset('assets/js/pages/page_distance.js') }}"></script>
     <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8Mxed4trkdkkJjucBbf376lMhYRxIVdE">
+            src="https://maps.googleapis.com/maps/api/js?key={{ Memory::get('GOOGLE_MAPS_API_KEY', env('GOOGLE_MAPS_API_KEY', 'AIzaSyC8Mxed4trkdkkJjucBbf376lMhYRxIVdE')) }}">
     </script>
     <script>
         jQuery(document).ready(function() {
