@@ -19,6 +19,14 @@ return [
         'distance_between_another' => 'Расстояние между другими городами',
         'calculation_distance_from' => 'Расчет расстояния из',
         'to' => 'в',
+        'weather_in' => 'Погода в',
+        'sky' => 'Небо',
+        'temperature' => 'Температура',
+        'wind_speed' => 'Скорость ветра',
+        'pressure' => 'Давление',
+        'humidity' => 'Влажность',
+        'm_s' => 'м/с',
+        'mmhg' => 'мм.рт.ст.',
     ],
 
     'cities' => [

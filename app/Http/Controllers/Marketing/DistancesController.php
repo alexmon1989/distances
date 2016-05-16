@@ -74,7 +74,17 @@ class DistancesController extends Controller
         $owm = new OpenWeatherMap(Memory::get('OPENWEATHER_API_KEY', env('OPENWEATHER_API_KEY', 'b73effe13f365e1a8be704d86541fb21')));
         foreach ($targets as $target) {
             $weather = $owm->getWeather($target->code . ', ' . $target->country->code, 'metric', \App::getLocale());
-            $weathers->push($weather);
+            // Город в предложном падеже
+            if (\App::getLocale() == 'ru') {
+                $cityName = Morphy::castFormByGramInfo(mb_strtoupper($target->name), null, ['ЕД', 'ПР'], true)[0];
+                $cityName = mb_convert_case($cityName, MB_CASE_TITLE, 'utf-8');
+            } else {
+                $cityName = $target->name;
+            }
+            $weathers->push([
+                'city_name' => $cityName,
+                'weather' => $weather
+            ]);
         }
 
         // Коллекция кодов промежуточных пунктов

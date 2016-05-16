@@ -16,17 +16,41 @@
     </div>
 
     <div class="row margin-top-20">
-        <div class="col-md-12">
+        <div class="col-md-8">
             @for($i = 0; $i < $targets->count() - 1; $i++)
                 <h2>
                 {{ $i + 1 }}. {{ Lang::get('pages.distances.distance') }}
-                <a href="{{ route('cities_show', ['country' => $targets[$i]->country->code, 'city' => $targets[$i]->code]) }}">{{ $targets[$i]->name }}</a> ({{ (int) $weathers[$i]->temperature->getValue() . ' ' . $weathers[$i]->temperature->getUnit() }}, {{ $weathers[$i]->weather }})
+                <a href="{{ route('cities_show', ['country' => $targets[$i]->country->code, 'city' => $targets[$i]->code]) }}">{{ $targets[$i]->name }}</a>
                 -
-                <a href="{{ route('cities_show', ['country' => $targets[$i+1]->country->code, 'city' => $targets[$i+1]->code]) }}">{{ $targets[$i+1]->name }}</a> ({{ (int) $weathers[$i+1]->temperature->getValue() . ' ' . $weathers[$i+1]->temperature->getUnit() }}, {{ $weathers[$i+1]->weather }})
+                <a href="{{ route('cities_show', ['country' => $targets[$i+1]->country->code, 'city' => $targets[$i+1]->code]) }}">{{ $targets[$i+1]->name }}</a>
                 </h2>
                 <p>{{ Lang::get('pages.distances.distance') }}: <span class="text-bold distance_{{ $i }}"></span></p>
                 <p>{{ Lang::get('pages.distances.time_in_path') }}: <span class="text-bold duration_{{ $i }}"></span></p>
             @endfor
+        </div>
+
+        <div class="col-md-4">
+            @foreach($weathers as $weather)
+            <div class="panel panel-blue">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-sun-o"></i> {{ Lang::get('pages.distances.weather_in') }} <strong>{{ $weather['city_name'] }}</strong></h3>
+                </div>
+                <div class="panel-body">
+                    <dl class="dl-horizontal">
+                        <dt>{{ Lang::get('pages.distances.sky') }}:</dt>
+                        <dd>{{ $weather['weather']->weather }}</dd>
+                        <dt>{{ Lang::get('pages.distances.temperature') }}:</dt>
+                        <dd>{{ (int) $weather['weather']->temperature->getValue() . ' ' . $weather['weather']->temperature->getUnit() }}</dd>
+                        <dt>{{ Lang::get('pages.distances.wind_speed') }}:</dt>
+                        <dd>{{ (int) $weather['weather']->wind->speed->getValue() }} {{ Lang::get('pages.distances.m_s') }}</dd>
+                        <dt>{{ Lang::get('pages.distances.pressure') }}:</dt>
+                        <dd>{{ (int) ($weather['weather']->pressure->getValue() / 1.333) }} {{ Lang::get('pages.distances.mmhg') }}</dd>
+                        <dt>{{ Lang::get('pages.distances.humidity') }}:</dt>
+                        <dd>{{ $weather['weather']->humidity }}</dd>
+                    </dl>
+                </div>
+            </div>
+            @endforeach
         </div>
     </div>
 
