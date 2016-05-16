@@ -112,9 +112,13 @@ class DistancesController extends Controller
         if (App::getLocale() == 'ru') {
             $genitiveFromCity = Morphy::castFormByGramInfo(mb_strtoupper($targets->first()->name), null, ['ЕД', 'РД'], true)[0];
             $dativeToCity = Morphy::castFormByGramInfo(mb_strtoupper($targets->last()->name), null, ['ЕД', 'ВН'], true)[0];
+
+            // Делаем заглавными только первые буквы
+            $genitiveFromCity = mb_convert_case($genitiveFromCity, MB_CASE_TITLE, 'utf-8');
+            $dativeToCity = mb_convert_case($dativeToCity, MB_CASE_TITLE, 'utf-8');
         } else {
-            $genitiveFromCity = mb_strtoupper($targets->first()->name);
-            $dativeToCity = mb_strtoupper($targets->last()->name);
+            $genitiveFromCity = $targets->first()->name;
+            $dativeToCity = $targets->last()->name;
         }
 
         // Регистрация запроса в логах
