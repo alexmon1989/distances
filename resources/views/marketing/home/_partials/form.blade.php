@@ -56,6 +56,6 @@
     </fieldset>
 
     <footer>
-        <button class="btn-u" type="submit">{{ Lang::get('pages.index.calculate') }}</button>
+        <button class="btn-u" type="submit"><i class="fa fa-car" aria-hidden="true"></i> {{ Lang::get('pages.index.calculate') }}</button>
     </footer>
 {!! Form::close() !!}

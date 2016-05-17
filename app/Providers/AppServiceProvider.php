@@ -70,9 +70,13 @@ class AppServiceProvider extends ServiceProvider
                     $city = City::whereCode($cityCode)->first();
 
                     if ($city == false) {
-                        // Элемент страны в массиве (обычно он последний)
-                        // TODO: не всегда последний элемент - элемент страны. Иногда это почтовый индекс города. Сделать правильный поиск
-                        $countryElem = $response->results[0]->address_components[count($response->results[0]->address_components) - 1];
+                        // Элемент страны в массиве
+                        foreach ($response->results[0]->address_components as $value) {
+                            if (in_array('country', $value->types)) {
+                                $countryElem = $value;
+                                break;
+                            }
+                        }
 
                         if (!in_array('country', $countryElem->types)) {
                             // Если google не указывает страну, то считаем, что города нет

@@ -73,8 +73,13 @@ class DistancesController extends Controller
                     ->get();
                 $response = json_decode($response);
                 $city = $response->results[0]->address_components[0]->long_name;
-                // TODO: не всегда последний элемент - элемент страны. Иногда это почтовый индекс города. Сделать правильный поиск
-                $countryElem = $response->results[0]->address_components[count($response->results[0]->address_components) - 1];
+                // Элемент страны в массиве
+                foreach ($response->results[0]->address_components as $value) {
+                    if (in_array('country', $value->types)) {
+                        $countryElem = $value;
+                        break;
+                    }
+                }
                 $country = $countryElem->long_name;
             }
 
