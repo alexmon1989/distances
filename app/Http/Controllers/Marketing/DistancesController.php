@@ -53,11 +53,30 @@ class DistancesController extends Controller
         $targets = $targets->map(function($item, $key) {
             // Извлечение из строки города
             preg_match('/(.+) \(/', $item, $m);
-            $city = $m[1];
+            if (isset($m[1])) {
+                $city = $m[1];
+            }
 
             // Извлечение из строки страны
             preg_match('/\((.+)\)/', $item, $m);
-            $country = $m[1];
+            if (isset($m[1])) {
+                $country = $m[1];
+            }
+
+            // Если пользователь ввёл в своём формате (только город, без страны), то получаем страну и город из google maps
+            if (!isset($city) || !isset($country)) {
+                $response = \GoogleMaps::load('geocoding')
+                    ->setParam([
+                        'address' => $item,
+                        'language' => \App::getLocale(),
+                    ])
+                    ->get();
+                $response = json_decode($response);
+                $city = $response->results[0]->address_components[0]->long_name;
+                // TODO: не всегда последний элемент - элемент страны. Иногда это почтовый индекс города. Сделать правильный поиск
+                $countryElem = $response->results[0]->address_components[count($response->results[0]->address_components) - 1];
+                $country = $countryElem->long_name;
+            }
 
             return City::whereTranslation('name', $city)
                 ->whereHas('country', function($query) use ($country) {
