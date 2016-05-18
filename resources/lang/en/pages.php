@@ -27,6 +27,7 @@ return [
         'humidity' => 'Humidity',
         'm_s' => 'm/s',
         'mmhg' => 'mm Hg',
+        'weather_error' => 'Cannot get weather data.',
     ],
 
     'cities' => [

@@ -36,6 +36,7 @@
                     <h3 class="panel-title"><i class="fa fa-sun-o"></i> {{ Lang::get('pages.distances.weather_in') }} <strong>{{ $weather['city_name'] }}</strong></h3>
                 </div>
                 <div class="panel-body">
+                    @if($weather['weather'])
                     <dl class="dl-horizontal">
                         <dt>{{ Lang::get('pages.distances.sky') }}:</dt>
                         <dd>{{ $weather['weather']->weather }}</dd>
@@ -48,6 +49,9 @@
                         <dt>{{ Lang::get('pages.distances.humidity') }}:</dt>
                         <dd>{{ $weather['weather']->humidity }}</dd>
                     </dl>
+                    @else
+                        <p class="text-center">{{ Lang::get('pages.distances.weather_error') }}</p>
+                    @endif
                 </div>
             </div>
             @endforeach
