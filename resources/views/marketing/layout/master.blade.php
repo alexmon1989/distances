@@ -2,7 +2,7 @@
 <!--[if IE 9]> <html lang="ru" class="ie9"> <![endif]-->
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
 <head>
-    <base href="{{ url('') }}">
+    <base href="{{ url('') }}/">
     <title>@yield('page_title', 'Расчёт расстояний между городами')</title>
 
     <!-- Meta -->
