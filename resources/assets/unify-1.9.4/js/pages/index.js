@@ -1,10 +1,20 @@
 var Index = function () {
 
-	return {
+    return {
 
-        getTypeaheadOpts: function(cities) {
+        getTypeaheadOpts: function(locale) {
             return {
-                source: cities,
+                //source: cities,
+                source: function(query, process) {
+                    if (query.length >= 3) {
+                        $.getJSON(locale + '/cities.json', {
+                            q: query
+                        }, function (data) {
+                            return process(data);
+                        });
+                    }
+                    return false;
+                },
                 displayText: function(item) {
                     return item.name + ' (' + item.country + ')';
                 },
@@ -38,46 +48,42 @@ var Index = function () {
             };
         },
 
-		initForm: function (i, locale, itemTitle) {
-			// Автодополнение полей
-			var cities;
-			$.get(locale + '/cities.json', function(data){
-				cities = data;
-                $( ".target-typeahead" ).typeahead(Index.getTypeaheadOpts(cities));
-			},'json');
+        initForm: function (i, locale, itemTitle) {
+            // Автодополнение полей
+            $( ".target-typeahead" ).typeahead(Index.getTypeaheadOpts(locale));
 
-			// Обработчик нажатия ссылки "добавить пункт"
-			$( "#add-target" ).click(function(e) {
-				e.preventDefault();
+            // Обработчик нажатия ссылки "добавить пункт"
+            $( "#add-target" ).click(function(e) {
+                e.preventDefault();
 
-				var sectionHTML =
-					'<section>' +
-					'<label class="label">' + itemTitle + ' ' + i + '</label>' +
-					'<label class="input">' +
-					'<div class="input-group">' +
-					'<input type="text" name="targets[' + (i - 1) + ']" id="target_' + i + '" class="form-control target-typeahead" placeholder="' + itemTitle + ' ' + i + '">' +
-					'<span class="input-group-btn">' +
-					'<button type="button" class="btn btn-danger remove-target"><i class="fa fa-times" aria-hidden="true"></i></button>' +
-					'</span>' +
-					'</div>' +
-					'</label>' +
-					'</section>';
+                var sectionHTML =
+                    '<section>' +
+                    '<label class="label">' + itemTitle + ' ' + i + '</label>' +
+                    '<label class="input">' +
+                    '<div class="input-group">' +
+                    '<input type="text" name="targets[' + (i - 1) + ']" id="target_' + i + '" class="form-control target-typeahead" placeholder="' + itemTitle + ' ' + i + '">' +
+                    '<span class="input-group-btn">' +
+                    '<button type="button" class="btn btn-danger remove-target"><i class="fa fa-times" aria-hidden="true"></i></button>' +
+                    '</span>' +
+                    '</div>' +
+                    '</label>' +
+                    '</section>';
 
-				$( '.added-targets' ).append(sectionHTML);
+                $( '.added-targets' ).append(sectionHTML);
 
                 $( ".target-typeahead" ).typeahead(Index.getTypeaheadOpts(cities));
 
-				i++;
-			});
+                i++;
+            });
 
-			// Обработчик нажатия кнопки удаления поля "Пункт n"
-			$('body').on('click', 'button.remove-target', function() {
-				$section = $(this).parents('section');
-				$section.hide('slow', function() {
-					$section.remove();
-				});
-			});
-		}
+            // Обработчик нажатия кнопки удаления поля "Пункт n"
+            $('body').on('click', 'button.remove-target', function() {
+                $section = $(this).parents('section');
+                $section.hide('slow', function() {
+                    $section.remove();
+                });
+            });
+        }
 
-	};
+    };
 }();

@@ -39,10 +39,10 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function cities()
+    public function cities(Request $request)
     {
         // Города
-        $cities = City::withTranslation()
+        $cities = City::whereTranslationLike('name', $request->q . '%')
             ->whereHas('country', function($query) {
                 $query->whereIsEnabled(true);
             })
