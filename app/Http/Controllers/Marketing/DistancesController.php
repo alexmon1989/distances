@@ -126,6 +126,7 @@ class DistancesController extends Controller
         // Для блока "Расстояние между другими городами" (города для стартового города)
         $anotherCitiesFirst = City::withTranslation()
             ->where('code', '<>', $targets->first()->code)
+            ->where('code', '<>', $targets->last()->code)
             ->whereIsOffer(true)
             ->whereIsEnabled(true)
             ->whereHas('country', function($query) use ($targets) {
@@ -139,6 +140,7 @@ class DistancesController extends Controller
 
         // Для блока "Расстояние между другими городами" (города для финишного города)
         $anotherCitiesLast = City::withTranslation()
+            ->where('code', '<>', $targets->first()->code)
             ->where('code', '<>', $targets->last()->code)
             ->whereIsOffer(true)
             ->whereIsEnabled(true)
