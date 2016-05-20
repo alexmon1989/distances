@@ -80,6 +80,8 @@ return [
     'unique'               => 'The :attribute has already been taken.',
     'url'                  => 'The :attribute format is invalid.',
 
+    'city_exists' => 'The city you have entered in the field <strong>":city_field"</strong> does not exist.',
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines

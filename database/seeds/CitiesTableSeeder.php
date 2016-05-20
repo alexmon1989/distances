@@ -23,6 +23,7 @@ class CitiesTableSeeder extends Seeder
             'code' => 'moscow',
             'country_id' => $russia->id,
             'is_enabled' => true,
+            'is_offer' => true,
             'ru'  => ['name' => 'Москва'],
             'en'  => ['name' => 'Moscow'],
         ];
@@ -32,6 +33,7 @@ class CitiesTableSeeder extends Seeder
             'code' => 'st-petersburg',
             'country_id' => $russia->id,
             'is_enabled' => true,
+            'is_offer' => true,
             'ru'  => ['name' => 'Санкт-Петербург'],
             'en'  => ['name' => 'Saint-Petersburg'],
         ];
@@ -41,6 +43,7 @@ class CitiesTableSeeder extends Seeder
             'code' => 'tula',
             'country_id' => $russia->id,
             'is_enabled' => true,
+            'is_offer' => true,
             'ru'  => ['name' => 'Тула'],
             'en'  => ['name' => 'Tula'],
         ];
@@ -52,6 +55,7 @@ class CitiesTableSeeder extends Seeder
             'code' => 'washington',
             'country_id' => $usa->id,
             'is_enabled' => true,
+            'is_offer' => true,
             'ru'  => ['name' => 'Вашингтон'],
             'en'  => ['name' => 'Washington'],
         ];
@@ -61,6 +65,7 @@ class CitiesTableSeeder extends Seeder
             'code' => 'new-york',
             'country_id' => $usa->id,
             'is_enabled' => true,
+            'is_offer' => true,
             'ru'  => ['name' => 'Нью-Йорк'],
             'en'  => ['name' => 'New York'],
         ];
@@ -70,6 +75,7 @@ class CitiesTableSeeder extends Seeder
             'code' => 'miami',
             'country_id' => $usa->id,
             'is_enabled' => true,
+            'is_offer' => true,
             'ru'  => ['name' => 'Маями'],
             'en'  => ['name' => 'Miami'],
         ];

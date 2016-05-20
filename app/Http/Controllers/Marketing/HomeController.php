@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Marketing;
 use App\City;
 use App\Country;
 use App\Http\Controllers\Controller;
-use cijic\phpMorphy\Facade\Morphy;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -18,10 +17,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        //Morphy::castFormByGramInfo('МОСКВА', null, ['ЕД', 'РД'], true);
-
         // Получение статьи с приветственным текстом
-        $article = Memory::get('site.welcome_article_' . \App::getLocale());
+        $article = Memory::get('site.main_article_' . \App::getLocale());
 
         return view('marketing.home.index', compact('article'));
     }
@@ -42,17 +39,27 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function cities()
+    public function cities(Request $request)
     {
         // Города
-        $country = Country::whereCode(\App::getLocale() == 'en' ? 'usa' : \App::getLocale())
-            ->whereIsEnabled(true)
-            ->with(['cities' => function($query) {
-                $query->whereIsEnabled(true)
-                    ->orderBy('code');
+        $cities = City::whereTranslationLike('name', $request->q . '%')
+            ->whereHas('country', function($query) {
+                $query->whereIsEnabled(true);
+            })
+            ->with(['country' => function($query) {
+                $query->withTranslation();
             }])
-            ->first();
+            ->get();
 
-        return $country->cities;
+        // Создание коллекции названий городов для вывода
+        $names = collect([]);
+        foreach ($cities as $city) {
+            $names->push([
+                'name' => $city->name,
+                'country' => $city->country->name,
+            ]);
+        }
+
+        return $names;
     }
 }

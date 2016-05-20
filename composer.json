@@ -12,7 +12,11 @@
         "laravelcollective/html": "5.2.*",
         "mcamara/laravel-localization": "1.1.*",
         "dimsav/laravel-translatable": "^5.6",
-        "orchestra/memory": "~3.0"
+        "orchestra/memory": "~3.0",
+        "caouecs/laravel-lang": "~3.0",
+        "cmfcmf/openweathermap-php-api": "^2.1",
+        "alexpechkarev/google-maps": "1.0.5",
+        "jbroadway/urlify": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

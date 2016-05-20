@@ -10,9 +10,9 @@
                 @if (count($errors) > 0)
                 <div class="alert alert-danger fade in">
                     <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                    <h4>Ошибка!</h4>
+                    <h4>{{ Lang::get('pages.index.error') }}!</h4>
                     @foreach ($errors->all() as $error)
-                        <p>{{ $error }}</p>
+                        <p>{!! $error !!}</p>
                     @endforeach
                 </div>
                 @endif
@@ -30,7 +30,8 @@
         jQuery(document).ready(function() {
             var itemTitle = '{{ Lang::get('pages.index.form_label') }}';
             var locale = '{{ App::getLocale() }}';
-            Index.initForm(3, locale, itemTitle);
+            <?php $c = count(Request::old('targets')); ?>
+            Index.initForm({{ $c > 0 ? ($c + 1) : 3 }}, locale, itemTitle);
         });
     </script>
 @stop

@@ -39,7 +39,7 @@
             <ul class="nav navbar-nav">
                 <!-- Верхнее меню -->
                 <li class="{{ \Request::route()->getName() == 'index' ? 'active' : '' }}"><a href="{{ route('index') }}">{{ Lang::get('interface.menu.main') }}</a></li>
-                <li class="{{ \Request::route()->getName() == 'cities' ? 'active' : '' }}"><a href="#">{{ Lang::get('interface.menu.cities') }}</a></li>
+                <li class="{{ in_array(\Request::route()->getName(), ['cities_index', 'cities_show']) ? 'active' : '' }}"><a href="{{ route('cities_index') }}">{{ Lang::get('interface.menu.cities') }}</a></li>
                 <li class="{{ \Request::route()->getName() == 'about' ? 'active' : '' }}"><a href="{{ route('about') }}">{{ Lang::get('interface.menu.about') }}</a></li>
                 <!-- End Верхнее меню -->
             </ul>

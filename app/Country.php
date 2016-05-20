@@ -9,7 +9,7 @@ class Country extends Model
     use \Dimsav\Translatable\Translatable;
 
     public $translatedAttributes = ['name'];
-    protected $fillable = ['code', 'name'];
+    protected $fillable = ['code', 'name', 'is_enabled'];
 
     /**
      * The relations to eager load on every query.

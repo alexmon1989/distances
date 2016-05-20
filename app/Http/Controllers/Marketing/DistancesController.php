@@ -3,15 +3,19 @@
 namespace App\Http\Controllers\Marketing;
 
 use App\City;
-use App\Country;
+use App\Events\DistancesRequestEvent;
 use App\Http\Controllers\Controller;
 use cijic\phpMorphy\Facade\Morphy;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use Illuminate\Support\Facades\Input;
-use Orchestra\Support\Facades\Memory;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Lang;
+use Cmfcmf\OpenWeatherMap;
+use Cmfcmf\OpenWeatherMap\Exception as OWMException;
+use Orchestra\Support\Facades\Memory;
 
 class DistancesController extends Controller
 {
@@ -25,58 +29,156 @@ class DistancesController extends Controller
             'targets.*' => 'city_exists'
         ]);
 
-        $targetsArr = [];
+        // Коллекция городов, введенных пользователем (исключая пустые поля)
+        $targets = collect($request->get('targets'))->reject(function ($name) {
+            return empty($name);
+        });
 
-        $v->after(function($v) use ($request, &$targetsArr)
-        {
-            // Собираем новый массив с введенными городами
-            if ($request->get('targets')) {
-                for ($i = 0; $i < count($request->targets); $i++) {
-                    if (trim($request->targets[$i]) != '') {
-                        $targetsArr[] = $request->targets[$i];
-                    }
-                }
-            }
-
-            if (count($targetsArr) < 2) {
-                $v->errors()->add('targets', 'Минимум два поля должны содержать значения.'); // TODO: перевод
+        // Хук валидации для проверки количества заполненных полей (должно быть минимум 2 заполенных поля)
+        $v->after(function($v) use ($targets) {
+            if ($targets->count() < 2) {
+                $v->errors()->add('targets', Lang::get('pages.index.targets_validation_error'));
             }
         });
 
-        if ($v->fails())
-        {
+        if ($v->fails()) {
             return redirect()
                 ->route('index')
                 ->withErrors($v)
                 ->withInput();
         }
 
-        // Первый и последний пункты назначения
-        $fromCode = City::whereTranslation('name', $targetsArr[0])->first()->code;
-        $toCode = City::whereTranslation('name', $targetsArr[count($targetsArr) - 1])->first()->code;
 
-        // Промежуточные пункты
-        $wayPoints = [];
-        for ($i = 1; $i < count($targetsArr) - 1; $i++) {
-            $wayPoints[] = City::whereTranslation('name', $targetsArr[$i])->first()->code;
+        // Редактируем коллекцию, заменяя названия городов на объекты Eloquent
+        $targets = $targets->map(function($item, $key) {
+            // Извлечение из строки города
+            preg_match('/(.+) \(/', $item, $m);
+            if (isset($m[1])) {
+                $city = $m[1];
+            }
+
+            // Извлечение из строки страны
+            preg_match('/\((.+)\)/', $item, $m);
+            if (isset($m[1])) {
+                $country = $m[1];
+            }
+
+            // Если пользователь ввёл в своём формате (только город, без страны), то получаем страну и город из google maps
+            if (!isset($city) || !isset($country)) {
+                $response = \GoogleMaps::load('geocoding')
+                    ->setParam([
+                        'address' => $item,
+                        'language' => \App::getLocale(),
+                    ])
+                    ->get();
+                $response = json_decode($response);
+                $city = $response->results[0]->address_components[0]->long_name;
+                // Элемент страны в массиве
+                foreach ($response->results[0]->address_components as $value) {
+                    if (in_array('country', $value->types)) {
+                        $countryElem = $value;
+                        break;
+                    }
+                }
+                $country = $countryElem->long_name;
+            }
+
+            return City::whereTranslation('name', $city)
+                ->whereHas('country', function($query) use ($country) {
+                    $query->whereTranslation('name', $country);
+                })
+                ->with(['country' => function($query) {
+                    $query->withTranslation();
+                }])
+                ->first();
+        });
+
+        // Соединение с сервером погоды
+        $owm = new OpenWeatherMap(Memory::get('OPENWEATHER_API_KEY', env('OPENWEATHER_API_KEY', 'b73effe13f365e1a8be704d86541fb21')));
+
+        // Коллекция погод в пунктах
+        $weathers = collect([]);
+        if ($owm) {
+            foreach ($targets as $target) {
+                try {
+                    $weather = $owm->getWeather($target->code . ', ' . $target->country->code, 'metric', \App::getLocale());
+                } catch (\Exception $e) {
+                    $weather = false;
+                }
+
+                // Город в предложном падеже
+                if (\App::getLocale() == 'ru') {
+                    $cityName = Morphy::castFormByGramInfo(mb_strtoupper($target->name), null, ['ЕД', 'ПР'], true)[0];
+                    $cityName = mb_convert_case($cityName, MB_CASE_TITLE, 'utf-8');
+                } else {
+                    $cityName = $target->name;
+                }
+                $weathers->push([
+                    'city_name' => $cityName,
+                    'weather' => $weather
+                ]);
+            }
         }
 
-        // Для блока "Расстояние между другими городами"
-        $anotherCities = City::withTranslation()
-            ->whereHas('country', function($query) {
-                $query->whereCode(\App::getLocale() == 'en' ? 'usa' : \App::getLocale());
-            })
-            ->where('code', '<>', $fromCode)
-            ->where('code', '<>', $toCode)
+        // Коллекция кодов промежуточных пунктов
+        $wayPoints = $targets->slice(1, $targets->count() - 2);
+
+        // Для блока "Расстояние между другими городами" (города для стартового города)
+        $anotherCitiesFirst = City::withTranslation()
+            ->where('code', '<>', $targets->first()->code)
             ->whereIsOffer(true)
             ->whereIsEnabled(true)
+            ->whereHas('country', function($query) use ($targets) {
+                $query->whereCode($targets->first()->country->code);
+            })
+            ->with(['country' => function($query) {
+                $query->withTranslation();
+            }])
             ->take(15)
             ->get();
+
+        // Для блока "Расстояние между другими городами" (города для финишного города)
+        $anotherCitiesLast = City::withTranslation()
+            ->where('code', '<>', $targets->last()->code)
+            ->whereIsOffer(true)
+            ->whereIsEnabled(true)
+            ->whereHas('country', function($query) use ($targets) {
+                $query->whereCode($targets->last()->country->code);
+            })
+            ->with(['country' => function($query) {
+                $query->withTranslation();
+            }])
+            ->take(15)
+            ->get();
+
+        // Стартовый город в родительном падеже
+        if (App::getLocale() == 'ru') {
+            $genitiveFromCity = Morphy::castFormByGramInfo(mb_strtoupper($targets->first()->name), null, ['ЕД', 'РД'], true)[0];
+            $dativeToCity = Morphy::castFormByGramInfo(mb_strtoupper($targets->last()->name), null, ['ЕД', 'ВН'], true)[0];
+
+            // Делаем заглавными только первые буквы
+            $genitiveFromCity = mb_convert_case($genitiveFromCity, MB_CASE_TITLE, 'utf-8');
+            $dativeToCity = mb_convert_case($dativeToCity, MB_CASE_TITLE, 'utf-8');
+        } else {
+            $genitiveFromCity = $targets->first()->name;
+            $dativeToCity = $targets->last()->name;
+        }
+
+        // Регистрация запроса в логах
+        event(new DistancesRequestEvent($targets));
 
         // Отображение страницы
         return view(
             'marketing.distances.index',
-            compact('targetsArr', 'fromCode', 'toCode', 'wayPoints', 'anotherCities')
+            compact(
+                'targets',
+                'wayPoints',
+                'anotherCitiesFirst',
+                'anotherCitiesLast',
+                'genitiveFromCity',
+                'dativeToCity',
+                'weathers'
+            )
         );
     }
 }
