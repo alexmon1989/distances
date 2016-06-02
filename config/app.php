@@ -163,6 +163,7 @@ return [
         Orchestra\Memory\MemoryServiceProvider::class,
         Orchestra\Memory\CommandServiceProvider::class,
         GoogleMaps\ServiceProvider\GoogleMapsServiceProvider::class,
+        Torann\GeoIP\GeoIPServiceProvider::class,
 
     ],
 
@@ -217,6 +218,7 @@ return [
         'LaravelLocalization'   => Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,
         'Memory' => Orchestra\Support\Facades\Memory::class,
         'GoogleMaps' => GoogleMaps\Facade\GoogleMapsFacade::class,
+        'GeoIP' => 'Torann\GeoIP\GeoIPFacade',
     ],
 
 ];

@@ -19,6 +19,7 @@ class SettingsController extends Controller
         $settings = [
             'OPENWEATHER_API_KEY'   => Memory::get('OPENWEATHER_API_KEY', env('OPENWEATHER_API_KEY')),
             'GOOGLE_MAPS_API_KEY'   => Memory::get('GOOGLE_MAPS_API_KEY', env('GOOGLE_MAPS_API_KEY')),
+            'DEFAULT_LANG'   => Memory::get('DEFAULT_LANG', 'ru'),
         ];
 
         return view('admin.settings.index', compact('settings'));
@@ -31,6 +32,7 @@ class SettingsController extends Controller
     {
         Memory::put('OPENWEATHER_API_KEY', $request->OPENWEATHER_API_KEY);
         Memory::put('GOOGLE_MAPS_API_KEY', $request->GOOGLE_MAPS_API_KEY);
+        Memory::put('DEFAULT_LANG', $request->DEFAULT_LANG);
 
         return redirect()->back()->with('success', 'Настройки успешно сохранены');
     }

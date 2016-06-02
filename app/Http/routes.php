@@ -14,7 +14,7 @@
 Route::group(
     [
         'prefix' => LaravelLocalization::setLocale(),
-        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect' ]
+        'middleware' => ['defaultLanguage', 'localeSessionRedirect', 'localizationRedirect' ]
     ],
     function()
     {
