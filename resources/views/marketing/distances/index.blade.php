@@ -107,8 +107,8 @@
             Index.initForm({{ $targets->count() + 1 }}, locale, itemTitle);
 
             // Инициализация Google Maps
-            var origin = '{{ $targets->first()->code }}, {{ $targets->first()->country->code }}';
-            var destination = '{{ $targets->last()->code }}, {{ $targets->last()->country->code }}';
+            var origin = '{{ $targets->first()->translate()->name }}, {{ $targets->first()->country->translate()->name }}';
+            var destination = '{{ $targets->last()->translate()->name }}, {{ $targets->last()->country->translate()->name }}';
             var waypoints = [];
             @foreach($wayPoints as $wayPoint)
             waypoints.push({

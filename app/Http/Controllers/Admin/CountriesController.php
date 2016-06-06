@@ -46,6 +46,8 @@ class CountriesController extends Controller
             'code' => 'required|alpha_dash|max:255|unique:countries,code' . ( $country->id ? ',' . $country->id : '' ),
             'name_ru' => 'required|max:255',
             'name_en' => 'required|max:255',
+            'name_uk' => 'required|max:255',
+            'name_pl' => 'required|max:255',
             'is_enabled' => 'boolean',
         ]);
 
@@ -54,6 +56,8 @@ class CountriesController extends Controller
                 'code' => trim($request->code),
                 'ru'  => ['name' => trim($request->name_ru)],
                 'en'  => ['name' => trim($request->name_en)],
+                'uk'  => ['name' => trim($request->name_uk)],
+                'pl'  => ['name' => trim($request->name_pl)],
                 'is_enabled' => (bool) $request->is_enabled,
             ];
             $country = Country::create($data);
@@ -63,6 +67,8 @@ class CountriesController extends Controller
             $country->code = trim($request->code);
             $country->translate('ru')->name = trim($request->name_ru);
             $country->translate('en')->name = trim($request->name_en);
+            $country->translate('uk')->name = trim($request->name_uk);
+            $country->translate('pl')->name = trim($request->name_pl);
             $country->is_enabled = (bool) $request->is_enabled;
             $country->save();
 

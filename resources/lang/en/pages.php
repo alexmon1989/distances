@@ -10,6 +10,7 @@ return [
         'targets_validation_error' => 'At least two fields must contain values.',
         'item' => 'Item',
         'error' => 'Error',
+        'page_title' => 'Calculating distances between cities',
     ],
 
     'distances' => [

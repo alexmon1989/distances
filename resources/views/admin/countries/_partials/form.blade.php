@@ -15,6 +15,14 @@
             <label for="name_en">Название (англ.)</label>
             <input type="text" placeholder="Название (англ.)" id="name_en" name="name_en" class="form-control" value="{{ old('name_en', isset($country) ? $country->translate('en')->name : '') }}">
         </div>
+        <div class="form-group">
+            <label for="name_en">Название (укр.)</label>
+            <input type="text" placeholder="Название (укр.)" id="name_uk" name="name_uk" class="form-control" value="{{ old('name_uk', isset($country) ? $country->translate('uk')->name : '') }}">
+        </div>
+        <div class="form-group">
+            <label for="name_en">Название (польск.)</label>
+            <input type="text" placeholder="Название (польск.)" id="name_pl" name="name_pl" class="form-control" value="{{ old('name_pl', isset($country) ? $country->translate('pl')->name : '') }}">
+        </div>
 
         <div class="checkbox">
             <label>

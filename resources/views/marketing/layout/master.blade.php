@@ -3,7 +3,7 @@
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
 <head>
     <base href="{{ url('') }}/">
-    <title>@yield('page_title', 'Расчёт расстояний между городами')</title>
+    <title>@yield('page_title', Memory::get('site.main_article_'.App::getLocale().'.title', ''))</title>
 
     <!-- Meta -->
     <meta charset="utf-8">

@@ -16,7 +16,18 @@ class CitiesController extends Controller
      */
     public function index()
     {
-        $country = Country::whereCode(\App::getLocale() == 'en' ? 'usa' : \App::getLocale())
+        switch (\App::getLocale()){
+            case 'en':
+                $countryCode = 'usa';
+                break;
+            case 'uk':
+                $countryCode = 'ua';
+                break;
+            default:
+                $countryCode = \App::getLocale();
+        }
+
+        $country = Country::whereCode($countryCode)
             ->whereIsEnabled(true)
             ->with(['cities' => function($query) {
                 $query->whereIsEnabled(true)

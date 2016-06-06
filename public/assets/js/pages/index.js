@@ -71,7 +71,7 @@ var Index = function () {
 
                 $( '.added-targets' ).append(sectionHTML);
 
-                $( ".target-typeahead" ).typeahead(Index.getTypeaheadOpts(cities));
+                $( ".target-typeahead" ).typeahead(Index.getTypeaheadOpts(locale));
 
                 i++;
             });
