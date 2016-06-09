@@ -29,14 +29,15 @@ class CitiesController extends Controller
 
         $country = Country::whereCode($countryCode)
             ->whereIsEnabled(true)
-            ->with(['cities' => function($query) {
-                $query->whereIsEnabled(true)
-                    ->withTranslation()
-                    ->orderBy('code');
-            }])
             ->first();
 
-        return view('marketing.cities.index', compact('country'));
+        $cities = City::whereCountryId($country->id)
+            ->whereIsEnabled(true)
+            ->withTranslation()
+            ->orderBy('code')
+            ->paginate(33);
+
+        return view('marketing.cities.index', compact('country', 'cities'));
     }
 
     /**

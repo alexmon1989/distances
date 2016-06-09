@@ -11,23 +11,25 @@
         </div>
     </div>
 
-    @for($i = 0; $i < count($country->cities); $i = $i + 3)
+    @for($i = 0; $i < count($cities); $i = $i + 3)
         <div class="row">
             <div class="col-md-4">
-                @if(isset($country->cities[$i]))
-                <p class="lead"><a href="{{ route('cities_show', ['country' => $country->code, 'code' => $country->cities[$i]->code]) }}">{{ $country->cities[$i]->name }}</a></p>
+                @if(isset($cities[$i]))
+                <p class="lead"><a href="{{ route('cities_show', ['country' => $country->code, 'code' => $cities[$i]->code]) }}">{{ $cities[$i]->name }}</a></p>
                 @endif
             </div>
             <div class="col-md-4">
-                @if(isset($country->cities[$i+1]))
-                <p class="lead"><a href="{{ route('cities_show', ['country' => $country->code, 'code' => $country->cities[$i+1]->code]) }}">{{ $country->cities[$i+1]->name }}</a></p>
+                @if(isset($cities[$i+1]))
+                <p class="lead"><a href="{{ route('cities_show', ['country' => $country->code, 'code' => $cities[$i+1]->code]) }}">{{ $cities[$i+1]->name }}</a></p>
                 @endif
             </div>
             <div class="col-md-4">
-                @if(isset($country->cities[$i+2]))
-                <p class="lead"><a href="{{ route('cities_show', ['country' => $country->code, 'code' => $country->cities[$i+2]->code]) }}">{{ $country->cities[$i+2]->name }}</a></p>
+                @if(isset($cities[$i+2]))
+                <p class="lead"><a href="{{ route('cities_show', ['country' => $country->code, 'code' => $cities[$i+2]->code]) }}">{{ $cities[$i+2]->name }}</a></p>
                 @endif
             </div>
         </div>
     @endfor
+
+    <div class="text-center">{{ $cities->links() }}</div>
 @stop
