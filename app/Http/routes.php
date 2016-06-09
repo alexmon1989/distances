@@ -38,6 +38,11 @@ Route::group(
             'as' => 'distances_index',
         ]);
 
+        Route::get('/distances/calculate-travel-cost', [
+            'uses' => 'Marketing\DistancesController@calculateTravelCost',
+            'as' => 'calculate_travel_cost',
+        ]);
+
         Route::get('/cities', [
             'uses' => 'Marketing\CitiesController@index',
             'as' => 'cities_index',

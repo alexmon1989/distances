@@ -26,7 +26,7 @@ return array(
 		'type'          => env('GEOIP_DRIVER', 'database'), // database or web_service
 		'user_id'       => env('GEOIP_USER_ID'),
 		'license_key'   => env('GEOIP_LICENSE_KEY'),
-		'database_path' => storage_path('app/geoip.mmdb'),
+		'database_path' => app_path('geoip.mmdb'),
 		'update_url'    => 'https://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz',
 	),
 
@@ -41,9 +41,9 @@ return array(
 
 	'default_location' => array (
 		"ip"           => "127.0.0.0",
-		"isoCode"      => "US",
-		"country"      => "United States",
-		"city"         => "New Haven",
+		"isoCode"      => "RU",
+		"country"      => "Russia",
+		"city"         => "Moscow",
 		"state"        => "CT",
 		"postal_code"  => "06510",
 		"lat"          => 41.31,

@@ -29,6 +29,24 @@ return [
         'm_s' => 'м/с',
         'mmhg' => 'мм.рт.ст.',
         'weather_error' => 'Не вдалося отримати дані погоди.',
+
+        'kilometer' => 'км',
+        'mile' => 'м.',
+
+        'liter' => 'л.',
+        'imp_gallon' => 'англ. гал.',
+        'us_gallon' => 'амер. гал.',
+
+        'ruble' => 'руб.',
+        'us_dollar' => '$',
+        'euro' => '€',
+        'uah' => 'грн',
+
+        'travel_cost' => 'Вартість поїздки',
+        'total_distance' => 'Загальна відстань',
+        'fuel_required' => 'Необхідна кількість палива',
+        'fuel_price_total' => 'Вартість необхідної кількості палива',
+        'total_price_message' => 'Вартість розрахована з урахування середньої витрати бензину у :fuel_consumption :volume_unit на 100 :distance_unit та вартості у :fuel_cost :currency за 1 :volume_unit',
     ],
 
     'cities' => [

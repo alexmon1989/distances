@@ -29,6 +29,24 @@ return [
         'm_s' => 'm/s',
         'mmhg' => 'mm Hg',
         'weather_error' => 'Cannot get weather data.',
+
+        'kilometer' => 'km',
+        'mile' => 'mi',
+
+        'liter' => 'l.',
+        'imp_gallon' => 'imp. gall.',
+        'us_gallon' => 'us. gall.',
+
+        'ruble' => 'rub.',
+        'us_dollar' => '$',
+        'euro' => '€',
+        'uah' => 'uah',
+
+        'travel_cost' => 'The cost of travel',
+        'total_distance' => 'Total distance',
+        'fuel_required' => 'Required amount of fuel',
+        'fuel_price_total' => 'Cost of the required amount of fuel',
+        'total_price_message' => 'The cost is calculated taking into account the average fuel consumption of :fuel_consumption :volume_unit per 100 :distance_unit and cost :fuel_cost :currency for 1 :volume_unit',
     ],
 
     'cities' => [

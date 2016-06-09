@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Marketing;
 
 use App\City;
+use App\Country;
 use App\Events\DistancesRequestEvent;
 use App\Http\Controllers\Controller;
 use cijic\phpMorphy\Facade\Morphy;
@@ -11,11 +12,13 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Lang;
 use Cmfcmf\OpenWeatherMap;
 use Cmfcmf\OpenWeatherMap\Exception as OWMException;
 use Orchestra\Support\Facades\Memory;
+use Torann\GeoIP\GeoIPFacade;
 
 class DistancesController extends Controller
 {
@@ -182,5 +185,44 @@ class DistancesController extends Controller
                 'weathers'
             )
         );
+    }
+
+    public function calculateTravelCost(Request $request)
+    {
+        $distance = (int) $request->distance;
+
+        // Получение топливных единиц для страны посетителя
+        $location = GeoIPFacade::getLocation('94.244.34.27');
+        $country = Country::whereCode($location['isoCode'])->first();
+        if ($country) {
+            $distanceUnit = $country->distance_unit;
+            $volumeUnit =  $country->volume_unit;
+            $fuelConsumption = $country->fuel_consumption;
+            $fuelCost =  $country->fuel_cost;
+            $currency =  $country->currency;
+        } else {
+            $distanceUnit =  Memory::get('DEFAULT_DISTANCE_UNIT', 'kilometer');
+            $volumeUnit =  Memory::get('DEFAULT_VOLUME_UNIT', 'liter');
+            $fuelConsumption = Memory::get('DEFAULT_FUEL_CONSUMPTION', 10);
+            $fuelCost =  Memory::get('DEFAULT_FUEL_COST', 35);
+            $currency =  Memory::get('DEFAULT_CURRENCY', 'ruble');
+        }
+
+        $totalDistance = $distanceUnit == 'kilometer' ? round($distance * 0.001) : round($distance * 0.000621371192);
+        $fuelCount = round(($totalDistance / 100) * $fuelConsumption);
+        $totalPrice = $fuelCount * $fuelCost;
+
+        return [
+            'total_distance' => $totalDistance . ' ' . Lang::get('pages.distances.' . $distanceUnit),
+            'fuel_count' => $fuelCount . ' ' . Lang::get('pages.distances.' . $volumeUnit),
+            'total_price' => $totalPrice . ' ' . Lang::get('pages.distances.' . $currency),
+            'message' => Lang::get('pages.distances.total_price_message', [
+              'fuel_consumption' => $fuelConsumption,
+              'volume_unit' => Lang::get('pages.distances.' . $volumeUnit),
+              'distance_unit' => Lang::get('pages.distances.' . $distanceUnit),
+              'fuel_cost' => $fuelCost,
+              'currency' => Lang::get('pages.distances.' . $currency)
+            ])
+        ];
     }
 }

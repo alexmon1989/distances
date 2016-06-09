@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Country;
 use Closure;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;

@@ -24,9 +24,35 @@
                 -
                 <a href="{{ route('cities_show', ['country' => $targets[$i+1]->country->code, 'city' => $targets[$i+1]->code]) }}">{{ $targets[$i+1]->name }}</a>
                 </h2>
-                <p>{{ Lang::get('pages.distances.distance') }}: <span class="text-bold distance_{{ $i }}"></span></p>
-                <p>{{ Lang::get('pages.distances.time_in_path') }}: <span class="text-bold duration_{{ $i }}"></span></p>
+                <p>{{ Lang::get('pages.distances.distance') }}: <span class="text-bold distance_{{ $i }}">-</span></p>
+                <p>{{ Lang::get('pages.distances.time_in_path') }}: <span class="text-bold duration_{{ $i }}">-</span></p>
             @endfor
+            <hr/>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-money"></i> {{ Lang::get('pages.distances.travel_cost') }}</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-5">{{ Lang::get('pages.distances.total_distance') }}:</div>
+                        <div class="col-md-7"><strong id="total-distance">-</strong></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">{{ Lang::get('pages.distances.fuel_required') }}:</div>
+                        <div class="col-md-7"><strong id="total-fuel-count">-</strong></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">{{ Lang::get('pages.distances.fuel_price_total') }}:</div>
+                        <div class="col-md-7"><strong id="total-price">-</strong></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="help-block" id="total-price-message">&nbsp;</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <div class="col-md-4">
@@ -116,7 +142,7 @@
                         stopover: true
                     });
             @endforeach
-            Distance.initMap(origin, destination, waypoints);
+            Distance.initMap(origin, destination, waypoints, locale);
         });
     </script>
 
