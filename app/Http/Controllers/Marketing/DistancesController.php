@@ -11,8 +11,6 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Lang;
 use Cmfcmf\OpenWeatherMap;
@@ -192,7 +190,7 @@ class DistancesController extends Controller
         $distance = (int) $request->distance;
 
         // Получение топливных единиц для страны посетителя
-        $location = GeoIPFacade::getLocation('94.244.34.27');
+        $location = GeoIPFacade::getLocation();
         $country = Country::whereCode($location['isoCode'])->first();
         if ($country) {
             $distanceUnit = $country->distance_unit;
