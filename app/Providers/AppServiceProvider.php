@@ -90,63 +90,27 @@ class AppServiceProvider extends ServiceProvider
                         // Поиск страны в БД или её создание
                         $country = Country::whereCode($countryCode)->first();
                         if (!$country) {
-                            // Названия страны на разных языках
-                            switch (\App::getLocale()) {
-                                case 'ru':
-                                    $countryTitleRu = $countryElem->long_name;
-                                    $countryTitleEn = \URLify::transliterate($countryTitleRu);
-                                    break;
-                                case 'en':
-                                    $countryTitleEn = $countryElem->long_name;
-                                    // Получение из google maps страны на русском языке
-                                    $responseCountryRu = \GoogleMaps::load('geocoding')
-                                        ->setParam([
-                                            'address' => $countryTitleEn,
-                                            'language' => 'ru-RU',
-                                        ])
-                                        ->get('results.address_components');
-
-                                    $countryTitleRu = $responseCountryRu['results'][0]['address_components'][0]['long_name'];
-                                    break;
-                            }
-
                             // Создание страны
                             $country = Country::create([
                                 'code' => $countryCode,
                                 'is_enabled' => true,
-                                'ru' => ['name' => $countryTitleRu],
-                                'en' => ['name' => $countryTitleEn],
+                                'ru' => ['name' => $this->getObjectTitleFromGoogleMaps($countryElem->long_name, 'ru-RU')],
+                                'en' => ['name' => $this->getObjectTitleFromGoogleMaps($countryElem->long_name, 'en-En')],
+                                'uk' => ['name' => $this->getObjectTitleFromGoogleMaps($countryElem->long_name, 'uk-UA')],
+                                'pl' => ['name' => $this->getObjectTitleFromGoogleMaps($countryElem->long_name, 'pl-PL')],
                             ]);
                         }
 
-                        // Названия города на разных языках
-                        switch (\App::getLocale()) {
-                            case 'ru':
-                                $cityTitleRu = $response->results[0]->address_components[0]->long_name;
-                                $cityTitleEn = \URLify::transliterate($cityTitleRu);
-                                break;
-                            case 'en':
-                                $cityTitleEn = $response->results[0]->address_components[0]->long_name;
-
-                                // Получение из google maps города на русском языке
-                                $responseCityRu = \GoogleMaps::load('geocoding')
-                                    ->setParam([
-                                        'address' => $cityTitleEn,
-                                        'language' => 'ru-RU',
-                                    ])
-                                    ->get('results.address_components');
-
-                                $cityTitleRu = $responseCityRu['results'][0]['address_components'][0]['long_name'];
-                                break;
-                        }
-
                         // Создание города
+                        $cityTitle = $response->results[0]->address_components[0]->long_name;
                         $city = $country->cities()->create([
                             'code' => $cityCode,
                             'is_enabled' => true,
                             'is_offer' => true,
-                            'ru' => ['name' => $cityTitleRu],
-                            'en' => ['name' => $cityTitleEn],
+                            'ru' => ['name' => $this->getObjectTitleFromGoogleMaps($cityTitle, 'ru-RU')],
+                            'en' => ['name' => $this->getObjectTitleFromGoogleMaps($cityTitle, 'en-En')],
+                            'uk' => ['name' => $this->getObjectTitleFromGoogleMaps($cityTitle, 'uk-UA')],
+                            'pl' => ['name' => $this->getObjectTitleFromGoogleMaps($cityTitle, 'pl-PL')],
                         ]);
                     }
                 }
@@ -174,5 +138,20 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register('Laracasts\Generators\GeneratorsServiceProvider');
             $this->app->register('Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider');
         }
+    }
+
+    /**
+     * Получение названия объекта (города, страны) на необходимом языке из Google Maps API
+     */
+    private function getObjectTitleFromGoogleMaps($countryTitle, $lang = 'ru-RU')
+    {
+        $response = \GoogleMaps::load('geocoding')
+            ->setParam([
+                'address' => $countryTitle,
+                'language' => $lang,
+            ])
+            ->get('results.address_components');
+
+        return $response['results'][0]['address_components'][0]['long_name'];
     }
 }

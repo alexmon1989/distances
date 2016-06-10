@@ -16,7 +16,7 @@
         "caouecs/laravel-lang": "~3.0",
         "cmfcmf/openweathermap-php-api": "^2.1",
         "alexpechkarev/google-maps": "1.0.5",
-        "jbroadway/urlify": "^1.0"
+        "torann/geoip": "0.2.*@dev"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

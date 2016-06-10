@@ -46,6 +46,13 @@ class CountriesController extends Controller
             'code' => 'required|alpha_dash|max:255|unique:countries,code' . ( $country->id ? ',' . $country->id : '' ),
             'name_ru' => 'required|max:255',
             'name_en' => 'required|max:255',
+            'name_uk' => 'required|max:255',
+            'name_pl' => 'required|max:255',
+            'distance_unit' => 'required|in:kilometer,mile',
+            'volume_unit' => 'required|in:liter,us_gallon,imp_gallon',
+            'fuel_consumption' => 'required|numeric',
+            'fuel_cost' => 'required|numeric',
+            'currency' => 'required|max:16',
             'is_enabled' => 'boolean',
         ]);
 
@@ -54,7 +61,14 @@ class CountriesController extends Controller
                 'code' => trim($request->code),
                 'ru'  => ['name' => trim($request->name_ru)],
                 'en'  => ['name' => trim($request->name_en)],
+                'uk'  => ['name' => trim($request->name_uk)],
+                'pl'  => ['name' => trim($request->name_pl)],
                 'is_enabled' => (bool) $request->is_enabled,
+                'distance_unit' => $request->distance_unit,
+                'volume_unit' => $request->volume_unit,
+                'fuel_consumption' => $request->fuel_consumption,
+                'fuel_cost' => $request->fuel_cost,
+                'currency' => trim($request->currency),
             ];
             $country = Country::create($data);
 
@@ -63,7 +77,14 @@ class CountriesController extends Controller
             $country->code = trim($request->code);
             $country->translate('ru')->name = trim($request->name_ru);
             $country->translate('en')->name = trim($request->name_en);
+            $country->translate('uk')->name = trim($request->name_uk);
+            $country->translate('pl')->name = trim($request->name_pl);
             $country->is_enabled = (bool) $request->is_enabled;
+            $country->distance_unit = $request->distance_unit;
+            $country->volume_unit = $request->volume_unit;
+            $country->fuel_consumption = $request->fuel_consumption;
+            $country->fuel_cost = $request->fuel_cost;
+            $country->currency = trim($request->currency);
             $country->save();
 
             $message = 'Страна успешно отредактирована';

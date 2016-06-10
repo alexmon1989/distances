@@ -9,5 +9,7 @@ return [
     'change_lang' => 'Сменить язык',
     'russian' => 'Русский',
     'english' => 'Английский',
+    'ukrainian' => 'Украинский',
+    'polish' => 'Польский',
     'copyright' => 'Все права защищены',
 ];

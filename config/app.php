@@ -163,6 +163,7 @@ return [
         Orchestra\Memory\MemoryServiceProvider::class,
         Orchestra\Memory\CommandServiceProvider::class,
         GoogleMaps\ServiceProvider\GoogleMapsServiceProvider::class,
+        Torann\GeoIP\GeoIPServiceProvider::class,
 
     ],
 
@@ -210,13 +211,14 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        'Morphy'    => cijic\phpMorphy\Facade\Morphy::class,Barryvdh\Debugbar\ServiceProvider::class,
+        'Morphy'    => cijic\phpMorphy\Facade\Morphy::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'LaravelLocalization'   => Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,
         'Memory' => Orchestra\Support\Facades\Memory::class,
         'GoogleMaps' => GoogleMaps\Facade\GoogleMapsFacade::class,
+        'GeoIP' => 'Torann\GeoIP\GeoIPFacade',
     ],
 
 ];

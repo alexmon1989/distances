@@ -26,6 +26,8 @@ class PagesController extends Controller
         $pageContent = [
             'article_ru' => Memory::get('site.'.$page.'_article_ru'),
             'article_en' => Memory::get('site.'.$page.'_article_en'),
+            'article_uk' => Memory::get('site.'.$page.'_article_uk'),
+            'article_pl' => Memory::get('site.'.$page.'_article_pl'),
         ];
 
         return view('admin.pages.index', compact('pageContent'));
@@ -49,6 +51,14 @@ class PagesController extends Controller
         Memory::put('site.'.$page.'_article_en', [
             'title' => $request->title_en,
             'full_text' => $request->full_text_en,
+        ]);
+        Memory::put('site.'.$page.'_article_uk', [
+            'title' => $request->title_uk,
+            'full_text' => $request->full_text_uk,
+        ]);
+        Memory::put('site.'.$page.'_article_pl', [
+            'title' => $request->title_pl,
+            'full_text' => $request->full_text_pl,
         ]);
 
         return redirect()->back()->with('success', 'Страница успешно сохранена.');;

@@ -14,7 +14,7 @@
 Route::group(
     [
         'prefix' => LaravelLocalization::setLocale(),
-        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect' ]
+        'middleware' => ['defaultLanguage', 'localeSessionRedirect', 'localizationRedirect' ]
     ],
     function()
     {
@@ -36,6 +36,16 @@ Route::group(
         Route::get('/distances', [
             'uses' => 'Marketing\DistancesController@index',
             'as' => 'distances_index',
+        ]);
+
+        Route::get('/distances/calculate-travel-cost', [
+            'uses' => 'Marketing\DistancesController@calculateTravelCost',
+            'as' => 'calculate_travel_cost',
+        ]);
+
+        Route::get('/distances/{route}-{uri_str}', [
+            'uses' => 'Marketing\DistancesController@showRoute',
+            'as' => 'distances.show_route',
         ]);
 
         Route::get('/cities', [

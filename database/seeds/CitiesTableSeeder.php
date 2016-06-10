@@ -26,6 +26,8 @@ class CitiesTableSeeder extends Seeder
             'is_offer' => true,
             'ru'  => ['name' => 'Москва'],
             'en'  => ['name' => 'Moscow'],
+            'uk'  => ['name' => 'Москва'],
+            'pl'  => ['name' => 'Moskwa'],
         ];
         $moscow = City::create($moscowData);
 
@@ -36,6 +38,8 @@ class CitiesTableSeeder extends Seeder
             'is_offer' => true,
             'ru'  => ['name' => 'Санкт-Петербург'],
             'en'  => ['name' => 'Saint-Petersburg'],
+            'uk'  => ['name' => 'Санкт-Петербург'],
+            'pl'  => ['name' => 'Petersburg'],
         ];
         $stPetersburg = City::create($stPetersburgData);
 
@@ -46,6 +50,8 @@ class CitiesTableSeeder extends Seeder
             'is_offer' => true,
             'ru'  => ['name' => 'Тула'],
             'en'  => ['name' => 'Tula'],
+            'uk'  => ['name' => 'Тула'],
+            'pl'  => ['name' => 'Tuła'],
         ];
         $tula = City::create($tulaData);
 
@@ -58,6 +64,8 @@ class CitiesTableSeeder extends Seeder
             'is_offer' => true,
             'ru'  => ['name' => 'Вашингтон'],
             'en'  => ['name' => 'Washington'],
+            'uk'  => ['name' => 'Вашингтон'],
+            'pl'  => ['name' => 'Waszyngton'],
         ];
         $washington = City::create($washingtonData);
 
@@ -68,18 +76,22 @@ class CitiesTableSeeder extends Seeder
             'is_offer' => true,
             'ru'  => ['name' => 'Нью-Йорк'],
             'en'  => ['name' => 'New York'],
+            'uk'  => ['name' => 'Нью-Йорк'],
+            'pl'  => ['name' => 'NY'],
         ];
         $newYork = City::create($newYorkData);
 
-        $miamiData = [
-            'code' => 'miami',
+        $chicagoData = [
+            'code' => 'chicago',
             'country_id' => $usa->id,
             'is_enabled' => true,
             'is_offer' => true,
-            'ru'  => ['name' => 'Маями'],
-            'en'  => ['name' => 'Miami'],
+            'ru'  => ['name' => 'Чикаго'],
+            'en'  => ['name' => 'Chicago'],
+            'uk'  => ['name' => 'Чикаго'],
+            'pl'  => ['name' => 'Chicago'],
         ];
-        $miami = City::create($miamiData);
+        $chicago = City::create($chicagoData);
 
     }
 }
