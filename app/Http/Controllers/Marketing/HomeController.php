@@ -42,7 +42,7 @@ class HomeController extends Controller
     public function cities(Request $request)
     {
         // Города
-        $cities = City::whereTranslationLike('name', $request->q . '%')
+        $cities = City::whereTranslationLike('name', '%' . $request->q . '%')
             ->whereHas('country', function($query) {
                 $query->whereIsEnabled(true);
             })
