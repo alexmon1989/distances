@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use Orchestra\Support\Facades\Memory;
+use \App\DistanceLog;
+use \App\Route;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,6 +20,9 @@ class DatabaseSeeder extends Seeder
         $this->call(CountriesTableSeeder::class);
         $this->call(CitiesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
+
+        DistanceLog::truncate();
+        Route::truncate();
 
         DB::statement('TRUNCATE TABLE orchestra_options;');
         Memory::put('site.about_article_ru', [

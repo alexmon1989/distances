@@ -81,17 +81,17 @@ class CitiesTableSeeder extends Seeder
         ];
         $newYork = City::create($newYorkData);
 
-        $miamiData = [
-            'code' => 'miami',
+        $chicagoData = [
+            'code' => 'chicago',
             'country_id' => $usa->id,
             'is_enabled' => true,
             'is_offer' => true,
-            'ru'  => ['name' => 'Маями'],
-            'en'  => ['name' => 'Miami'],
-            'uk'  => ['name' => 'Маямі'],
-            'pl'  => ['name' => 'Miami'],
+            'ru'  => ['name' => 'Чикаго'],
+            'en'  => ['name' => 'Chicago'],
+            'uk'  => ['name' => 'Чикаго'],
+            'pl'  => ['name' => 'Chicago'],
         ];
-        $miami = City::create($miamiData);
+        $chicago = City::create($chicagoData);
 
     }
 }
