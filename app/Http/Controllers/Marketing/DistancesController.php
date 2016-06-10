@@ -184,8 +184,12 @@ class DistancesController extends Controller
 
                 // Город в предложном падеже
                 if (\App::getLocale() == 'ru') {
-                    $cityName = Morphy::castFormByGramInfo(mb_strtoupper($target->name), null, ['ЕД', 'ПР'], true)[0];
-                    $cityName = mb_convert_case($cityName, MB_CASE_TITLE, 'utf-8');
+                    try {
+                        $cityName = Morphy::castFormByGramInfo(mb_strtoupper($target->name), null, ['ПР'], true)[0];
+                        $cityName = mb_convert_case($cityName, MB_CASE_TITLE, 'utf-8');
+                    } catch (\Exception $e) {
+                        $cityName = $target->name;
+                    }
                 } else {
                     $cityName = $target->name;
                 }
@@ -231,12 +235,17 @@ class DistancesController extends Controller
 
         // Стартовый город в родительном падеже
         if (App::getLocale() == 'ru') {
-            $genitiveFromCity = Morphy::castFormByGramInfo(mb_strtoupper($targetsCollection->first()->name), null, ['ЕД', 'РД'], true)[0];
-            $dativeToCity = Morphy::castFormByGramInfo(mb_strtoupper($targetsCollection->last()->name), null, ['ЕД', 'ВН'], true)[0];
+            try {
+                $genitiveFromCity = Morphy::castFormByGramInfo(mb_strtoupper($targetsCollection->first()->name), null, ['ЕД', 'РД'], true)[0];
+                $dativeToCity = Morphy::castFormByGramInfo(mb_strtoupper($targetsCollection->last()->name), null, ['ЕД', 'ВН'], true)[0];
 
-            // Делаем заглавными только первые буквы
-            $genitiveFromCity = mb_convert_case($genitiveFromCity, MB_CASE_TITLE, 'utf-8');
-            $dativeToCity = mb_convert_case($dativeToCity, MB_CASE_TITLE, 'utf-8');
+                // Делаем заглавными только первые буквы
+                $genitiveFromCity = mb_convert_case($genitiveFromCity, MB_CASE_TITLE, 'utf-8');
+                $dativeToCity = mb_convert_case($dativeToCity, MB_CASE_TITLE, 'utf-8');
+            } catch (\Exception $e) {
+                $genitiveFromCity = $targetsCollection->first()->name;
+                $dativeToCity = $targetsCollection->last()->name;
+            }
         } else {
             $genitiveFromCity = $targetsCollection->first()->name;
             $dativeToCity = $targetsCollection->last()->name;
