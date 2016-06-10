@@ -7,7 +7,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
-            <h1>{{ Lang::get('pages.distances.distance') }} {{ $targets->first()->name }} - {{ $targets->last()->name }}</h1>
+            <h1>{{ Lang::get('pages.distances.distance') }} {{ $targetsCollection->first()->name }} - {{ $targetsCollection->last()->name }}</h1>
 
             <div class="margin-top-20">
                 @include('marketing.home._partials.form')
@@ -17,12 +17,12 @@
 
     <div class="row margin-top-20">
         <div class="col-md-8">
-            @for($i = 0; $i < $targets->count() - 1; $i++)
+            @for($i = 0; $i < $targetsCollection->count() - 1; $i++)
                 <h2>
                 {{ $i + 1 }}. {{ Lang::get('pages.distances.distance') }}
-                <a href="{{ route('cities_show', ['country' => $targets[$i]->country->code, 'city' => $targets[$i]->code]) }}">{{ $targets[$i]->name }}</a>
+                <a href="{{ route('cities_show', ['country' => $targetsCollection[$i]->country->code, 'city' => $targetsCollection[$i]->code]) }}">{{ $targetsCollection[$i]->name }}</a>
                 -
-                <a href="{{ route('cities_show', ['country' => $targets[$i+1]->country->code, 'city' => $targets[$i+1]->code]) }}">{{ $targets[$i+1]->name }}</a>
+                <a href="{{ route('cities_show', ['country' => $targetsCollection[$i+1]->country->code, 'city' => $targetsCollection[$i+1]->code]) }}">{{ $targetsCollection[$i+1]->name }}</a>
                 </h2>
                 <p>{{ Lang::get('pages.distances.distance') }}: <span class="text-bold distance_{{ $i }}">-</span></p>
                 <p>{{ Lang::get('pages.distances.time_in_path') }}: <span class="text-bold duration_{{ $i }}">-</span></p>
@@ -101,7 +101,7 @@
                     <ul class="list-unstyled another-cities">
                         @foreach($anotherCitiesFirst as $anotherCity)
                             <li>
-                                <a href="{{ route('distances_index', ['targets' => [$targets->first()->name . ' (' . $targets->first()->country->name . ')', $anotherCity->name . ' (' . $anotherCity->country->name . ')']]) }}">{{ $targets->first()->name }} - {{ $anotherCity->name }}</a>
+                                <a href="{{ route('distances_index', ['targets' => [$targetsCollection->first()->name . ' (' . $targetsCollection->first()->country->name . ')', $anotherCity->name . ' (' . $anotherCity->country->name . ')']]) }}">{{ $targetsCollection->first()->name }} - {{ $anotherCity->name }}</a>
                             </li>
                         @endforeach
                     </ul>
@@ -109,7 +109,7 @@
                 <div class="col-md-6">
                     <ul class="list-unstyled another-cities">
                         @foreach($anotherCitiesLast as $anotherCity)
-                            <li><a href="{{ route('distances_index', ['targets' => [$anotherCity->name . ' (' . $anotherCity->country->name . ')', $targets->last()->name . ' (' . $targets->last()->country->name . ')']]) }}">{{ $anotherCity->name }} - {{ $targets->last()->name }}</a></li>
+                            <li><a href="{{ route('distances_index', ['targets' => [$anotherCity->name . ' (' . $anotherCity->country->name . ')', $targetsCollection->last()->name . ' (' . $targetsCollection->last()->country->name . ')']]) }}">{{ $anotherCity->name }} - {{ $targetsCollection->last()->name }}</a></li>
                         @endforeach
                     </ul>
                 </div>
@@ -130,11 +130,11 @@
             // Инициализация формы
             var itemTitle = '{{ Lang::get('pages.index.form_label') }}';
             var locale = '{{ App::getLocale() }}';
-            Index.initForm({{ $targets->count() + 1 }}, locale, itemTitle);
+            Index.initForm({{ $targetsCollection->count() + 1 }}, locale, itemTitle);
 
             // Инициализация Google Maps
-            var origin = '{{ $targets->first()->translate()->name }}, {{ $targets->first()->country->translate()->name }}';
-            var destination = '{{ $targets->last()->translate()->name }}, {{ $targets->last()->country->translate()->name }}';
+            var origin = '{{ $targetsCollection->first()->translate()->name }}, {{ $targetsCollection->first()->country->translate()->name }}';
+            var destination = '{{ $targetsCollection->last()->translate()->name }}, {{ $targetsCollection->last()->country->translate()->name }}';
             var waypoints = [];
             @foreach($wayPoints as $wayPoint)
             waypoints.push({

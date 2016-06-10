@@ -43,6 +43,11 @@ Route::group(
             'as' => 'calculate_travel_cost',
         ]);
 
+        Route::get('/distances/{route}-{uri_str}', [
+            'uses' => 'Marketing\DistancesController@showRoute',
+            'as' => 'distances.show_route',
+        ]);
+
         Route::get('/cities', [
             'uses' => 'Marketing\CitiesController@index',
             'as' => 'cities_index',
