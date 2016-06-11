@@ -18,7 +18,7 @@ class CitiesController extends Controller
     {
         switch (\App::getLocale()){
             case 'en':
-                $countryCode = 'usa';
+                $countryCode = 'us';
                 break;
             case 'uk':
                 $countryCode = 'ua';

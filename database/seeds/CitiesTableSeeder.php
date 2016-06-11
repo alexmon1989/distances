@@ -55,7 +55,7 @@ class CitiesTableSeeder extends Seeder
         ];
         $tula = City::create($tulaData);
 
-        $usa = Country::where('code', 'usa')->first();
+        $usa = Country::where('code', 'us')->first();
 
         $washingtonData = [
             'code' => 'washington',
