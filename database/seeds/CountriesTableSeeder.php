@@ -32,7 +32,7 @@ class CountriesTableSeeder extends Seeder
         $russia = Country::create($russiaData);
 
         $usaData = [
-            'code' => 'usa',
+            'code' => 'us',
             'is_enabled' => true,
             'ru'  => ['name' => 'Соединённые Штаты Америки'],
             'en'  => ['name' => 'United States of America'],
