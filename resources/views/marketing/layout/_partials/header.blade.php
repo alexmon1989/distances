@@ -16,7 +16,7 @@
                         <li class="{{ App::getLocale() == 'ru' ? 'active' : '' }}">
                             <a rel="alternate" hreflang="ru" href="{{LaravelLocalization::getLocalizedURL('ru') }}">{{ Lang::get('interface.russian') }} {!! App::getLocale() == 'ru' ? '<i class="fa fa-check"></i>' : '' !!}</a>
                         </li>
-                        <li class="{{ App::getLocale() == 'ru' ? 'active' : '' }}">
+                        <li class="{{ App::getLocale() == 'uk' ? 'active' : '' }}">
                             <a rel="alternate" hreflang="uk" href="{{LaravelLocalization::getLocalizedURL('uk') }}">{{ Lang::get('interface.ukrainian') }} {!! App::getLocale() == 'uk' ? '<i class="fa fa-check"></i>' : '' !!}</a>
                         </li>
                         <li class="{{ App::getLocale() == 'en' ? 'active' : '' }}">
