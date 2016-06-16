@@ -60,6 +60,6 @@ class HomeController extends Controller
             ]);
         }
 
-        return $names;
+        return $names->unique();
     }
 }
