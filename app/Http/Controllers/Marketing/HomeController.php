@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Orchestra\Support\Facades\Memory;
+use Torann\GeoIP\GeoIPFacade;
 
 class HomeController extends Controller
 {
@@ -49,6 +50,7 @@ class HomeController extends Controller
             ->with(['country' => function($query) {
                 $query->withTranslation();
             }])
+            ->take(10)
             ->get();
 
         // Создание коллекции названий городов для вывода
@@ -60,6 +62,6 @@ class HomeController extends Controller
             ]);
         }
 
-        return $names->unique();
+        return $names->unique()->values()->all();
     }
 }
