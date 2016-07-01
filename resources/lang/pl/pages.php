@@ -46,8 +46,10 @@ return [
         'total_distance' => 'Całkowity dystans',
         'fuel_required' => 'Wymagana ilość paliwa',
         'fuel_price_total' => 'Koszty wymaganej ilości paliwa',
-        'total_price_message' => 'Стоимость рассчитана с учётом среднего расхода бензина в :fuel_consumption :volume_unit на 100 :distance_unit и стоимости в :fuel_cost :currency за 1 :volume_unit',
         'total_price_message' => 'Koszt ustala się biorąc pod uwagę średnie zużycie paliwa :fuel_consumption :volume_unit na 100 :distance_unit i kosztuje :fuel_cost :currency za 1 :volume_unit',
+
+        'full_screen' => 'Pełny ekran',
+        'full_screen_exit' => 'Pełny ekran (wyjdź)',
     ],
 
     'cities' => [

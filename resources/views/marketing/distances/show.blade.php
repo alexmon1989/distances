@@ -125,6 +125,7 @@
     <script src="{{ asset('assets/js/pages/index.js') }}"></script>
     <script src="{{ asset('assets/js/pages/page_distance.js') }}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?language={{ App::getLocale() }}&key={{ Memory::get('GOOGLE_MAPS_API_KEY', env('GOOGLE_MAPS_API_KEY', 'AIzaSyC8Mxed4trkdkkJjucBbf376lMhYRxIVdE')) }}"></script>
+    <script src="{{ asset('assets/plugins/FullScreenControl.js') }}"></script>
     <script>
         jQuery(document).ready(function() {
             // Инициализация формы
@@ -142,7 +143,9 @@
                         stopover: true
                     });
             @endforeach
-            Distance.initMap(origin, destination, waypoints, locale);
+            var fullScreenTranslate = '{{ Lang::get('pages.distances.full_screen') }}';
+            var fullScreenTranslateExit = '{{ Lang::get('pages.distances.full_screen_exit') }}';
+            Distance.initMap(origin, destination, waypoints, locale, fullScreenTranslate, fullScreenTranslateExit);
         });
     </script>
 

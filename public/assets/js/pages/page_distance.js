@@ -2,12 +2,13 @@ var Distance = function () {
 
     return {
 
-        initMap: function(origin, destination, waypoints, locale){
+        initMap: function(origin, destination, waypoints, locale, fullScreenTranslate, fullScreenTranslateExit){
             var directionsService = new google.maps.DirectionsService;
             var directionsDisplay = new google.maps.DirectionsRenderer;
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 15
             });
+            map.controls[google.maps.ControlPosition.TOP_RIGHT].push(FullScreenControl(map, fullScreenTranslate, fullScreenTranslateExit));
             directionsDisplay.setMap(map);
 
             Distance.calculateAndDisplayRoute(directionsService, directionsDisplay, origin, destination, waypoints, locale);
