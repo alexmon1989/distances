@@ -11,19 +11,28 @@
 @stop
 
 @section('content')
-    <div class="box">
-        <div class="box-header with-border">
-            <h3 class="box-title">Настройки сайта</h3>
-            <div class="box-tools pull-right">
-                <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
-                <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#tab_1" aria-expanded="true">Настройки сайта</a></li>
+            <li class=""><a data-toggle="tab" href="#tab_2" aria-expanded="false">Настройки калькулятора</a></li>
+            <li class=""><a data-toggle="tab" href="#tab_3" aria-expanded="false">Настройки title, description</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="tab_1" class="tab-pane active">
+                @include('admin.settings._partials.form_site_settings')
             </div>
-        </div>
-        <div class="box-body">
-            @include('admin.settings._partials.form')
-        </div><!-- /.box-body -->
-        <div class="box-footer">
+            <!-- /.tab-pane -->
 
-        </div><!-- /.box-footer-->
-    </div><!-- /.box -->
+            <div id="tab_2" class="tab-pane">
+                @include('admin.settings._partials.form_calculator_settings')
+            </div>
+            <!-- /.tab-pane -->
+
+            <div id="tab_3" class="tab-pane">
+                @include('admin.settings._partials.form_title_description_settings')
+            </div>
+          <!-- /.tab-pane -->
+        </div>
+        <!-- /.tab-content -->
+    </div>
 @stop

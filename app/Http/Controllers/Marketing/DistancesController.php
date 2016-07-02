@@ -250,6 +250,13 @@ class DistancesController extends Controller
             $genitiveFromCity = $targetsCollection->first()->name;
             $dativeToCity = $targetsCollection->last()->name;
         }
+        // Метатеги
+        $pageTitle = str_replace([':city1', ':city2'],
+            [$genitiveFromCity, $dativeToCity],
+            Memory::get('DISTANCES_PAGE_TITLE_' . strtoupper(\App::getLocale())));
+        $pageDescription = str_replace([':city1', ':city2'],
+            [$genitiveFromCity, $dativeToCity],
+            Memory::get('DISTANCES_PAGE_DESCRIPTION_' . strtoupper(\App::getLocale())));
 
         // Регистрация запроса в логах
         event(new DistancesRequestEvent($targetsCollection));
@@ -262,8 +269,8 @@ class DistancesController extends Controller
                 'wayPoints',
                 'anotherCitiesFirst',
                 'anotherCitiesLast',
-                'genitiveFromCity',
-                'dativeToCity',
+                'pageTitle',
+                'pageDescription',
                 'weathers'
             )
         );
