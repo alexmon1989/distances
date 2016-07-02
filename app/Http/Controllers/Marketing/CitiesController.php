@@ -52,7 +52,7 @@ class CitiesController extends Controller
             ->where('code', '<>', $city->code)
             ->whereIsOffer(true)
             ->whereIsEnabled(true)
-            ->get();
+            ->paginate(20);
 
         return view('marketing.cities.show', compact('country', 'city', 'anotherCities'));
     }

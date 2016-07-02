@@ -27,6 +27,7 @@
                 </div>
             </div>
 
+            <div class="text-center">{{ $anotherCities->links() }}</div>
         </div>
     </div>
 @stop
