@@ -173,11 +173,16 @@ class DistancesController extends Controller
         $owm = new OpenWeatherMap(Memory::get('OPENWEATHER_API_KEY', env('OPENWEATHER_API_KEY', 'b73effe13f365e1a8be704d86541fb21')));
 
         // Коллекция погод в пунктах
+        $location = GeoIPFacade::getLocation();
+        $system =  $location['isoCode'] != 'US' ? 'metric' : 'imperial';
         $weathers = collect([]);
         if ($owm) {
             foreach ($targetsCollection as $target) {
                 try {
-                    $weather = $owm->getWeather($target->code . ', ' . $target->country->code, 'metric', \App::getLocale());
+                    $weather = $owm->getWeather(
+                        $target->code . ', ' . $target->country->code,
+                        $system,
+                        \App::getLocale());
                 } catch (\Exception $e) {
                     $weather = false;
                 }
