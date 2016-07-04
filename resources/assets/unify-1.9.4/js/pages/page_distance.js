@@ -10,6 +10,7 @@ var Distance = function () {
             });
             map.controls[google.maps.ControlPosition.TOP_RIGHT].push(FullScreenControl(map, fullScreenTranslate, fullScreenTranslateExit));
             directionsDisplay.setMap(map);
+            directionsDisplay.setPanel(document.getElementById('right-panel'));
 
             Distance.calculateAndDisplayRoute(directionsService, directionsDisplay, origin, destination, waypoints, locale);
         },

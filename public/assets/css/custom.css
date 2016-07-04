@@ -6,6 +6,10 @@
 #map {
   height: 600px; }
 
+#right-panel {
+  max-height: 600px;
+  overflow: auto; }
+
 .another-cities a {
   color: #3498db;
   font-size: 16px; }
