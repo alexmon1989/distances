@@ -37,6 +37,7 @@
 
     <!-- CSS Customization -->
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
+    <link rel="stylesheet" media="print" href="{{ asset('assets/css/print.css') }}">
 </head>
 
 <body>
