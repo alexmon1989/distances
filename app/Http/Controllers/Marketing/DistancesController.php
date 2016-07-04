@@ -276,7 +276,8 @@ class DistancesController extends Controller
                 'anotherCitiesLast',
                 'pageTitle',
                 'pageDescription',
-                'weathers'
+                'weathers',
+                'route'
             )
         );
     }
