@@ -8,7 +8,7 @@
     <!-- Meta -->
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="description">
+    <meta content="@yield('page_description', '')" name="description">
     <meta content="" name="author">
 
     <!-- Favicon -->
@@ -37,6 +37,7 @@
 
     <!-- CSS Customization -->
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
+    <link rel="stylesheet" media="print" href="{{ asset('assets/css/print.css') }}">
 </head>
 
 <body>

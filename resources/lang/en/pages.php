@@ -47,6 +47,9 @@ return [
         'fuel_required' => 'Required amount of fuel',
         'fuel_price_total' => 'Cost of the required amount of fuel',
         'total_price_message' => 'The cost is calculated taking into account the average fuel consumption of :fuel_consumption :volume_unit per 100 :distance_unit and cost :fuel_cost :currency for 1 :volume_unit',
+
+        'full_screen' => 'Fullscreen',
+        'full_screen_exit' => 'Fullscreen (exit)',
     ],
 
     'cities' => [

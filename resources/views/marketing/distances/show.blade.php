@@ -1,15 +1,15 @@
 @extends('marketing.layout.master')
 
-@section('page_title')
-{{ Lang::get('pages.distances.calculation_distance_from') }} {{ $genitiveFromCity }} {{ Lang::get('pages.distances.to') }} {{ $dativeToCity }}
-@stop
+@section('page_title'){{ $pageTitle }}@stop
+
+@section('page_description'){{ $pageDescription }}@stop
 
 @section('content')
     <div class="row">
         <div class="col-md-12">
             <h1>{{ Lang::get('pages.distances.distance') }} {{ $targetsCollection->first()->name }} - {{ $targetsCollection->last()->name }}</h1>
 
-            <div class="margin-top-20">
+            <div class="margin-top-20 noprint">
                 @include('marketing.home._partials.form')
             </div>
         </div>
@@ -86,13 +86,13 @@
 
     <div class="row margin-top-20">
         <div class="col-md-12">
-            <h3>{{ Lang::get('pages.distances.map') }}</h3>
+            <h3 class="noprint">{{ Lang::get('pages.distances.map') }}</h3>
             @include('marketing.distances._partials.map')
         </div>
     </div>
 
     @if($anotherCitiesFirst->count() > 0 || $anotherCitiesLast->count() > 0)
-    <div class="row margin-top-20">
+    <div class="row margin-top-20 noprint">
         <div class="col-md-12">
             <h2>{{ Lang::get('pages.distances.distance_between_another') }}</h2>
 
@@ -118,6 +118,32 @@
         </div>
     </div>
     @endif
+
+    <div class="row margin-top-20">
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+             *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+
+            var disqus_config = function () {
+                //this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = {{ $route->id }}; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = "{{ App::getLocale() }}";
+            };
+
+            (function() {  // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = '//findmap365.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    </div>
 @stop
 
 @section('scripts')
@@ -125,6 +151,7 @@
     <script src="{{ asset('assets/js/pages/index.js') }}"></script>
     <script src="{{ asset('assets/js/pages/page_distance.js') }}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?language={{ App::getLocale() }}&key={{ Memory::get('GOOGLE_MAPS_API_KEY', env('GOOGLE_MAPS_API_KEY', 'AIzaSyC8Mxed4trkdkkJjucBbf376lMhYRxIVdE')) }}"></script>
+    <script src="{{ asset('assets/plugins/FullScreenControl.js') }}"></script>
     <script>
         jQuery(document).ready(function() {
             // Инициализация формы
@@ -142,7 +169,9 @@
                         stopover: true
                     });
             @endforeach
-            Distance.initMap(origin, destination, waypoints, locale);
+            var fullScreenTranslate = '{{ Lang::get('pages.distances.full_screen') }}';
+            var fullScreenTranslateExit = '{{ Lang::get('pages.distances.full_screen_exit') }}';
+            Distance.initMap(origin, destination, waypoints, locale, fullScreenTranslate, fullScreenTranslateExit);
         });
     </script>
 

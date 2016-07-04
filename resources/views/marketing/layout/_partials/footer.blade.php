@@ -1,4 +1,4 @@
-<div class="footer-v1">
+<div class="footer-v1 noprint">
     <div class="copyright">
         <div class="container">
             <div class="row">

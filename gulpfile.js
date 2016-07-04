@@ -20,5 +20,6 @@ elixir(function(mix) {
         .copy('resources/assets/bower_components/AdminLTE/plugins', 'public/assets/plugins/adminlte/plugins')
         .copy('resources/assets/bower_components/bootstrap3-typeahead', 'public/assets/plugins/bootstrap3-typeahead');
 
-    mix.sass('app.scss', 'public/assets/css/custom.css');
+    mix.sass('app.scss', 'public/assets/css/custom.css')
+        .sass('print.scss', 'public/assets/css/print.css');
 });

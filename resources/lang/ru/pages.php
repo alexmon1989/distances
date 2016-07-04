@@ -47,6 +47,9 @@ return [
         'fuel_required' => 'Необходимое количество топлива',
         'fuel_price_total' => 'Стоимость необходимого количества топлива',
         'total_price_message' => 'Стоимость рассчитана с учётом среднего расхода бензина в :fuel_consumption :volume_unit на 100 :distance_unit и стоимости в :fuel_cost :currency за 1 :volume_unit',
+
+        'full_screen' => 'Полный экран',
+        'full_screen_exit' => 'Полный экран (выход)',
     ],
 
     'cities' => [

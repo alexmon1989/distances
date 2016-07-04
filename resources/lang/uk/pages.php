@@ -47,6 +47,9 @@ return [
         'fuel_required' => 'Необхідна кількість палива',
         'fuel_price_total' => 'Вартість необхідної кількості палива',
         'total_price_message' => 'Вартість розрахована з урахуванням середньої витрати бензину у :fuel_consumption :volume_unit на 100 :distance_unit та вартості у :fuel_cost :currency за 1 :volume_unit',
+
+        'full_screen' => 'Повний екран',
+        'full_screen_exit' => 'Повний екран (вихід)',
     ],
 
     'cities' => [

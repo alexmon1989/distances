@@ -1,1 +1,3 @@
-/* Write here your custom javascript codes */
+$("#print").click(function() {
+    window.print();
+});

@@ -173,11 +173,16 @@ class DistancesController extends Controller
         $owm = new OpenWeatherMap(Memory::get('OPENWEATHER_API_KEY', env('OPENWEATHER_API_KEY', 'b73effe13f365e1a8be704d86541fb21')));
 
         // Коллекция погод в пунктах
+        $location = GeoIPFacade::getLocation();
+        $system =  $location['isoCode'] != 'US' ? 'metric' : 'imperial';
         $weathers = collect([]);
         if ($owm) {
             foreach ($targetsCollection as $target) {
                 try {
-                    $weather = $owm->getWeather($target->code . ', ' . $target->country->code, 'metric', \App::getLocale());
+                    $weather = $owm->getWeather(
+                        $target->code . ', ' . $target->country->code,
+                        $system,
+                        \App::getLocale());
                 } catch (\Exception $e) {
                     $weather = false;
                 }
@@ -250,6 +255,13 @@ class DistancesController extends Controller
             $genitiveFromCity = $targetsCollection->first()->name;
             $dativeToCity = $targetsCollection->last()->name;
         }
+        // Метатеги
+        $pageTitle = str_replace([':city1', ':city2'],
+            [$genitiveFromCity, $dativeToCity],
+            Memory::get('DISTANCES_PAGE_TITLE_' . strtoupper(\App::getLocale())));
+        $pageDescription = str_replace([':city1', ':city2'],
+            [$genitiveFromCity, $dativeToCity],
+            Memory::get('DISTANCES_PAGE_DESCRIPTION_' . strtoupper(\App::getLocale())));
 
         // Регистрация запроса в логах
         event(new DistancesRequestEvent($targetsCollection));
@@ -262,9 +274,10 @@ class DistancesController extends Controller
                 'wayPoints',
                 'anotherCitiesFirst',
                 'anotherCitiesLast',
-                'genitiveFromCity',
-                'dativeToCity',
-                'weathers'
+                'pageTitle',
+                'pageDescription',
+                'weathers',
+                'route'
             )
         );
     }
