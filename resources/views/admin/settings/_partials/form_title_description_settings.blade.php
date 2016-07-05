@@ -4,7 +4,7 @@
         <div class="callout callout-info">
             <h4>Иноформация!</h4>
 
-            <p>Переменные городов указывайте как <strong>:city1</strong>, <strong>:city2</strong>.</p>
+            <p>Переменные городов указывайте как <strong>:city1</strong>, <strong>:city2</strong>, а расстояния - <strong>:km</strong>.</p>
         </div>
 
         @foreach(['RU' => 'рус.', 'EN' => 'англ.', 'UK' => 'укр.', 'PL' => 'польск.'] as $key => $value)
@@ -17,6 +17,32 @@
             <label for="DISTANCES_PAGE_DESCRIPTION_{{ $key }}">Description страницы мершрута ({{ $value }})</label>
             <input type="text" placeholder="Description страницы мершрута ({{ $value }})" id="DISTANCES_PAGE_DESCRIPTION_{{ $key }}" name="DISTANCES_PAGE_DESCRIPTION_{{ $key }}" class="form-control" value="{{ old('DISTANCES_PAGE_DESCRIPTION_'.$key, isset($settings) ? $settings['DISTANCES_PAGE_DESCRIPTION_'.$key] : '') }}">
         </div>
+
+        @if ($key == 'RU')
+        <div class="form-group">
+            <label for="CITY1_CASE">Падеж :city1</label>
+            <select class="form-control" name="DISTANCES_CITY1_CASE" id="DISTANCES_CITY1_CASE">
+                <option value="ИМ" {{ old('DISTANCES_CITY1_CASE', isset($settings['DISTANCES_CITY1_CASE']) ? $settings['DISTANCES_CITY1_CASE'] : '') == 'ИМ' ? 'selected' : '' }}>Именительный</option>
+                <option value="РД" {{ old('DISTANCES_CITY1_CASE', isset($settings['DISTANCES_CITY1_CASE']) ? $settings['DISTANCES_CITY1_CASE'] : '') == 'РД' ? 'selected' : '' }}>Родительный</option>
+                <option value="ВН" {{ old('DISTANCES_CITY1_CASE', isset($settings['DISTANCES_CITY1_CASE']) ? $settings['DISTANCES_CITY1_CASE'] : '') == 'ВН' ? 'selected' : '' }}>Винительный</option>
+                <option value="ДТ" {{ old('DISTANCES_CITY1_CASE', isset($settings['DISTANCES_CITY1_CASE']) ? $settings['DISTANCES_CITY1_CASE'] : '') == 'ДТ' ? 'selected' : '' }}>Дательный</option>
+                <option value="ТВ" {{ old('DISTANCES_CITY1_CASE', isset($settings['DISTANCES_CITY1_CASE']) ? $settings['DISTANCES_CITY1_CASE'] : '') == 'ТВ' ? 'selected' : '' }}>Творительный</option>
+                <option value="ПР" {{ old('DISTANCES_CITY1_CASE', isset($settings['DISTANCES_CITY1_CASE']) ? $settings['DISTANCES_CITY1_CASE'] : '') == 'ПР' ? 'selected' : '' }}>Предложный</option>
+            </select>
+        </div>
+
+         <div class="form-group">
+            <label for="CITY2_CASE">Падеж :city2</label>
+            <select class="form-control" name="DISTANCES_CITY2_CASE" id="DISTANCES_CITY2_CASE">
+                <option value="ИМ" {{ old('DISTANCES_CITY2_CASE', isset($settings['DISTANCES_CITY2_CASE']) ? $settings['DISTANCES_CITY2_CASE'] : '') == 'ИМ' ? 'selected' : '' }}>Именительный</option>
+                <option value="РД" {{ old('DISTANCES_CITY2_CASE', isset($settings['DISTANCES_CITY2_CASE']) ? $settings['DISTANCES_CITY2_CASE'] : '') == 'РД' ? 'selected' : '' }}>Родительный</option>
+                <option value="ВН" {{ old('DISTANCES_CITY2_CASE', isset($settings['DISTANCES_CITY2_CASE']) ? $settings['DISTANCES_CITY2_CASE'] : '') == 'ВН' ? 'selected' : '' }}>Винительный</option>
+                <option value="ДТ" {{ old('DISTANCES_CITY2_CASE', isset($settings['DISTANCES_CITY2_CASE']) ? $settings['DISTANCES_CITY2_CASE'] : '') == 'ДТ' ? 'selected' : '' }}>Дательный</option>
+                <option value="ТВ" {{ old('DISTANCES_CITY2_CASE', isset($settings['DISTANCES_CITY2_CASE']) ? $settings['DISTANCES_CITY2_CASE'] : '') == 'ТВ' ? 'selected' : '' }}>Творительный</option>
+                <option value="ПР" {{ old('DISTANCES_CITY2_CASE', isset($settings['DISTANCES_CITY2_CASE']) ? $settings['DISTANCES_CITY2_CASE'] : '') == 'ПР' ? 'selected' : '' }}>Предложный</option>
+            </select>
+         </div>
+        @endif
 
         <br/>
         @endforeach

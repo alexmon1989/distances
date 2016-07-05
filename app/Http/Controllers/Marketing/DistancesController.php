@@ -169,6 +169,20 @@ class DistancesController extends Controller
                 ->find($item->id);
         });
 
+        // Чистое расстояние между начальным и конечным городами
+        $response = json_decode(\GoogleMaps::load('directions')
+            ->setParam ([
+                'origin' => $targetsCollection->first()->translate()->name . ', ' . $targetsCollection->first()->country->translate()->name,
+                'destination' => $targetsCollection->last()->translate()->name . ', ' . $targetsCollection->last()->country->translate()->name,
+            ])
+            ->get());
+        if ($response->status == 'OK') {
+            $distance = (int) round($response->routes[0]->legs[0]->distance->value / 1000)
+                . ' ' . Lang::get('pages.distances.kilometer');
+        } else {
+            $distance = '- ' . Lang::get('pages.distances.kilometer');
+        }
+
         // Соединение с сервером погоды
         $owm = new OpenWeatherMap(Memory::get('OPENWEATHER_API_KEY', env('OPENWEATHER_API_KEY', 'b73effe13f365e1a8be704d86541fb21')));
 
@@ -238,17 +252,33 @@ class DistancesController extends Controller
             ->take(15)
             ->get();
 
-        // Стартовый город в родительном падеже
+        // Стартовый город в родительном падеже, финишный - в винительном
         if (App::getLocale() == 'ru') {
             try {
-                $genitiveFromCity = Morphy::castFormByGramInfo(mb_strtoupper($targetsCollection->first()->name), null, ['ЕД', 'РД'], true)[0];
-                $dativeToCity = Morphy::castFormByGramInfo(mb_strtoupper($targetsCollection->last()->name), null, ['ЕД', 'ВН'], true)[0];
+                $genitiveFromCity = Morphy::castFormByGramInfo(
+                    mb_strtoupper($targetsCollection->first()->name),
+                    null,
+                    ['ЕД', Memory::get('DISTANCES_CITY1_CASE', 'РД')]
+                    , true
+                )[0];
 
                 // Делаем заглавными только первые буквы
                 $genitiveFromCity = mb_convert_case($genitiveFromCity, MB_CASE_TITLE, 'utf-8');
-                $dativeToCity = mb_convert_case($dativeToCity, MB_CASE_TITLE, 'utf-8');
             } catch (\Exception $e) {
                 $genitiveFromCity = $targetsCollection->first()->name;
+            }
+
+            try {
+                $dativeToCity = Morphy::castFormByGramInfo(
+                    mb_strtoupper($targetsCollection->last()->name),
+                    null,
+                    ['ЕД', Memory::get('DISTANCES_CITY1_CASE', 'ВН')],
+                    true
+                )[0];
+
+                // Делаем заглавными только первые буквы
+                $dativeToCity = mb_convert_case($dativeToCity, MB_CASE_TITLE, 'utf-8');
+            } catch (\Exception $e) {
                 $dativeToCity = $targetsCollection->last()->name;
             }
         } else {
@@ -256,11 +286,11 @@ class DistancesController extends Controller
             $dativeToCity = $targetsCollection->last()->name;
         }
         // Метатеги
-        $pageTitle = str_replace([':city1', ':city2'],
-            [$genitiveFromCity, $dativeToCity],
+        $pageTitle = str_replace([':city1', ':city2', ':km'],
+            [$genitiveFromCity, $dativeToCity, $distance],
             Memory::get('DISTANCES_PAGE_TITLE_' . strtoupper(\App::getLocale())));
         $pageDescription = str_replace([':city1', ':city2'],
-            [$genitiveFromCity, $dativeToCity],
+            [$genitiveFromCity, $dativeToCity, $distance],
             Memory::get('DISTANCES_PAGE_DESCRIPTION_' . strtoupper(\App::getLocale())));
 
         // Регистрация запроса в логах

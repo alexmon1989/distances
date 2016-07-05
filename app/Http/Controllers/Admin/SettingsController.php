@@ -35,6 +35,8 @@ class SettingsController extends Controller
             'DISTANCES_PAGE_DESCRIPTION_UK' => Memory::get('DISTANCES_PAGE_DESCRIPTION_UK', ''),
             'DISTANCES_PAGE_TITLE_PL'       => Memory::get('DISTANCES_PAGE_TITLE_PL', ''),
             'DISTANCES_PAGE_DESCRIPTION_PL' => Memory::get('DISTANCES_PAGE_DESCRIPTION_PL', ''),
+            'DISTANCES_CITY1_CASE'          => Memory::get('DISTANCES_CITY1_CASE', ''),
+            'DISTANCES_CITY2_CASE'          => Memory::get('DISTANCES_CITY2_CASE', ''),
         ];
 
         return view('admin.settings.index', compact('settings'));
@@ -63,6 +65,8 @@ class SettingsController extends Controller
         Memory::put('DISTANCES_PAGE_DESCRIPTION_UK', $request->DISTANCES_PAGE_DESCRIPTION_UK);
         Memory::put('DISTANCES_PAGE_TITLE_PL', $request->DISTANCES_PAGE_TITLE_PL);
         Memory::put('DISTANCES_PAGE_DESCRIPTION_PL', $request->DISTANCES_PAGE_DESCRIPTION_PL);
+        Memory::put('DISTANCES_CITY1_CASE', $request->DISTANCES_CITY1_CASE);
+        Memory::put('DISTANCES_CITY2_CASE', $request->DISTANCES_CITY2_CASE);
 
         return redirect()->back()->with('success', 'Настройки успешно сохранены');
     }
