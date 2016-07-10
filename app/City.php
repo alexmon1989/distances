@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class City extends Model
 {
@@ -37,4 +38,47 @@ class City extends Model
         return $this->belongsTo('App\Country');
     }
 
+    /**
+     * Очистка дублей городов (только Россия)
+     */
+    public static function clearDoubles()
+    {
+        // Делаем обычный прямой запрос для оптимизации
+        $sql = '
+            DELETE
+            FROM
+                cities
+            WHERE
+                cities.id NOT IN (
+                    SELECT
+                        q.id
+                    FROM
+                        (
+                            SELECT
+                                c.id
+                            FROM
+                                city_translations AS c_t
+                            INNER JOIN cities AS c ON c.id = c_t.city_id
+                            INNER JOIN countries AS co ON co.id = c.country_id
+                            WHERE
+                                co.`code` = \'ru\'
+                            AND c_t.locale = \'ru\'
+                            GROUP BY
+                                c_t.`name`
+                        ) AS q
+                )
+                AND cities.country_id IN (
+                    SELECT
+                        id
+                    FROM
+                        countries
+                    WHERE
+                        `code` = \'ru\'
+                )
+        ';
+
+        $deleted = DB::delete($sql);
+
+        return $deleted;
+    }
 }

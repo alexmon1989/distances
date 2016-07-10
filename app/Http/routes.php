@@ -199,5 +199,15 @@ Route::group(
             'uses' => 'Admin\SettingsController@save',
             'as' => 'settings.save'
         ]);
+
+        Route::get('/service', [
+            'uses' => 'Admin\ServiceController@index',
+            'as' => 'service.index'
+        ]);
+
+        Route::post('/service/clear-doubles', [
+            'uses' => 'Admin\ServiceController@clearDoubles',
+            'as' => 'service.clear_doubles'
+        ]);
     }
 );

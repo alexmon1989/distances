@@ -31,7 +31,12 @@
             </li>
             <li class="{{ Request::segment(2) == 'settings' ? 'active' : '' }}">
                 <a href="{{ route('settings.index') }}">
-                    <i class="fa fa-wrench"></i> <span>Настройки</span>
+                    <i class="fa fa-cogs"></i> <span>Настройки</span>
+                </a>
+            </li>
+            <li class="{{ Request::segment(2) == 'service' ? 'active' : '' }}">
+                <a href="{{ route('service.index') }}">
+                    <i class="fa fa-wrench"></i> <span>Сервис</span>
                 </a>
             </li>
 
