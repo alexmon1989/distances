@@ -50,6 +50,8 @@ return [
 
         'full_screen' => 'Полный экран',
         'full_screen_exit' => 'Полный экран (выход)',
+
+        'print' => 'Распечатать',
     ],
 
     'cities' => [
