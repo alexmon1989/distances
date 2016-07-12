@@ -12,7 +12,9 @@ class DistanceLogsController extends Controller
 {
     public function index()
     {
-        $logs = DistanceLog::all();
+        $logs = DistanceLog::take(1000)
+            ->orderBy('id', 'DESC')
+            ->get();
 
         return view('admin.distance_logs.index', compact('logs'));
     }
