@@ -50,6 +50,8 @@ return [
 
         'full_screen' => 'Fullscreen',
         'full_screen_exit' => 'Fullscreen (exit)',
+
+        'print' => 'Print',
     ],
 
     'cities' => [

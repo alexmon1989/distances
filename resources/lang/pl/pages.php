@@ -50,6 +50,8 @@ return [
 
         'full_screen' => 'Pełny ekran',
         'full_screen_exit' => 'Pełny ekran (wyjdź)',
+
+        'print' => 'Druk',
     ],
 
     'cities' => [
