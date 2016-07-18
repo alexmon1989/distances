@@ -10,6 +10,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="@yield('page_description', '')" name="description">
     <meta content="" name="author">
+    @yield('meta', '')
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="favicon.ico">

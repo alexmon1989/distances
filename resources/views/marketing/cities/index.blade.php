@@ -1,5 +1,11 @@
 @extends('marketing.layout.master')
 
+@section('meta')
+@if(Request::get('page') > 1)
+<meta name="robots" content="noindex">
+@endif
+@stop
+
 @section('page_title')
 {{ Lang::get('pages.cities.list') }} - {{ $country->name }}
 @stop
