@@ -47,18 +47,22 @@ class PagesController extends Controller
         Memory::put('site.'.$page.'_article_ru', [
             'title' => $request->title_ru,
             'full_text' => $request->full_text_ru,
+            'description' => $request->description_ru,
         ]);
         Memory::put('site.'.$page.'_article_en', [
             'title' => $request->title_en,
             'full_text' => $request->full_text_en,
+            'description' => $request->description_en,
         ]);
         Memory::put('site.'.$page.'_article_uk', [
             'title' => $request->title_uk,
             'full_text' => $request->full_text_uk,
+            'description' => $request->description_uk,
         ]);
         Memory::put('site.'.$page.'_article_pl', [
             'title' => $request->title_pl,
             'full_text' => $request->full_text_pl,
+            'description' => $request->description_pl,
         ]);
 
         return redirect()->back()->with('success', 'Страница успешно сохранена.');;

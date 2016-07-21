@@ -4,6 +4,8 @@
 {{ Lang::get('pages.about.title') }}
 @stop
 
+@section('page_description'){{ isset($article['description']) ? $article['description'] : '' }}@stop
+
 @section('content')
     <div class="row">
         <div class="col-md-12">

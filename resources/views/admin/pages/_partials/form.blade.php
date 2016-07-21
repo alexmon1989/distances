@@ -20,6 +20,11 @@
                     <label for="full_text_ru">Текст (рус.)</label>
                     <textarea id="full_text_ru" name="full_text_ru" rows="10" cols="80" class="form-control ckeditor">{{ old('full_text_ru', isset($pageContent) ? $pageContent['article_ru']['full_text'] : '') }}</textarea>
                 </div>
+
+                <div class="form-group">
+                    <label for="full_text_ru">Description (рус.)</label>
+                    <textarea id="description_ru" name="description_ru" rows="2" cols="80" class="form-control">{{ old('description_ru', isset($pageContent['article_ru']['description']) ? $pageContent['article_ru']['description'] : '') }}</textarea>
+                </div>
             </div><!-- /.box-body -->
         </div>
         <!-- /.tab-pane -->
@@ -35,6 +40,11 @@
                     <label for="full_text_en">Текст (англ.)</label>
                     <textarea id="full_text_en" name="full_text_en" rows="10" cols="80" class="form-control ckeditor">{{ old('full_text_en', isset($pageContent) ? $pageContent['article_en']['full_text'] : '') }}</textarea>
                 </div>
+
+                <div class="form-group">
+                    <label for="description_en">Description (англ.)</label>
+                    <textarea id="description_en" name="description_en" rows="2" cols="80" class="form-control">{{ old('description_en', isset($pageContent['article_en']['description']) ? $pageContent['article_en']['description'] : '') }}</textarea>
+                </div>
             </div><!-- /.box-body -->
         </div>
         <!-- /.tab-pane -->
@@ -47,8 +57,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="full_text_uk">Текст (англ.)</label>
+                    <label for="full_text_uk">Текст (укр.)</label>
                     <textarea id="full_text_uk" name="full_text_uk" rows="10" cols="80" class="form-control ckeditor">{{ old('full_text_uk', isset($pageContent) ? $pageContent['article_uk']['full_text'] : '') }}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="description_uk">Description (укр.)</label>
+                    <textarea id="description_uk" name="description_uk" rows="2" cols="80" class="form-control">{{ old('description_uk', isset($pageContent['article_uk']['description']) ? $pageContent['article_uk']['description'] : '') }}</textarea>
                 </div>
             </div><!-- /.box-body -->
         </div>
@@ -64,6 +79,11 @@
                 <div class="form-group">
                     <label for="full_text_pl">Текст (польск.)</label>
                     <textarea id="full_text_pl" name="full_text_pl" rows="10" cols="80" class="form-control ckeditor">{{ old('full_text_pl', isset($pageContent) ? $pageContent['article_pl']['full_text'] : '') }}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="description_pl">Description (польск.)</label>
+                    <textarea id="description_pl" name="description_pl" rows="2" cols="80" class="form-control">{{ old('description_pl', isset($pageContent['article_pl']['description']) ? $pageContent['article_pl']['description'] : '') }}</textarea>
                 </div>
             </div><!-- /.box-body -->
         </div>
