@@ -4,6 +4,12 @@
 {{ Lang::get('pages.cities.list') }} - {{ $city->name }}
 @stop
 
+@section('meta')
+@if(Request::get('page') > 1)
+<meta name="robots" content="noindex, follow">
+@endif
+@stop
+
 @section('content')
     <div class="row">
         <div class="col-md-12">

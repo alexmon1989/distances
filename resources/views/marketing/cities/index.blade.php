@@ -2,7 +2,7 @@
 
 @section('meta')
 @if(Request::get('page') > 1)
-<meta name="robots" content="noindex">
+<meta name="robots" content="noindex, follow">
 @endif
 @stop
 
