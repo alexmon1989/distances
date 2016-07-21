@@ -21,8 +21,8 @@ class DefaultLanguage
      */
     public function handle($request, Closure $next)
     {
-        // Локаль (язык) по умолчанию
-        if (!Session::get('lang')) {
+        // Локаль (язык) по умолчанию (показатель того, что пользователь заходил на сайт)
+        if (!Session::get('locale')) {
             $isLangSet = false;
             $location = GeoIPFacade::getLocation();
             if (!$location['default']) {
@@ -30,7 +30,6 @@ class DefaultLanguage
                 foreach (Config::get('locales') as $key => $value) {
                     if (in_array($isoCode, $value)) {
                         LaravelLocalization::setLocale($key);
-                        Session::set('lang', \App::getLocale()); // Показатель того, что пользователь заходил на сайт
                         $isLangSet = true;
                         break;
                     }
@@ -39,7 +38,6 @@ class DefaultLanguage
             if (!$isLangSet) {
                 $defaultLang = Memory::get('DEFAULT_LANG', 'ru');
                 LaravelLocalization::setLocale($defaultLang);
-                Session::set('lang', $defaultLang);
             }
         }
 
