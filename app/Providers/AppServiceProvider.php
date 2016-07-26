@@ -98,6 +98,8 @@ class AppServiceProvider extends ServiceProvider
                                 'en' => ['name' => $this->getObjectTitleFromGoogleMaps($countryElem->long_name, 'en-En')],
                                 'uk' => ['name' => $this->getObjectTitleFromGoogleMaps($countryElem->long_name, 'uk-UA')],
                                 'pl' => ['name' => $this->getObjectTitleFromGoogleMaps($countryElem->long_name, 'pl-PL')],
+                                'fr' => ['name' => $this->getObjectTitleFromGoogleMaps($countryElem->long_name, 'fr-FR')],
+                                'it' => ['name' => $this->getObjectTitleFromGoogleMaps($countryElem->long_name, 'it-IT')],
                             ]);
                         }
 
@@ -111,6 +113,8 @@ class AppServiceProvider extends ServiceProvider
                             'en' => ['name' => $this->getObjectTitleFromGoogleMaps($cityTitle, 'en-En')],
                             'uk' => ['name' => $this->getObjectTitleFromGoogleMaps($cityTitle, 'uk-UA')],
                             'pl' => ['name' => $this->getObjectTitleFromGoogleMaps($cityTitle, 'pl-PL')],
+                            'fr' => ['name' => $this->getObjectTitleFromGoogleMaps($cityTitle, 'fr-FR')],
+                            'it' => ['name' => $this->getObjectTitleFromGoogleMaps($cityTitle, 'it-IT')],
                         ]);
                     }
                 }

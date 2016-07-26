@@ -30,6 +30,14 @@
             <label for="name_en">Название (польск.)</label>
             <input type="text" placeholder="Название (польск.)" id="name_pl" name="name_pl" class="form-control" value="{{ old('name_pl', isset($country) ? $country->translate('pl')->name : '') }}">
         </div>
+        <div class="form-group">
+            <label for="name_en">Название (итал.)</label>
+            <input type="text" placeholder="Название (итал.)" id="name_it" name="name_it" class="form-control" value="{{ old('name_it', isset($country) ? $country->translate('it')->name : '') }}">
+        </div>
+        <div class="form-group">
+            <label for="name_en">Название (франц.)</label>
+            <input type="text" placeholder="Название (франц.)" id="name_fr" name="name_fr" class="form-control" value="{{ old('name_fr', isset($country) ? $country->translate('fr')->name : '') }}">
+        </div>
 
         <div class="callout callout-info">
             <h4><i class="icon fa fa-info"></i> Информация</h4>

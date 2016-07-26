@@ -54,6 +54,8 @@ class CitiesController extends Controller
             'name_en' => 'required|max:255',
             'name_uk' => 'required|max:255',
             'name_pl' => 'required|max:255',
+            'name_it' => 'required|max:255',
+            'name_fr' => 'required|max:255',
             'is_enabled' => 'boolean',
             'is_offer' => 'boolean',
         ]);
@@ -69,6 +71,8 @@ class CitiesController extends Controller
                 'en'  => ['name' => trim($request->name_en)],
                 'uk'  => ['name' => trim($request->name_uk)],
                 'pl'  => ['name' => trim($request->name_pl)],
+                'it'  => ['name' => trim($request->name_it)],
+                'fr'  => ['name' => trim($request->name_fr)],
             ];
             $city = City::create($data);
 
@@ -80,6 +84,8 @@ class CitiesController extends Controller
             $city->translate('en')->name = trim($request->name_en);
             $city->translate('uk')->name = trim($request->name_uk);
             $city->translate('pl')->name = trim($request->name_pl);
+            $city->translate('it')->name = trim($request->name_it);
+            $city->translate('fr')->name = trim($request->name_fr);
             $city->is_enabled = (bool) $request->is_enabled;
             $city->is_offer = (bool) $request->is_offer;
             $city->save();

@@ -48,6 +48,8 @@ class CountriesController extends Controller
             'name_en' => 'required|max:255',
             'name_uk' => 'required|max:255',
             'name_pl' => 'required|max:255',
+            'name_it' => 'required|max:255',
+            'name_fr' => 'required|max:255',
             'distance_unit' => 'required|in:kilometer,mile',
             'volume_unit' => 'required|in:liter,us_gallon,imp_gallon',
             'fuel_consumption' => 'required|numeric',
@@ -63,6 +65,8 @@ class CountriesController extends Controller
                 'en'  => ['name' => trim($request->name_en)],
                 'uk'  => ['name' => trim($request->name_uk)],
                 'pl'  => ['name' => trim($request->name_pl)],
+                'it'  => ['name' => trim($request->name_it)],
+                'fr'  => ['name' => trim($request->name_fr)],
                 'is_enabled' => (bool) $request->is_enabled,
                 'distance_unit' => $request->distance_unit,
                 'volume_unit' => $request->volume_unit,
@@ -79,6 +83,8 @@ class CountriesController extends Controller
             $country->translate('en')->name = trim($request->name_en);
             $country->translate('uk')->name = trim($request->name_uk);
             $country->translate('pl')->name = trim($request->name_pl);
+            $country->translate('it')->name = trim($request->name_it);
+            $country->translate('fr')->name = trim($request->name_fr);
             $country->is_enabled = (bool) $request->is_enabled;
             $country->distance_unit = $request->distance_unit;
             $country->volume_unit = $request->volume_unit;

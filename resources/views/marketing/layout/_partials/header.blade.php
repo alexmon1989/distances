@@ -25,6 +25,12 @@
                         <li class="{{ App::getLocale() == 'pl' ? 'active' : '' }}">
                             <a rel="alternate" hreflang="en" href="{{LaravelLocalization::getLocalizedURL('pl') }}">{{ Lang::get('interface.polish') }} {!! App::getLocale() == 'pl' ? '<i class="fa fa-check"></i>' : '' !!}</a>
                         </li>
+                        <li class="{{ App::getLocale() == 'fr' ? 'active' : '' }}">
+                            <a rel="alternate" hreflang="fr" href="{{LaravelLocalization::getLocalizedURL('fr') }}">{{ Lang::get('interface.french') }} {!! App::getLocale() == 'fr' ? '<i class="fa fa-check"></i>' : '' !!}</a>
+                        </li>
+                        <li class="{{ App::getLocale() == 'it' ? 'active' : '' }}">
+                            <a rel="alternate" hreflang="it" href="{{LaravelLocalization::getLocalizedURL('it') }}">{{ Lang::get('interface.italian') }} {!! App::getLocale() == 'it' ? '<i class="fa fa-check"></i>' : '' !!}</a>
+                        </li>
                     </ul>
                 </li>
             </ul>

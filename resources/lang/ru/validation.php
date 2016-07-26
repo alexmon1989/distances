@@ -132,6 +132,10 @@ return [
 
         'name_ru' => '<strong>"Название (рус.)"</strong>',
         'name_en' => '<strong>"Название (англ.)"</strong>',
+        'name_uk' => '<strong>"Название (укр.)"</strong>',
+        'name_pl' => '<strong>"Название (польск.)"</strong>',
+        'name_it' => '<strong>"Название (итал.)"</strong>',
+        'name_fr' => '<strong>"Название (франц.)"</strong>',
         'code' => '<strong>"Код"</strong>',
         'is_enabled' => '<strong>"Включено"</strong>',
         'is_offer' => '<strong>"Показывать в предложениях"</strong>',

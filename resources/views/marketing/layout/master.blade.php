@@ -3,7 +3,7 @@
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
 <head>
     <base href="{{ url('') }}/">
-    <title>@yield('page_title', Memory::get('site.main_article_'.App::getLocale().'.title', ''))</title>
+    <title>@yield('page_title', Memory::get('site.main_article_'.App::getLocale().'.title', Lang::get('pages.index.page_title')))</title>
 
     <!-- Meta -->
     <meta charset="utf-8">

@@ -11,5 +11,7 @@ return [
     'english' => 'English',
     'ukrainian' => 'Ukrainian',
     'polish' => 'Polish',
+    'french' => 'French',
+    'italian' => 'Italian',
     'copyright' => 'All rights reserved',
 ];

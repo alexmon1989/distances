@@ -7,14 +7,14 @@
             <p>Переменные городов указывайте как <strong>:city1</strong>, <strong>:city2</strong>, а расстояния - <strong>:km</strong>.</p>
         </div>
 
-        @foreach(['RU' => 'рус.', 'EN' => 'англ.', 'UK' => 'укр.', 'PL' => 'польск.'] as $key => $value)
+        @foreach(['RU' => 'рус.', 'EN' => 'англ.', 'UK' => 'укр.', 'PL' => 'польск.', 'IT' => 'итал.', 'FR' => 'франц.'] as $key => $value)
         <div class="form-group">
-            <label for="DISTANCES_PAGE_TITLE_{{ $key }}">Title страницы мершрута ({{ $value }})</label>
+            <label for="DISTANCES_PAGE_TITLE_{{ $key }}">Title страницы маршрута ({{ $value }})</label>
             <input type="text" placeholder="Title страницы мершрута ({{ $value }})" id="DISTANCES_PAGE_TITLE_{{ $key }}" name="DISTANCES_PAGE_TITLE_{{ $key }}" class="form-control" value="{{ old('DISTANCES_PAGE_TITLE_'.$key, isset($settings) ? $settings['DISTANCES_PAGE_TITLE_'.$key] : '') }}">
         </div>
 
         <div class="form-group">
-            <label for="DISTANCES_PAGE_DESCRIPTION_{{ $key }}">Description страницы мершрута ({{ $value }})</label>
+            <label for="DISTANCES_PAGE_DESCRIPTION_{{ $key }}">Description страницы маршрута ({{ $value }})</label>
             <input type="text" placeholder="Description страницы мершрута ({{ $value }})" id="DISTANCES_PAGE_DESCRIPTION_{{ $key }}" name="DISTANCES_PAGE_DESCRIPTION_{{ $key }}" class="form-control" value="{{ old('DISTANCES_PAGE_DESCRIPTION_'.$key, isset($settings) ? $settings['DISTANCES_PAGE_DESCRIPTION_'.$key] : '') }}">
         </div>
 

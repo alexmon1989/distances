@@ -6,7 +6,8 @@
         <li class=""><a data-toggle="tab" href="#english" aria-expanded="false">Английский</a></li>
         <li class=""><a data-toggle="tab" href="#ukrainian" aria-expanded="false">Украинский</a></li>
         <li class=""><a data-toggle="tab" href="#polish" aria-expanded="false">Польский</a></li>
-        <li class="pull-right"><a class="text-muted" href="#"><i class="fa fa-gear"></i></a></li>
+        <li class=""><a data-toggle="tab" href="#italian" aria-expanded="false">Итальянский</a></li>
+        <li class=""><a data-toggle="tab" href="#french" aria-expanded="false">Французский</a></li>
     </ul>
     <div class="tab-content">
         <div id="russian" class="tab-pane active">
@@ -84,6 +85,46 @@
                 <div class="form-group">
                     <label for="description_pl">Description (польск.)</label>
                     <textarea id="description_pl" name="description_pl" rows="2" cols="80" class="form-control">{{ old('description_pl', isset($pageContent['article_pl']['description']) ? $pageContent['article_pl']['description'] : '') }}</textarea>
+                </div>
+            </div><!-- /.box-body -->
+        </div>
+        <!-- /.tab-pane -->
+
+        <div id="italian" class="tab-pane">
+            <div class="box-body">
+                <div class="form-group">
+                    <label for="title_it">Title (итал.)</label>
+                    <input type="text" placeholder="Title (итал.)" id="title_it" name="title_it" class="form-control" value="{{ old('title_it', isset($pageContent) ? $pageContent['article_it']['title'] : '') }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="full_text_it">Текст (итал.)</label>
+                    <textarea id="full_text_it" name="full_text_it" rows="10" cols="80" class="form-control ckeditor">{{ old('full_text_it', isset($pageContent) ? $pageContent['article_it']['full_text'] : '') }}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="description_it">Description (итал.)</label>
+                    <textarea id="description_it" name="description_it" rows="2" cols="80" class="form-control">{{ old('description_it', isset($pageContent['article_it']['description']) ? $pageContent['article_it']['description'] : '') }}</textarea>
+                </div>
+            </div><!-- /.box-body -->
+        </div>
+        <!-- /.tab-pane -->
+
+        <div id="french" class="tab-pane">
+            <div class="box-body">
+                <div class="form-group">
+                    <label for="title_fr">Title (франц.)</label>
+                    <input type="text" placeholder="Title (франц.)" id="title_fr" name="title_fr" class="form-control" value="{{ old('title_fr', isset($pageContent) ? $pageContent['article_fr']['title'] : '') }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="full_text_fr">Текст (франц.)</label>
+                    <textarea id="full_text_fr" name="full_text_fr" rows="10" cols="80" class="form-control ckeditor">{{ old('full_text_fr', isset($pageContent) ? $pageContent['article_fr']['full_text'] : '') }}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="description_fr">Description (франц.)</label>
+                    <textarea id="description_fr" name="description_fr" rows="2" cols="80" class="form-control">{{ old('description_fr', isset($pageContent['article_fr']['description']) ? $pageContent['article_fr']['description'] : '') }}</textarea>
                 </div>
             </div><!-- /.box-body -->
         </div>

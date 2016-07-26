@@ -28,6 +28,8 @@ class CitiesTableSeeder extends Seeder
             'en'  => ['name' => 'Moscow'],
             'uk'  => ['name' => 'Москва'],
             'pl'  => ['name' => 'Moskwa'],
+            'it'  => ['name' => 'Mosca'],
+            'fr'  => ['name' => 'Moscou'],
         ];
         $moscow = City::create($moscowData);
 
@@ -40,6 +42,8 @@ class CitiesTableSeeder extends Seeder
             'en'  => ['name' => 'Saint-Petersburg'],
             'uk'  => ['name' => 'Санкт-Петербург'],
             'pl'  => ['name' => 'Petersburg'],
+            'it'  => ['name' => 'San Pietroburgo'],
+            'fr'  => ['name' => 'Saint-Pétersbourg'],
         ];
         $stPetersburg = City::create($stPetersburgData);
 
@@ -52,6 +56,8 @@ class CitiesTableSeeder extends Seeder
             'en'  => ['name' => 'Tula'],
             'uk'  => ['name' => 'Тула'],
             'pl'  => ['name' => 'Tuła'],
+            'it'  => ['name' => 'Tula'],
+            'fr'  => ['name' => 'Tula'],
         ];
         $tula = City::create($tulaData);
 
@@ -66,6 +72,8 @@ class CitiesTableSeeder extends Seeder
             'en'  => ['name' => 'Washington'],
             'uk'  => ['name' => 'Вашингтон'],
             'pl'  => ['name' => 'Waszyngton'],
+            'it'  => ['name' => 'Washington'],
+            'fr'  => ['name' => 'Washington'],
         ];
         $washington = City::create($washingtonData);
 
@@ -78,6 +86,8 @@ class CitiesTableSeeder extends Seeder
             'en'  => ['name' => 'New York'],
             'uk'  => ['name' => 'Нью-Йорк'],
             'pl'  => ['name' => 'NY'],
+            'it'  => ['name' => 'NY'],
+            'fr'  => ['name' => 'New York'],
         ];
         $newYork = City::create($newYorkData);
 
@@ -90,8 +100,9 @@ class CitiesTableSeeder extends Seeder
             'en'  => ['name' => 'Chicago'],
             'uk'  => ['name' => 'Чикаго'],
             'pl'  => ['name' => 'Chicago'],
+            'it'  => ['name' => 'Chicago'],
+            'fr'  => ['name' => 'Chicago'],
         ];
         $chicago = City::create($chicagoData);
-
     }
 }

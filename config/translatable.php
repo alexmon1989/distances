@@ -15,6 +15,8 @@ return [
         'en',
         'uk',
         'pl',
+        'it',
+        'fr',
     ],
 
     /*

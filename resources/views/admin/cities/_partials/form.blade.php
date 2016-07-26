@@ -27,6 +27,14 @@
             <label for="name_en">Название (польск.)</label>
             <input type="text" placeholder="Название (польск.)" id="name_pl" name="name_pl" class="form-control" value="{{ old('name_pl', isset($city) ? $city->translate('pl')->name : '') }}">
         </div>
+        <div class="form-group">
+            <label for="name_en">Название (итал.)</label>
+            <input type="text" placeholder="Название (итал.)" id="name_it" name="name_it" class="form-control" value="{{ old('name_it', isset($city) ? $city->translate('it')->name : '') }}">
+        </div>
+        <div class="form-group">
+            <label for="name_en">Название (франц.)</label>
+            <input type="text" placeholder="Название (франц.)" id="name_fr" name="name_fr" class="form-control" value="{{ old('name_fr', isset($city) ? $city->translate('fr')->name : '') }}">
+        </div>
         <div class="checkbox">
             <label>
                 <input type="checkbox" name="is_enabled" value="1" {{ old('is_enabled', isset($city) ? $city->is_enabled : 0) == 1 ? 'checked=""' : ''  }}> Включено

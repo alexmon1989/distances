@@ -17,13 +17,13 @@ class DatabaseSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
         // $this->call(UsersTableSeeder::class);
-        $this->call(CountriesTableSeeder::class);
+        //$this->call(CountriesTableSeeder::class);
         $this->call(CitiesTableSeeder::class);
-        $this->call(UsersTableSeeder::class);
-        $this->call(MemoryTableSeeder::class);
+        //$this->call(UsersTableSeeder::class);
+        //$this->call(MemoryTableSeeder::class);
 
-        DistanceLog::truncate();
-        Route::truncate();
+        //DistanceLog::truncate();
+        //Route::truncate();
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
