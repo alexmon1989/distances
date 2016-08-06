@@ -170,18 +170,19 @@ class DistancesController extends Controller
         });
 
         // Чистое расстояние между начальным и конечным городами
-        $response = json_decode(\GoogleMaps::load('directions')
-            ->setParam ([
-                'origin' => $targetsCollection->first()->translate()->name . ', ' . $targetsCollection->first()->country->translate()->name,
-                'destination' => $targetsCollection->last()->translate()->name . ', ' . $targetsCollection->last()->country->translate()->name,
-            ])
-            ->get());
-        if ($response->status == 'OK') {
-            $distance = (int) round($response->routes[0]->legs[0]->distance->value / 1000)
-                . ' ' . Lang::get('pages.distances.kilometer');
-        } else {
-            $distance = '- ' . Lang::get('pages.distances.kilometer');
+        if (!$route->distance) {
+            $response = json_decode(\GoogleMaps::load('directions')
+                ->setParam ([
+                    'origin' => $targetsCollection->first()->translate()->name . ', ' . $targetsCollection->first()->country->translate()->name,
+                    'destination' => $targetsCollection->last()->translate()->name . ', ' . $targetsCollection->last()->country->translate()->name,
+                ])
+                ->get());
+            if ($response->status == 'OK') {
+                $route->distance = (int) round($response->routes[0]->legs[0]->distance->value / 1000);
+                $route->save();
+            }
         }
+        $distance = $route->distance . ' ' . Lang::get('pages.distances.kilometer');
 
         // Соединение с сервером погоды
         $owm = new OpenWeatherMap(Memory::get('OPENWEATHER_API_KEY', env('OPENWEATHER_API_KEY', 'b73effe13f365e1a8be704d86541fb21')));
