@@ -26,24 +26,32 @@ class AddTranslationsSeeder extends Seeder
             $country->save();
         }
 
+        //$i = 0;
         // Добавление переводов (итал., фр.) для существующих городов без переводов
         $notTranslatedCitiesIt = City::notTranslatedIn('it')
-            ->with(['country' => function($query) {
-                $query->withTranslation();
-            }])
+            ->with('country')
             ->get();
         foreach ($notTranslatedCitiesIt as $city) {
-            $city->translateOrNew('it')->name = $this->getObjectTitleFromGoogleMaps( $city->country->name . ', ' . $city->name, 'it');
-            $city->save();
+            sleep(1);
+            $res = $this->getObjectTitleFromGoogleMaps($city->country->translate('ru')->name . ', ' . $city->translate('ru')->name, 'it');
+            if ($res) {
+                $city->translateOrNew('it')->name = $res;
+                $city->save();
+                //$i++;
+                //echo $i . "\r\n";
+            } else {
+                $city->delete();
+            }
         }
         $notTranslatedCitiesFr = City::notTranslatedIn('fr')
-            ->with(['country' => function($query) {
-                $query->withTranslation();
-            }])
+            ->with('country')
             ->get();
         foreach ($notTranslatedCitiesFr as $city) {
-            $city->translateOrNew('fr')->name = $this->getObjectTitleFromGoogleMaps( $city->country->name . ', ' . $city->name, 'fr');
+            sleep(1);
+            $city->translateOrNew('fr')->name = $this->getObjectTitleFromGoogleMaps( $city->country->translate('ru')->name . ', ' . $city->translate('ru')->name, 'fr');
             $city->save();
+            //$i++;
+            //echo $i . "\r\n";
         }
     }
 
@@ -58,7 +66,15 @@ class AddTranslationsSeeder extends Seeder
                 'language' => $lang,
             ])
             ->get('results.address_components');
+        if (isset($response['status']) && $response['status'] == 'ZERO_RESULTS') {
+            return false;
+        }
+        if (!isset($response['results'][0]['address_components'][0]['long_name'])) {
+            dd($response, $address);
+        }
 
-        return $response['results'][0]['address_components'][0]['long_name'];
+        return isset($response['results'][0]['address_components'][0]['long_name'])
+            ? $response['results'][0]['address_components'][0]['long_name']
+            : false;
     }
 }
