@@ -37,7 +37,7 @@ return [
         'imp_gallon' => 'gall. imp.',
         'us_gallon' => 'gall. us.',
 
-        'ruble' => 'ur',
+        'ruble' => 'rur',
         'us_dollar' => '$',
         'euro' => '€',
         'uah' => 'uah',
