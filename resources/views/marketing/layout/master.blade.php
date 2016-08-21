@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!--[if IE 9]> <html lang="ru" class="ie9"> <![endif]-->
+<!--[if IE 9]> <html lang="{{ App::getLocale() }}" class="ie9"> <![endif]-->
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
 <head>
     <base href="{{ url('') }}/">
@@ -7,6 +7,12 @@
 
     <!-- Meta -->
     <meta charset="utf-8">
+    <meta http-equiv="Content-Language" content="{{ App::getLocale() }}" />
+    @foreach(config('locales') as $localeCode => $locale)
+        @if($localeCode != App::getLocale())
+            <link rel="alternate" href="{{LaravelLocalization::getLocalizedURL($localeCode) }}" hreflang="{{ $localeCode }}" />
+        @endif
+    @endforeach
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="@yield('page_description', '')" name="description">
     <meta content="" name="author">
