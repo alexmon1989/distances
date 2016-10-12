@@ -85,11 +85,20 @@ class DistancesController extends Controller
                 $country = $countryElem->long_name;
             }
 
-            return City::whereTranslation('name', $city)
+            $cityFromDb = City::whereTranslation('name', $city)
                 ->whereHas('country', function($query) use ($country) {
                     $query->whereTranslation('name', $country);
                 })
                 ->first(['id', 'code']);
+
+            // Если город в БД не найден на этом последнем этапе, то 404
+            // такое случается, если город и страна введены в стандартном формате "Город (Страна)",
+            // но в БД данных не оказалось (Google вернул не те данные)
+            if (!$cityFromDb) {
+                abort(404);
+            }
+
+            return $cityFromDb;
         });
 
         // Второй параметр роута, необходим для восприятия человеком ссылки
