@@ -64,4 +64,10 @@ return [
         'title' => 'sur le service',
     ],
 
+    '404' => [
+        'title' => 'Erreur 404 - Findmap365',
+        'message' => 'Désolé, page non trouvée!',
+        'link' => 'Aller à la page d\'accueil',
+    ]
+
 ];
