@@ -20,14 +20,18 @@
                 <div class="col-md-6">
                     <ul class="list-unstyled another-cities">
                     @foreach($anotherCities as $anotherCity)
-                        <li><a href="{{ route('distances_index', ['targets' => [$city->name . ' (' . $country->name . ')', $anotherCity->name . ' (' . $country->name . ')']]) }}">{{ Lang::get('pages.cities.distance') }} {{ $city->name }} - {{ $anotherCity->name }}</a></li>
+                        <li>
+                            <a href="{{ route('distances.show_route', ['route' => \App\Route::firstOrCreateByTwoCities($city, $anotherCity), $city->code . '-' . $anotherCity->code]) }}">{{ Lang::get('pages.cities.distance') }} {{ $city->name }} - {{ $anotherCity->name }}</a>
+                        </li>
                     @endforeach
                     </ul>
                 </div>
                 <div class="col-md-6">
                     <ul class="list-unstyled another-cities">
                     @foreach($anotherCities as $anotherCity)
-                        <li><a href="{{ route('distances_index', ['targets' => [$anotherCity->name . ' (' . $country->name . ')', $city->name . ' (' . $country->name . ')']]) }}">{{ Lang::get('pages.cities.distance') }} {{ $anotherCity->name }} - {{ $city->name }}</a></li>
+                        <li>
+                            <a href="{{ route('distances.show_route', ['route' => \App\Route::firstOrCreateByTwoCities($anotherCity, $city), $anotherCity->code . '-' . $city->code]) }}">{{ Lang::get('pages.cities.distance') }} {{ $anotherCity->name }} - {{ $city->name }}</a>
+                        </li>
                     @endforeach
                     </ul>
                 </div>

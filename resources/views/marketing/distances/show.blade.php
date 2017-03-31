@@ -101,7 +101,7 @@
                     <ul class="list-unstyled another-cities">
                         @foreach($anotherCitiesFirst as $anotherCity)
                             <li>
-                                <a href="{{ route('distances_index', ['targets' => [$targetsCollection->first()->name . ' (' . $targetsCollection->first()->country->name . ')', $anotherCity->name . ' (' . $anotherCity->country->name . ')']]) }}">{{ $targetsCollection->first()->name }} - {{ $anotherCity->name }}</a>
+                                <a href="{{ route('distances.show_route', ['route' => \App\Route::firstOrCreateByTwoCities($targetsCollection->first(), $anotherCity), $targetsCollection->first()->code . '-' . $anotherCity->code]) }}">{{ $targetsCollection->first()->name }} - {{ $anotherCity->name }}</a>
                             </li>
                         @endforeach
                     </ul>
@@ -109,7 +109,9 @@
                 <div class="col-md-6">
                     <ul class="list-unstyled another-cities">
                         @foreach($anotherCitiesLast as $anotherCity)
-                            <li><a href="{{ route('distances_index', ['targets' => [$anotherCity->name . ' (' . $anotherCity->country->name . ')', $targetsCollection->last()->name . ' (' . $targetsCollection->last()->country->name . ')']]) }}">{{ $anotherCity->name }} - {{ $targetsCollection->last()->name }}</a></li>
+                            <li>
+                                <a href="{{ route('distances.show_route', ['route' => \App\Route::firstOrCreateByTwoCities($anotherCity, $targetsCollection->first()), $anotherCity->code . '-' . $targetsCollection->first()->code]) }}">{{ $anotherCity->name }} - {{ $targetsCollection->last()->name }}</a>
+                            </li>
                         @endforeach
                     </ul>
                 </div>

@@ -81,4 +81,15 @@ class City extends Model
 
         return $deleted;
     }
+
+    /**
+     * Возвращает массив данных города, используемый для записи маршрута в БД.
+     *
+     * @return array
+     */
+    public function getArrayForRoute() {
+        return [
+            'id' => $this->id, 'code' => $this->code, 'name'  => $this->name
+        ];
+    }
 }
