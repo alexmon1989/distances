@@ -4,7 +4,7 @@
         <div class="callout callout-info">
             <h4>Иноформация!</h4>
 
-            <p>Переменные городов указывайте как <strong>:city1</strong>, <strong>:city2</strong>, а расстояния - <strong>:km</strong>.</p>
+            <p>Переменные городов указывайте как <strong>:city1</strong>, <strong>:city2</strong>, а расстояния - <strong>:km, :mi</strong>.</p>
         </div>
 
         @foreach(['RU' => 'рус.', 'EN' => 'англ.', 'UK' => 'укр.', 'PL' => 'польск.', 'IT' => 'итал.', 'FR' => 'франц.'] as $key => $value)
@@ -16,6 +16,11 @@
         <div class="form-group">
             <label for="DISTANCES_PAGE_DESCRIPTION_{{ $key }}">Description страницы маршрута ({{ $value }})</label>
             <input type="text" placeholder="Description страницы мершрута ({{ $value }})" id="DISTANCES_PAGE_DESCRIPTION_{{ $key }}" name="DISTANCES_PAGE_DESCRIPTION_{{ $key }}" class="form-control" value="{{ old('DISTANCES_PAGE_DESCRIPTION_'.$key, isset($settings) ? $settings['DISTANCES_PAGE_DESCRIPTION_'.$key] : '') }}">
+        </div>
+
+        <div class="form-group">
+            <label for="DISTANCES_PAGE_TEXT_{{ $key }}">Текстовый блок на странице маршрута ({{ $value }})</label>
+            <textarea class="form-control" name="DISTANCES_PAGE_TEXT_{{ $key }}" id="DISTANCES_PAGE_TEXT_{{ $key }}" cols="30" rows="3">{{ old('DISTANCES_PAGE_DESCRIPTION_'.$key, isset($settings) ? $settings['DISTANCES_PAGE_TEXT_'.$key] : '') }}</textarea>
         </div>
 
         @if ($key == 'RU')

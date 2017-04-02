@@ -192,6 +192,7 @@ class DistancesController extends Controller
             }
         }
         $distance = $route->distance . ' ' . Lang::get('pages.distances.kilometer');
+        $distance_mi = round($route->distance * 0.621371192) . ' ' . Lang::get('pages.distances.mile');
 
         // Соединение с сервером погоды
         $owm = new OpenWeatherMap(Memory::get('OPENWEATHER_API_KEY', env('OPENWEATHER_API_KEY', 'b73effe13f365e1a8be704d86541fb21')));
@@ -296,12 +297,16 @@ class DistancesController extends Controller
             $dativeToCity = $targetsCollection->last()->name;
         }
         // Метатеги
-        $pageTitle = str_replace([':city1', ':city2', ':km'],
-            [$genitiveFromCity, $dativeToCity, $distance],
+        $pageTitle = str_replace([':city1', ':city2', ':km', ':mi'],
+            [$genitiveFromCity, $dativeToCity, $distance, $distance_mi],
             Memory::get('DISTANCES_PAGE_TITLE_' . strtoupper(\App::getLocale())));
-        $pageDescription = str_replace([':city1', ':city2'],
-            [$genitiveFromCity, $dativeToCity, $distance],
+        $pageDescription = str_replace([':city1', ':city2', ':km', ':mi'],
+            [$genitiveFromCity, $dativeToCity, $distance, $distance_mi],
             Memory::get('DISTANCES_PAGE_DESCRIPTION_' . strtoupper(\App::getLocale())));
+        // Текстовый блок
+        $textBlock = str_replace([':city1', ':city2', ':km', ':mi'],
+            [$genitiveFromCity, $dativeToCity, $distance, $distance_mi],
+            Memory::get('DISTANCES_PAGE_TEXT_' . strtoupper(\App::getLocale())));
 
         // Регистрация запроса в логах
         event(new DistancesRequestEvent($targetsCollection));
@@ -316,6 +321,7 @@ class DistancesController extends Controller
                 'anotherCitiesLast',
                 'pageTitle',
                 'pageDescription',
+                'textBlock',
                 'weathers',
                 'route'
             )

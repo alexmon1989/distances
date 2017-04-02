@@ -29,16 +29,22 @@ class SettingsController extends Controller
 
             'DISTANCES_PAGE_TITLE_RU'       => Memory::get('DISTANCES_PAGE_TITLE_RU', ''),
             'DISTANCES_PAGE_DESCRIPTION_RU' => Memory::get('DISTANCES_PAGE_DESCRIPTION_RU', ''),
+            'DISTANCES_PAGE_TEXT_RU'        => Memory::get('DISTANCES_PAGE_TEXT_RU', ''),
             'DISTANCES_PAGE_TITLE_EN'       => Memory::get('DISTANCES_PAGE_TITLE_EN', ''),
             'DISTANCES_PAGE_DESCRIPTION_EN' => Memory::get('DISTANCES_PAGE_DESCRIPTION_EN', ''),
+            'DISTANCES_PAGE_TEXT_EN'        => Memory::get('DISTANCES_PAGE_TEXT_EN', ''),
             'DISTANCES_PAGE_TITLE_UK'       => Memory::get('DISTANCES_PAGE_TITLE_UK', ''),
             'DISTANCES_PAGE_DESCRIPTION_UK' => Memory::get('DISTANCES_PAGE_DESCRIPTION_UK', ''),
+            'DISTANCES_PAGE_TEXT_UK'        => Memory::get('DISTANCES_PAGE_TEXT_UK', ''),
             'DISTANCES_PAGE_TITLE_PL'       => Memory::get('DISTANCES_PAGE_TITLE_PL', ''),
             'DISTANCES_PAGE_DESCRIPTION_PL' => Memory::get('DISTANCES_PAGE_DESCRIPTION_PL', ''),
+            'DISTANCES_PAGE_TEXT_PL'        => Memory::get('DISTANCES_PAGE_TEXT_PL', ''),
             'DISTANCES_PAGE_TITLE_IT'       => Memory::get('DISTANCES_PAGE_TITLE_IT', ''),
             'DISTANCES_PAGE_DESCRIPTION_IT' => Memory::get('DISTANCES_PAGE_DESCRIPTION_IT', ''),
+            'DISTANCES_PAGE_TEXT_IT'        => Memory::get('DISTANCES_PAGE_TEXT_IT', ''),
             'DISTANCES_PAGE_TITLE_FR'       => Memory::get('DISTANCES_PAGE_TITLE_FR', ''),
             'DISTANCES_PAGE_DESCRIPTION_FR' => Memory::get('DISTANCES_PAGE_DESCRIPTION_FR', ''),
+            'DISTANCES_PAGE_TEXT_FR'        => Memory::get('DISTANCES_PAGE_TEXT_FR', ''),
             'DISTANCES_CITY1_CASE'          => Memory::get('DISTANCES_CITY1_CASE', ''),
             'DISTANCES_CITY2_CASE'          => Memory::get('DISTANCES_CITY2_CASE', ''),
         ];
@@ -63,16 +69,22 @@ class SettingsController extends Controller
 
         Memory::put('DISTANCES_PAGE_TITLE_RU', $request->DISTANCES_PAGE_TITLE_RU);
         Memory::put('DISTANCES_PAGE_DESCRIPTION_RU', $request->DISTANCES_PAGE_DESCRIPTION_RU);
+        Memory::put('DISTANCES_PAGE_TEXT_RU', $request->DISTANCES_PAGE_TEXT_RU);
         Memory::put('DISTANCES_PAGE_TITLE_EN', $request->DISTANCES_PAGE_TITLE_EN);
         Memory::put('DISTANCES_PAGE_DESCRIPTION_EN', $request->DISTANCES_PAGE_DESCRIPTION_EN);
+        Memory::put('DISTANCES_PAGE_TEXT_EN', $request->DISTANCES_PAGE_TEXT_EN);
         Memory::put('DISTANCES_PAGE_TITLE_UK', $request->DISTANCES_PAGE_TITLE_UK);
         Memory::put('DISTANCES_PAGE_DESCRIPTION_UK', $request->DISTANCES_PAGE_DESCRIPTION_UK);
+        Memory::put('DISTANCES_PAGE_TEXT_UK', $request->DISTANCES_PAGE_TEXT_UK);
         Memory::put('DISTANCES_PAGE_TITLE_PL', $request->DISTANCES_PAGE_TITLE_PL);
         Memory::put('DISTANCES_PAGE_DESCRIPTION_PL', $request->DISTANCES_PAGE_DESCRIPTION_PL);
+        Memory::put('DISTANCES_PAGE_TEXT_PL', $request->DISTANCES_PAGE_TEXT_PL);
         Memory::put('DISTANCES_PAGE_TITLE_IT', $request->DISTANCES_PAGE_TITLE_IT);
         Memory::put('DISTANCES_PAGE_DESCRIPTION_IT', $request->DISTANCES_PAGE_DESCRIPTION_IT);
+        Memory::put('DISTANCES_PAGE_TEXT_IT', $request->DISTANCES_PAGE_TEXT_IT);
         Memory::put('DISTANCES_PAGE_TITLE_FR', $request->DISTANCES_PAGE_TITLE_FR);
         Memory::put('DISTANCES_PAGE_DESCRIPTION_FR', $request->DISTANCES_PAGE_DESCRIPTION_FR);
+        Memory::put('DISTANCES_PAGE_TEXT_FR', $request->DISTANCES_PAGE_TEXT_FR);
         Memory::put('DISTANCES_CITY1_CASE', $request->DISTANCES_CITY1_CASE);
         Memory::put('DISTANCES_CITY2_CASE', $request->DISTANCES_CITY2_CASE);
 

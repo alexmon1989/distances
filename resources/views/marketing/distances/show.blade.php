@@ -122,6 +122,14 @@
     @endif
 
     <div class="row margin-top-20">
+        <div class="col-md-12">
+            @if ($textBlock)
+                <p>{!! $textBlock !!}</p>
+            @endif
+        </div>
+    </div>
+
+    <div class="row margin-top-20">
         <div id="disqus_thread"></div>
         <script>
             /**
