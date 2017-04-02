@@ -13,23 +13,20 @@
                     <i class="fa fa-globe"></i>
                     <a>{{ Lang::get('interface.change_lang') }}</a>
                     <ul class="languages hoverSelectorBlock">
-                        <li class="{{ App::getLocale() == 'ru' ? 'active' : '' }}">
-                            <a rel="alternate" hreflang="ru" href="{{LaravelLocalization::getLocalizedURL('ru') }}">{{ Lang::get('interface.russian') }} {!! App::getLocale() == 'ru' ? '<i class="fa fa-check"></i>' : '' !!}</a>
-                        </li>
-                        <li class="{{ App::getLocale() == 'uk' ? 'active' : '' }}">
-                            <a rel="alternate" hreflang="uk" href="{{LaravelLocalization::getLocalizedURL('uk') }}">{{ Lang::get('interface.ukrainian') }} {!! App::getLocale() == 'uk' ? '<i class="fa fa-check"></i>' : '' !!}</a>
-                        </li>
                         <li class="{{ App::getLocale() == 'en' ? 'active' : '' }}">
                             <a rel="alternate" hreflang="en" href="{{LaravelLocalization::getLocalizedURL('en') }}">{{ Lang::get('interface.english') }} {!! App::getLocale() == 'en' ? '<i class="fa fa-check"></i>' : '' !!}</a>
-                        </li>
-                        <li class="{{ App::getLocale() == 'pl' ? 'active' : '' }}">
-                            <a rel="alternate" hreflang="en" href="{{LaravelLocalization::getLocalizedURL('pl') }}">{{ Lang::get('interface.polish') }} {!! App::getLocale() == 'pl' ? '<i class="fa fa-check"></i>' : '' !!}</a>
                         </li>
                         <li class="{{ App::getLocale() == 'fr' ? 'active' : '' }}">
                             <a rel="alternate" hreflang="fr" href="{{LaravelLocalization::getLocalizedURL('fr') }}">{{ Lang::get('interface.french') }} {!! App::getLocale() == 'fr' ? '<i class="fa fa-check"></i>' : '' !!}</a>
                         </li>
                         <li class="{{ App::getLocale() == 'it' ? 'active' : '' }}">
                             <a rel="alternate" hreflang="it" href="{{LaravelLocalization::getLocalizedURL('it') }}">{{ Lang::get('interface.italian') }} {!! App::getLocale() == 'it' ? '<i class="fa fa-check"></i>' : '' !!}</a>
+                        </li>
+                        <li class="{{ App::getLocale() == 'pl' ? 'active' : '' }}">
+                            <a rel="alternate" hreflang="en" href="{{LaravelLocalization::getLocalizedURL('pl') }}">{{ Lang::get('interface.polish') }} {!! App::getLocale() == 'pl' ? '<i class="fa fa-check"></i>' : '' !!}</a>
+                        </li>
+                        <li class="{{ App::getLocale() == 'uk' ? 'active' : '' }}">
+                            <a rel="alternate" hreflang="uk" href="{{LaravelLocalization::getLocalizedURL('uk') }}">{{ Lang::get('interface.ukrainian') }} {!! App::getLocale() == 'uk' ? '<i class="fa fa-check"></i>' : '' !!}</a>
                         </li>
                     </ul>
                 </li>

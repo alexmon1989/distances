@@ -36,7 +36,7 @@ class DefaultLanguage
                 }
             }
             if (!$isLangSet) {
-                $defaultLang = Memory::get('DEFAULT_LANG', 'ru');
+                $defaultLang = Memory::get('DEFAULT_LANG', 'en');
                 LaravelLocalization::setLocale($defaultLang);
             }
         }

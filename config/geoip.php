@@ -39,17 +39,20 @@ return array(
 	|
 	*/
 
-	'default_location' => array (
-		"ip"           => "127.0.0.0",
-		"isoCode"      => "RU",
-		"country"      => "Russia",
-		"city"         => "Moscow",
-		"state"        => "CT",
-		"postal_code"  => "06510",
-		"lat"          => 41.31,
-		"lon"          => -72.92,
-		"timezone"     => "America/New_York",
-		"continent"    => "NA",
-	),
+    'default_location' => [
+        'ip' => '127.0.0.0',
+        'iso_code' => 'US',
+        'country' => 'United States',
+        'city' => 'New Haven',
+        'state' => 'CT',
+        'state_name' => 'Connecticut',
+        'postal_code' => '06510',
+        'lat' => 41.31,
+        'lon' => -72.92,
+        'timezone' => 'America/New_York',
+        'continent' => 'NA',
+        'default' => true,
+        'currency' => 'USD',
+    ],
 
 );
