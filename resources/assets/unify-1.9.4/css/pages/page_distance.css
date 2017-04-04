@@ -1,0 +1,7 @@
+.sky-form section {
+    margin-bottom: 10px !important;
+}
+
+.sky-form section:last-child {
+    margin-bottom: 0 !important;
+}

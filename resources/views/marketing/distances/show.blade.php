@@ -10,7 +10,7 @@
             <h1>{{ Lang::get('pages.distances.distance') }} {{ $targetsCollection->first()->name }} - {{ $targetsCollection->last()->name }}</h1>
 
             <div class="margin-top-20 noprint">
-                @include('marketing.home._partials.form')
+                @include('marketing.distances._partials.form')
             </div>
         </div>
     </div>
@@ -158,7 +158,6 @@
 
 @section('scripts')
     <script src="{{ asset('assets/plugins/bootstrap3-typeahead/bootstrap3-typeahead.min.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/index.js') }}"></script>
     <script src="{{ asset('assets/js/pages/page_distance.js') }}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?language={{ App::getLocale() }}&key={{ Memory::get('GOOGLE_MAPS_API_KEY', env('GOOGLE_MAPS_API_KEY', 'AIzaSyC8Mxed4trkdkkJjucBbf376lMhYRxIVdE')) }}"></script>
     <script src="{{ asset('assets/plugins/FullScreenControl.js') }}"></script>
@@ -167,7 +166,7 @@
             // Инициализация формы
             var itemTitle = '{{ Lang::get('pages.index.form_label') }}';
             var locale = '{{ App::getLocale() }}';
-            Index.initForm({{ $targetsCollection->count() + 1 }}, locale, itemTitle);
+            Distance.initForm({{ $targetsCollection->count() + 1 }}, locale, itemTitle);
 
             // Инициализация Google Maps
             var origin = '{{ $targetsCollection->first()->translate()->name }}, {{ $targetsCollection->first()->country->translate()->name }}';
@@ -191,4 +190,6 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/sky-forms-pro/skyforms/css/sky-forms.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css') }}">
     <!--[if lt IE 9]><link rel="stylesheet" href="assets/plugins/sky-forms-pro/skyforms/css/sky-forms-ie8.css') }}"><![endif]-->
+
+    <link rel="stylesheet" href="{{ asset('assets/css/pages/page_distance.css') }}">
 @stop
