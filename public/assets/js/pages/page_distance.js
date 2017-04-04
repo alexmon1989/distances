@@ -26,19 +26,29 @@ var Distance = function () {
                 if (status === google.maps.DirectionsStatus.OK) {
                     directionsDisplay.setDirections(response);
                     // For each route, display summary information.
-                    totalDistance = 0;
+                    var totalDistance = 0;
+                    var totalDuration = 0;
                     for (var i = 0; i < response.routes[0].legs.length; i++) {
                         $('.distance_' + i).text( response.routes[0].legs[i].distance.text );
                         $('.duration_' + i).text( response.routes[0].legs[i].duration.text );
                         totalDistance += response.routes[0].legs[i].distance.value;
+                        totalDuration += response.routes[0].legs[i].duration.value;
                     }
                     $.getJSON(locale + '/distances/calculate-travel-cost', {
-                        distance: totalDistance
+                        distance: totalDistance,
+                        duration: totalDuration
                     }, function(data) {
                         $("#total-distance").text(data.total_distance);
                         $("#total-fuel-count").text(data.fuel_count);
                         $("#total-price").text(data.total_price);
                         $("#total-price-message").text(data.message);
+
+                        var textBlockText = $("#text-block").html();
+                        textBlockText = textBlockText.replace(':km', data.total_distance)
+                            .replace(':duration', data.total_duration)
+                            .replace(':fuel_count', data.fuel_count)
+                            .replace(':fuel_cost', data.total_price);
+                        $("#text-block").html(textBlockText);
                     });
                 } else {
                     window.alert('Directions request failed due to ' + status);

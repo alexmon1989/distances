@@ -126,6 +126,28 @@ class DistancesController extends Controller
     {
         $distance = (int) $request->distance;
 
+        $durationSeconds = (int) $request->duration;
+
+        // Переводит секунды в Ч:м:c
+        function sec2hms ($sec, $padHours = false)
+        {
+            $hours = intval(intval($sec) / 3600);
+
+            if ($padHours) {
+                $hms = str_pad($hours, 2, "0", STR_PAD_LEFT). ":";
+            } else {
+                $hms = $hours. ":";
+            }
+
+            $minutes = intval(($sec / 60) % 60);
+            $hms .= str_pad($minutes, 2, "0", STR_PAD_LEFT). ":";
+            $seconds = intval($sec % 60);
+
+            $hms .= str_pad($seconds, 2, "0", STR_PAD_LEFT);
+
+            return $hms;
+        }
+
         // Получение топливных единиц для страны посетителя
         $location = GeoIPFacade::getLocation();
         $country = Country::whereCode($location['isoCode'])->first();
@@ -149,6 +171,7 @@ class DistancesController extends Controller
 
         return [
             'total_distance' => $totalDistance . ' ' . Lang::get('pages.distances.' . $distanceUnit),
+            'total_duration' => sec2hms($durationSeconds),
             'fuel_count' => $fuelCount . ' ' . Lang::get('pages.distances.' . $volumeUnit),
             'total_price' => $totalPrice . ' ' . Lang::get('pages.distances.' . $currency),
             'message' => Lang::get('pages.distances.total_price_message', [
@@ -192,7 +215,6 @@ class DistancesController extends Controller
             }
         }
         $distance = $route->distance . ' ' . Lang::get('pages.distances.kilometer');
-        $distance_mi = round($route->distance * 0.621371192) . ' ' . Lang::get('pages.distances.mile');
 
         // Соединение с сервером погоды
         $owm = new OpenWeatherMap(Memory::get('OPENWEATHER_API_KEY', env('OPENWEATHER_API_KEY', 'b73effe13f365e1a8be704d86541fb21')));
@@ -297,15 +319,15 @@ class DistancesController extends Controller
             $dativeToCity = $targetsCollection->last()->name;
         }
         // Метатеги
-        $pageTitle = str_replace([':city1', ':city2', ':km', ':mi'],
-            [$genitiveFromCity, $dativeToCity, $distance, $distance_mi],
+        $pageTitle = str_replace([':city1', ':city2', ':km'],
+            [$genitiveFromCity, $dativeToCity, $distance],
             Memory::get('DISTANCES_PAGE_TITLE_' . strtoupper(\App::getLocale())));
-        $pageDescription = str_replace([':city1', ':city2', ':km', ':mi'],
-            [$genitiveFromCity, $dativeToCity, $distance, $distance_mi],
+        $pageDescription = str_replace([':city1', ':city2', ':km'],
+            [$genitiveFromCity, $dativeToCity, $distance],
             Memory::get('DISTANCES_PAGE_DESCRIPTION_' . strtoupper(\App::getLocale())));
         // Текстовый блок
-        $textBlock = str_replace([':city1', ':city2', ':km', ':mi'],
-            [$genitiveFromCity, $dativeToCity, $distance, $distance_mi],
+        $textBlock = str_replace([':city1', ':city2'],
+            [$genitiveFromCity, $dativeToCity, $distance],
             Memory::get('DISTANCES_PAGE_TEXT_' . strtoupper(\App::getLocale())));
 
         // Регистрация запроса в логах

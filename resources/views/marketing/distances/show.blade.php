@@ -50,6 +50,13 @@
                             <p class="help-block" id="total-price-message">&nbsp;</p>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12" id="text-block">
+                            @if ($textBlock)
+                                {!! $textBlock !!}
+                            @endif
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -120,14 +127,6 @@
         </div>
     </div>
     @endif
-
-    <div class="row margin-top-20">
-        <div class="col-md-12">
-            @if ($textBlock)
-                <p>{!! $textBlock !!}</p>
-            @endif
-        </div>
-    </div>
 
     <div class="row margin-top-20">
         <div id="disqus_thread"></div>
