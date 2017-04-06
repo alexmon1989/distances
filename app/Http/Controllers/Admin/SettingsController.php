@@ -67,7 +67,7 @@ class SettingsController extends Controller
         Memory::put('DEFAULT_FUEL_COST', $request->get('DEFAULT_FUEL_COST', Memory::get('DEFAULT_FUEL_COST')));
         Memory::put('DEFAULT_CURRENCY', $request->get('DEFAULT_CURRENCY', Memory::get('DEFAULT_CURRENCY')));
 
-        foreach (['RU', 'EN', 'UK', 'IT', 'FR'] as $lang) {
+        foreach (['RU', 'EN', 'UK', 'PL', 'IT', 'FR'] as $lang) {
             Memory::put('DISTANCES_PAGE_TITLE_'.$lang,
                 $request->get('DISTANCES_PAGE_TITLE_'.$lang, Memory::get('DISTANCES_PAGE_TITLE_'.$lang)));
             Memory::put('DISTANCES_PAGE_DESCRIPTION_'.$lang,
