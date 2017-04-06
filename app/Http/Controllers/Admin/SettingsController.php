@@ -57,36 +57,27 @@ class SettingsController extends Controller
      */
     public function save(Request $request)
     {
-        Memory::put('OPENWEATHER_API_KEY', $request->OPENWEATHER_API_KEY);
-        Memory::put('GOOGLE_MAPS_API_KEY', $request->GOOGLE_MAPS_API_KEY);
-        Memory::put('DEFAULT_LANG', $request->DEFAULT_LANG);
+        Memory::put('OPENWEATHER_API_KEY', $request->get('OPENWEATHER_API_KEY', Memory::get('OPENWEATHER_API_KEY')));
+        Memory::put('GOOGLE_MAPS_API_KEY', $request->get('GOOGLE_MAPS_API_KEY', Memory::get('GOOGLE_MAPS_API_KEY')));
+        Memory::put('DEFAULT_LANG', $request->get('DEFAULT_LANG', Memory::get('DEFAULT_LANG')));
 
-        Memory::put('DEFAULT_DISTANCE_UNIT', $request->DEFAULT_DISTANCE_UNIT);
-        Memory::put('DEFAULT_VOLUME_UNIT', $request->DEFAULT_VOLUME_UNIT);
-        Memory::put('DEFAULT_FUEL_CONSUMPTION', $request->DEFAULT_FUEL_CONSUMPTION);
-        Memory::put('DEFAULT_FUEL_COST', $request->DEFAULT_FUEL_COST);
-        Memory::put('DEFAULT_CURRENCY', $request->DEFAULT_CURRENCY);
+        Memory::put('DEFAULT_DISTANCE_UNIT', $request->get('DEFAULT_DISTANCE_UNIT', Memory::get('DEFAULT_DISTANCE_UNIT')));
+        Memory::put('DEFAULT_VOLUME_UNIT', $request->get('DEFAULT_VOLUME_UNIT', Memory::get('DEFAULT_VOLUME_UNIT')));
+        Memory::put('DEFAULT_FUEL_CONSUMPTION', $request->get('DEFAULT_FUEL_CONSUMPTION', Memory::get('DEFAULT_FUEL_CONSUMPTION')));
+        Memory::put('DEFAULT_FUEL_COST', $request->get('DEFAULT_FUEL_COST', Memory::get('DEFAULT_FUEL_COST')));
+        Memory::put('DEFAULT_CURRENCY', $request->get('DEFAULT_CURRENCY', Memory::get('DEFAULT_CURRENCY')));
 
-        Memory::put('DISTANCES_PAGE_TITLE_RU', $request->DISTANCES_PAGE_TITLE_RU);
-        Memory::put('DISTANCES_PAGE_DESCRIPTION_RU', $request->DISTANCES_PAGE_DESCRIPTION_RU);
-        Memory::put('DISTANCES_PAGE_TEXT_RU', $request->DISTANCES_PAGE_TEXT_RU);
-        Memory::put('DISTANCES_PAGE_TITLE_EN', $request->DISTANCES_PAGE_TITLE_EN);
-        Memory::put('DISTANCES_PAGE_DESCRIPTION_EN', $request->DISTANCES_PAGE_DESCRIPTION_EN);
-        Memory::put('DISTANCES_PAGE_TEXT_EN', $request->DISTANCES_PAGE_TEXT_EN);
-        Memory::put('DISTANCES_PAGE_TITLE_UK', $request->DISTANCES_PAGE_TITLE_UK);
-        Memory::put('DISTANCES_PAGE_DESCRIPTION_UK', $request->DISTANCES_PAGE_DESCRIPTION_UK);
-        Memory::put('DISTANCES_PAGE_TEXT_UK', $request->DISTANCES_PAGE_TEXT_UK);
-        Memory::put('DISTANCES_PAGE_TITLE_PL', $request->DISTANCES_PAGE_TITLE_PL);
-        Memory::put('DISTANCES_PAGE_DESCRIPTION_PL', $request->DISTANCES_PAGE_DESCRIPTION_PL);
-        Memory::put('DISTANCES_PAGE_TEXT_PL', $request->DISTANCES_PAGE_TEXT_PL);
-        Memory::put('DISTANCES_PAGE_TITLE_IT', $request->DISTANCES_PAGE_TITLE_IT);
-        Memory::put('DISTANCES_PAGE_DESCRIPTION_IT', $request->DISTANCES_PAGE_DESCRIPTION_IT);
-        Memory::put('DISTANCES_PAGE_TEXT_IT', $request->DISTANCES_PAGE_TEXT_IT);
-        Memory::put('DISTANCES_PAGE_TITLE_FR', $request->DISTANCES_PAGE_TITLE_FR);
-        Memory::put('DISTANCES_PAGE_DESCRIPTION_FR', $request->DISTANCES_PAGE_DESCRIPTION_FR);
-        Memory::put('DISTANCES_PAGE_TEXT_FR', $request->DISTANCES_PAGE_TEXT_FR);
-        Memory::put('DISTANCES_CITY1_CASE', $request->DISTANCES_CITY1_CASE);
-        Memory::put('DISTANCES_CITY2_CASE', $request->DISTANCES_CITY2_CASE);
+        foreach (['RU', 'EN', 'UK', 'IT', 'FR'] as $lang) {
+            Memory::put('DISTANCES_PAGE_TITLE_'.$lang,
+                $request->get('DISTANCES_PAGE_TITLE_'.$lang, Memory::get('DISTANCES_PAGE_TITLE_'.$lang)));
+            Memory::put('DISTANCES_PAGE_DESCRIPTION_'.$lang,
+                $request->get('DISTANCES_PAGE_DESCRIPTION_'.$lang, Memory::get('DISTANCES_PAGE_DESCRIPTION_'.$lang)));
+            Memory::put('DISTANCES_PAGE_TEXT_'.$lang,
+                $request->get('DISTANCES_PAGE_TEXT_'.$lang, Memory::get('DISTANCES_PAGE_TEXT_'.$lang)));
+        }
+
+        Memory::put('DISTANCES_CITY1_CASE', $request->get('DISTANCES_CITY1_CASE', Memory::get('DISTANCES_CITY1_CASE')));
+        Memory::put('DISTANCES_CITY2_CASE', $request->get('DISTANCES_CITY2_CASE', Memory::get('DISTANCES_CITY2_CASE')));
 
         return redirect()->back()->with('success', 'Настройки успешно сохранены');
     }
