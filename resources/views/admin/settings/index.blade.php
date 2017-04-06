@@ -37,3 +37,8 @@
         <!-- /.tab-content -->
     </div>
 @stop
+
+@section('script')
+    <!-- CKEDITOR -->
+    <script src="{{ asset('assets/plugins/adminlte/plugins/ckeditor/ckeditor.js') }}"></script>
+@stop

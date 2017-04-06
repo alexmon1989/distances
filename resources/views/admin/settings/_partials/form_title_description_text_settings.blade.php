@@ -20,7 +20,7 @@
 
         <div class="form-group">
             <label for="DISTANCES_PAGE_TEXT_{{ $key }}">Текстовый блок на странице маршрута ({{ $value }})</label>
-            <textarea class="form-control" name="DISTANCES_PAGE_TEXT_{{ $key }}" id="DISTANCES_PAGE_TEXT_{{ $key }}" cols="30" rows="3">{{ old('DISTANCES_PAGE_DESCRIPTION_'.$key, isset($settings) ? $settings['DISTANCES_PAGE_TEXT_'.$key] : '') }}</textarea>
+            <textarea class="form-control  ckeditor" name="DISTANCES_PAGE_TEXT_{{ $key }}" id="DISTANCES_PAGE_TEXT_{{ $key }}" cols="30" rows="3">{{ old('DISTANCES_PAGE_DESCRIPTION_'.$key, isset($settings) ? $settings['DISTANCES_PAGE_TEXT_'.$key] : '') }}</textarea>
             <p class="help-block">Для этого блока вы можете использовать дополнительные переменные: :duration, :fuel_count, :fuel_cost (длительность, кол-во бензина, стоимость бензина).</p>
         </div>
 
